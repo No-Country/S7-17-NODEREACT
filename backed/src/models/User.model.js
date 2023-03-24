@@ -9,10 +9,28 @@ const User = db.define('name', {
         autoIncrement: true,
         allowNull: false,
     },
+    userName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        field: 'user_name'
+    },
+    email: {
+        type: DataTypes.STRING,
+        validate: {
+            isEmail: true
+        },
+        unique: true,
+        allowNull: false
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
 }, {
     hooks: {
-        beforeCreate: (data, options) => {
-            const { password } = data;
+        beforeCreate: (user, options) => {
+            const { password } = user;
             const hash = bcrypt.hashSync(password, 8);
             data.password = hash;
         }
