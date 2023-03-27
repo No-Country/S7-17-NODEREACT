@@ -3,7 +3,7 @@ import Layout from "./components/layout";
 export default function Home() {
   return (
     <Layout>
-      <main>Hola Mundo</main>
+      <main className="titulo">Hola Mundo</main>
     </Layout>
   );
 }
