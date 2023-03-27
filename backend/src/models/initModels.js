@@ -1,8 +1,5 @@
-
 const { nameModels } = require("./index");
 
-const initModels = () => {
-
-};
+const initModels = () => {};
 
 module.exports = initModels;
