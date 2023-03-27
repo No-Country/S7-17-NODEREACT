@@ -5,7 +5,7 @@ const options = {
     definition: {
         openapi:"3.0.0",
         info:{
-            title:"Ecommerce API",
+            title:"The question API",
             version:"1.0.0",
             description:"API que sirve para almacenar datos de un juego"
         }
