@@ -1,5 +1,3 @@
-
-const nameData = require('./');
-
+const nameData = require("./");
 
 module.exports = { allConsts };
