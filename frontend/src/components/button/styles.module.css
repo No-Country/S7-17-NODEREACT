@@ -1,0 +1,43 @@
+.container{
+    text-align: center;
+    padding: 15px 40px;
+    border-radius: 30px;
+}
+.primary{
+    background: #14AE5C;
+    color: black;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 16px;
+}
+.secondary{
+    background: #FFFFFF;
+    color:black;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 16px;
+}
+.primary__medium{
+    padding: 0;
+    width: 180px;
+    height: 46px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    flex-grow: 0;
+}
+.primary__bigger{
+    padding: 0;
+    width: 307px;
+    height: 46px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    flex-grow: 0;
+}
