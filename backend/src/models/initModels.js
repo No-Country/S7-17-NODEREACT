@@ -1,4 +1,4 @@
-const { nameModels } = require("./index");
+const { Achievement, Advantage } = require("./index");
 
 const initModels = () => {};
 
