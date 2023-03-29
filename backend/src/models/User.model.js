@@ -3,7 +3,7 @@ const { DataTypes } = require("sequelize");
 const bcrypt = require("bcrypt");
 
 const User = db.define(
-  "name",
+  "user",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,11 +11,10 @@ const User = db.define(
       autoIncrement: true,
       allowNull: false
     },
-    userName: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-      field: "user_name"
+      unique: true
     },
     email: {
       type: DataTypes.STRING,
@@ -37,7 +36,8 @@ const User = db.define(
         const hash = bcrypt.hashSync(password, 8);
         data.password = hash;
       }
-    }
+    },
+    timestamps: false
   }
 );
 
