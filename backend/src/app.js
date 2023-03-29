@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const db = require("./utils/database");
 const hendleError = require("./middlewares/error.middleware");
-// const getAdvantages = require("./seeders/advantages");
+const initModels = require("./models/initModels");
 
 const app = express();
 
@@ -15,11 +15,10 @@ db.authenticate()
   .then(() => console.log("The connection to the database has been established successfully."))
   .catch(error => console.error("Unable to connect to the database: ", error));
 
+initModels();
+
 db.sync({ force: true })
-  .then(() => {
-    // getAdvantages();
-    console.log("All models were synchronized successfully.");
-  })
+  .then(() => console.log("All models were synchronized successfully."))
   .catch(error => console.error("Unable to synchronize the database: ", error));
 
 app.get("/", (req, res) => {
