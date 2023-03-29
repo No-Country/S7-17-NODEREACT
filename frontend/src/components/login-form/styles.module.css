@@ -19,14 +19,17 @@
 }
 
 .form {
-    display: block;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .form__container {
+    width: 90%;
     display: block;
     position: relative;
-    margin: 0 24px;
     height: auto;
     margin-bottom: 48px;
 }

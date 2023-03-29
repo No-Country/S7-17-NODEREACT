@@ -1,4 +1,4 @@
-.container {
+.container{
     color: white;
     width: 100%;
     display: flex;
@@ -18,33 +18,18 @@
     color: #FFFFFF;
     margin: 44px 0 36px 0;
 }
-.text{
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 20px;
-    letter-spacing: 0.01em;
-    font-feature-settings: 'pnum' on, 'lnum' on;
-    color: #FFFFFF;
-    text-align: center;
-    padding: 0 24px;
-    margin-bottom: 50px;
-}
-.form {
+.form{
     display: block;
-    width: 100%;
-    margin-bottom: 90px;
+        width: 100%;
 }
-
-.form__container {
+.form__container{
     display: block;
     position: relative;
     margin: 0 24px;
     height: auto;
     margin-bottom: 48px;
 }
-
-.form__label {
+.form__label{
     display: block;
     position: absolute;
     width: auto;
@@ -58,8 +43,7 @@
     line-height: 16px;
     letter-spacing: 0.4px;
 }
-
-.form__input {
+.form__input{
     display: block;
     width: 100%;
     border-radius: 4px;

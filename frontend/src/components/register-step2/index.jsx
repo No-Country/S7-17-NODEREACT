@@ -6,13 +6,22 @@ const RegisterStep2 = () => {
     <div className={styles.container}>
       <LogoTitle />
       <p className={styles.container__title}>Registrate</p>
-      <p className={styles.text}>
-        Hemos enviado un código a tu correo. Colócalo aquí para continuar.
-      </p>
       <form className={styles.form}>
         <div className={styles.form__container}>
           <label className={styles.form__label} htmlFor="">
-            Ingresá tu código
+            Ingresá tu correo
+          </label>
+          <input className={styles.form__input} type="text" />
+        </div>
+        <div className={styles.form__container}>
+          <label className={styles.form__label} htmlFor="">
+            Ingresá tu contraseña
+          </label>
+          <input className={styles.form__input} type="text" />
+        </div>
+        <div className={styles.form__container}>
+          <label className={styles.form__label} htmlFor="">
+            Reingresa tu contraseña
           </label>
           <input className={styles.form__input} type="text" />
         </div>
