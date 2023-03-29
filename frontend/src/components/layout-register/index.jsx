@@ -16,7 +16,7 @@ const LayoutRegister = ({ children }) => {
       <div className={styles.section}>{currentPage}</div>
       <div className={styles.container__button} onClick={goNextPage}>
         $
-        {activePageIndex < 2 ? (
+        {activePageIndex < 3 ? (
           <Button theme="primary" className="">
             Aceptar
           </Button>
