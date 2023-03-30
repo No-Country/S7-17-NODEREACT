@@ -4,6 +4,7 @@ const getAchievements = require("./achievements");
 const getAdvantages = require("./advantages");
 const getQuestions = require("./questions");
 const getTopics = require("./topics");
+const getUsers = require("./users");
 
 initModels();
 
@@ -19,5 +20,6 @@ db.sync({ force: true })
           "The database has been populated successfully! Please, wait a few more seconds until the operation ends."
         )
       );
+    getUsers();
   })
   .catch(error => console.error("Unable to populate the database: ", error));
