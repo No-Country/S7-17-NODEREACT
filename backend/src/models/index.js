@@ -1,7 +1,17 @@
 const Achievement = require("./Achievement.model");
 const Advantage = require("./Advantage.model");
+const Topic = require("./Topic.model");
 const User = require("./User.model");
 const User_Achievement = require("./User_Achievement.model");
 const User_Advantage = require("./User_Advantages.model");
+const User_Topic = require("./User_Topic.model");
 
-module.exports = { Achievement, Advantage, User, User_Achievement, User_Advantage };
+module.exports = {
+  Achievement,
+  Advantage,
+  Topic,
+  User,
+  User_Achievement,
+  User_Advantage,
+  User_Topic
+};

@@ -1,4 +1,12 @@
-const { User, Achievement, Advantage, User_Achievement, User_Advantage } = require("./index");
+const {
+  Achievement,
+  Advantage,
+  Topic,
+  User,
+  User_Achievement,
+  User_Advantage,
+  User_Topic
+} = require("./index");
 
 const initModels = () => {
   /* ----------------------- Relación User - Achievement ----------------------- */
@@ -10,6 +18,11 @@ const initModels = () => {
 
   User.belongsToMany(Advantage, { through: User_Advantage });
   Advantage.belongsToMany(User, { through: User_Advantage });
+
+  /* ----------------------- Relación User - Topic       ----------------------- */
+
+  User.belongsToMany(Topic, { through: User_Topic });
+  Topic.belongsToMany(User, { through: User_Topic });
 };
 
 module.exports = initModels;
