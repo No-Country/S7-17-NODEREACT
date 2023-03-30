@@ -1,10 +1,10 @@
 const db = require("../utils/database");
 const initModels = require("../models/initModels");
-const {} = require("../models");
+const { Users } = require("../models");
 
 initModels();
 
-const users = [{}, {}];
+const users = [{name: ''}, {name: ''}];
 
 db.sync({ force: true })
   .then(() => {
