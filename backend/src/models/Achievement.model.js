@@ -21,7 +21,7 @@ const Achievement = db.define(
     },
     iconImg: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: "https://image.pngaaa.com/941/4173941-middle.png",
       field: "icon_img"
     }
   },

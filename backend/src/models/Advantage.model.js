@@ -21,7 +21,8 @@ const Advantage = db.define(
     },
     iconImg: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue:
+        "https://www.clipartmax.com/png/middle/186-1864281_jester-or-joker-cartoon-illustration-stock-photo-black-and-white-card-joker.png",
       field: "icon_img"
     },
     price: {
