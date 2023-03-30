@@ -1,8 +1,10 @@
 const {
   Achievement,
   Advantage,
+  News,
   Question,
   Topic,
+  Topic_News,
   User,
   User_Achievement,
   User_Advantage,
@@ -29,6 +31,11 @@ const initModels = () => {
 
   Topic.hasOne(Question);
   Question.belongsTo(Topic);
+
+  /* ----------------------- Relación Topic - News       ----------------------- */
+
+  Topic.belongsToMany(News, { through: Topic_News });
+  News.belongsToMany(Topic, { through: Topic_News });
 };
 
 module.exports = initModels;
