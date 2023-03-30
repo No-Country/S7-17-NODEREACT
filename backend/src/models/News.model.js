@@ -15,13 +15,17 @@ const News = db.define(
       allowNull: false,
       unique: true
     },
-    body: {
+    summary: {
       type: DataTypes.TEXT,
       allowNull: false
     },
     img: {
       type: DataTypes.STRING,
       defaultValue: "https://legal-express.ru/main/img/news-default.png"
+    },
+    link: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   },
   {
