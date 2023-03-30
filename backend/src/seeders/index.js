@@ -2,16 +2,22 @@ const db = require("../utils/database");
 const initModels = require("../models/initModels");
 const getAchievements = require("./achievements");
 const getAdvantages = require("./advantages");
+const getQuestions = require("./questions");
 const getTopics = require("./topics");
 
 initModels();
 
 db.sync({ force: true })
   .then(() => {
-    console.log("Populating the database with an initial set of data. Please, wait a moment...");
+    console.log("Populating the database with an initial set of data...");
     getAchievements();
     getAdvantages();
-    getTopics();
+    getTopics()
+      .then(() => getQuestions())
+      .then(() =>
+        console.log(
+          "The database has been populated successfully! Please, wait a few more seconds until the operation ends."
+        )
+      );
   })
-  .then(() => console.log("The database has been populated successfully!"))
   .catch(error => console.error("Unable to populate the database: ", error));
