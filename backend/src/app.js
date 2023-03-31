@@ -24,6 +24,10 @@ db.sync({ force: false })
 
 app.get('/', (req, res) => {
     console.log('Bienvenido al server');
+    res.status(200).json({
+        API: 'The Question',
+        Documanetation: `${process.env.HOST}/api/v1/docs`
+    });
 });
 
 app.use('/api/v1', UserRoutes);

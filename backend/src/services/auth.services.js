@@ -6,10 +6,12 @@ require('dotenv').config();
 class AuthServices {
     static async authenticate(credentials) {
         try {
-            const { username, password } = credentials;
+            const { username, password, socketId } = credentials;
             const getUser = await Users.findOne({
                 where: { username }
             });
+            await Users.update({ socketId }, { where: { id: getUser.id } });
+            console.log(credentials);
             if (!getUser) throw 'User not found.';
             const isValid = bcrypt.compareSync(password, getUser.password);
             if (!isValid) throw 'Incorrect password.';

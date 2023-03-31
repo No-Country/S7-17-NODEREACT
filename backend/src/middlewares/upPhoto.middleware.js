@@ -8,22 +8,24 @@ const s3Client = new S3Client({
     region: process.env.AWS_REGION
 });
 
-const uploadPhoto = async files => {
-    const result = [];
-    const promises = files.map((file, i) => {
-        const params = {
-            Bucket: process.env.AWS_BUCKET_NAME,
-            Key: file.originalname,
-            Body: file.buffer,
-            ContentType: file.mimetype
-        };
-        const command = new PutObjectCommand(params);
-        return s3Client.send(command).then(data => {
-            result.push(data.Location);
-        });
-    });
-    await Promise.all(promises);
-    return result;
+const uploadPhoto = async file => {
+    const params = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: file.originalname,
+        Body: file.buffer,
+        ContentType: file.mimetype
+    };
+
+    const command = new PutObjectCommand(params);
+
+    try {
+        const data = await s3Client.send(command);
+        const url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+        return url;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 };
 
 module.exports = uploadPhoto;

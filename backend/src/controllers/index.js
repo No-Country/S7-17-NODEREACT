@@ -13,6 +13,8 @@ const {
     deleteUserFrined
 } = require('./userFriend.controllers.js');
 
+const { getRoomById } = require('./roomMatch.controllers.js');
+
 module.exports = {
     createUser,
     getUser,
@@ -23,5 +25,6 @@ module.exports = {
     addUserFrined,
     updateOfline,
     getAllUserFrineds,
-    deleteUserFrined
+    deleteUserFrined,
+    getRoomById
 };

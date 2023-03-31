@@ -180,6 +180,11 @@ const Users = db.define(
             type: DataTypes.BOOLEAN,
             defaultValue: false,
             field: 'is_verify'
+        },
+        socketId: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: 'socket_id'
         }
     },
     {

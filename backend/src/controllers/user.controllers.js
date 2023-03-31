@@ -2,28 +2,27 @@ const uploadPhoto = require('../middlewares/upPhoto.middleware');
 const { UserServices } = require('../services');
 const template = require('../template/template');
 const transporter = require('../utils/mailer');
+const fs = require('fs');
 
 const createUser = async (req, res, next) => {
     try {
         const newUser = req.body;
-        const img = req.files;
+        const img = req.files[0];
+        let newImgs = '';
         if (img) {
-            req.files.forEach((file, i) => {
-                req.files[i].buffer = fs.readFileSync(file.path);
-            });
-
-            newUser.profileImg = await uploadPhoto(img);
+            console.log(img);
+            const newImg = await uploadPhoto(img);
+            newUser.profileImg = newImg;
         }
-
         const result = await UserServices.createUser(newUser);
         res.status(201).json(result);
-        transporter.sendMail({
+        /* transporter.sendMail({
             from: '<corporationglya@gmail.com>',
             to: result.email,
             subject: 'Welcome to The Question',
             text: `¡Hello! ${result.userName} this is your verification code: ${result.codeVerify}`,
             html: template(result)
-        });
+        }); */
     } catch (error) {
         next({
             status: 400,

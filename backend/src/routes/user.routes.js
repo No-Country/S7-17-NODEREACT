@@ -31,8 +31,6 @@ const router = Router();
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
- *       404:
- *         description: The User was not created
  * /api/v1/user/{id}:
  *   get:
  *     security:
