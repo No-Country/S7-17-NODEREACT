@@ -1,11 +1,11 @@
-const { Router } = require('express');
+const { Router } = require("express");
 const {
-    addUserFrined,
-    getUserFrined,
-    getAllUserFrineds,
-    deleteUserFrined
-} = require('../controllers');
-const { authenticate } = require('../middlewares/auth.middleware');
+  addUserFrined,
+  getUserFrined,
+  getAllUserFrineds,
+  deleteUserFrined
+} = require("../controllers");
+const { authenticate } = require("../middlewares/auth.middleware");
 
 const router = Router();
 
@@ -81,10 +81,10 @@ const router = Router();
  *         description: The frined was not delete.
  */
 
-router.post('/user/friend', authenticate, addUserFrined);
+router.post("/user/friend", authenticate, addUserFrined);
 
-router.get('/user/:id/friends', authenticate, getAllUserFrineds);
+router.get("/user/:id/friends", authenticate, getAllUserFrineds);
 
-router.delete('/user/friend/delete/:id', authenticate, deleteUserFrined);
+router.delete("/user/friend/delete/:id", authenticate, deleteUserFrined);
 
 module.exports = router;

@@ -1,6 +1,6 @@
-const db = require('../utils/database');
-const { DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
+const db = require("../utils/database");
+const { DataTypes } = require("sequelize");
+const bcrypt = require("bcrypt");
 
 const codeGenerate = () => Math.floor(Math.random() * 900000) + 100000;
 
@@ -120,82 +120,82 @@ const codeGenerate = () => Math.floor(Math.random() * 900000) + 100000;
  */
 
 const Users = db.define(
-    'users',
-    {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-            allowNull: false
-        },
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-            validate: {
-                isEmail: true
-            }
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        lifes: {
-            type: DataTypes.INTEGER,
-            defaultValue: 10
-        },
-        points: {
-            type: DataTypes.INTEGER,
-            defaultValue: 0
-        },
-        coins: {
-            type: DataTypes.INTEGER,
-            defaultValue: 100
-        },
-        profileImg: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            field: 'profile_img'
-        },
-        online: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-            defaultValue: true
-        },
-        status: {
-            type: DataTypes.STRING,
-            defaultValue: 'Active'
-        },
-        codeVerify: {
-            type: DataTypes.INTEGER,
-            defaultValue: codeGenerate(),
-            field: 'code_verify'
-        },
-        isVerify: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
-            field: 'is_verify'
-        },
-        socketId: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            field: 'socket_id'
-        }
+  "users",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
     },
-    {
-        hooks: {
-            beforeCreate: (user, options) => {
-                const { password } = user;
-                const hash = bcrypt.hashSync(password, 8);
-                user.password = hash;
-            }
-        }
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    lifes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 10
+    },
+    points: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    coins: {
+      type: DataTypes.INTEGER,
+      defaultValue: 100
+    },
+    profileImg: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      field: "profile_img"
+    },
+    online: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: true
+    },
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: "Active"
+    },
+    codeVerify: {
+      type: DataTypes.INTEGER,
+      defaultValue: codeGenerate(),
+      field: "code_verify"
+    },
+    isVerify: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      field: "is_verify"
+    },
+    socketId: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      field: "socket_id"
     }
+  },
+  {
+    hooks: {
+      beforeCreate: (user, options) => {
+        const { password } = user;
+        const hash = bcrypt.hashSync(password, 8);
+        user.password = hash;
+      }
+    }
+  }
 );
 
 module.exports = Users;

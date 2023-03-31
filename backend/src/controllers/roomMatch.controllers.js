@@ -1,4 +1,4 @@
-const { RoomServices } = require('../services');
+const { RoomServices } = require("../services");
 
 /* const create = async (req, res, next) => {
     try {
@@ -15,17 +15,17 @@ const { RoomServices } = require('../services');
 }; */
 
 const getRoomById = async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const result = await RoomServices.getRoomById(id);
-        res.status(200).json(result);
-    } catch (error) {
-        next({
-            status: 400,
-            message: 'Error al obtener los room',
-            errorContent: error
-        });
-    }
+  try {
+    const id = req.params.id;
+    const result = await RoomServices.getRoomById(id);
+    res.status(200).json(result);
+  } catch (error) {
+    next({
+      status: 400,
+      message: "Error al obtener los room",
+      errorContent: error
+    });
+  }
 };
 
 /* const getAll = async (req, res, next) => {

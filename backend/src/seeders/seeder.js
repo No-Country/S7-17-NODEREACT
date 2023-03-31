@@ -4,7 +4,7 @@ const { Users } = require("../models");
 
 initModels();
 
-const users = [{name: ''}, {name: ''}];
+const users = [{ name: "" }, { name: "" }];
 
 db.sync({ force: true })
   .then(() => {

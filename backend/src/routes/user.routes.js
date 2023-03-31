@@ -1,14 +1,14 @@
-const { Router } = require('express');
-const { authenticate } = require('../middlewares/auth.middleware');
+const { Router } = require("express");
+const { authenticate } = require("../middlewares/auth.middleware");
 const {
-    createUser,
-    getUser,
-    getAllUser,
-    updateOfline,
-    updateUser,
-    deleteUser
-} = require('../controllers');
-const multer = require('multer');
+  createUser,
+  getUser,
+  getAllUser,
+  updateOfline,
+  updateUser,
+  deleteUser
+} = require("../controllers");
+const multer = require("multer");
 
 const router = Router();
 
@@ -153,16 +153,16 @@ const router = Router();
 
 const upload = multer();
 
-router.post('/user/register', upload.any(), createUser);
+router.post("/user/register", upload.any(), createUser);
 
-router.get('/user/:id', authenticate, getUser);
+router.get("/user/:id", authenticate, getUser);
 
-router.get('/users', authenticate, getAllUser);
+router.get("/users", authenticate, getAllUser);
 
-router.put('/user/:id/ofline', authenticate, updateOfline);
+router.put("/user/:id/ofline", authenticate, updateOfline);
 
-router.put('/user/:id/update', authenticate, updateUser);
+router.put("/user/:id/update", authenticate, updateUser);
 
-router.delete('/user/:id/delete', authenticate, deleteUser);
+router.delete("/user/:id/delete", authenticate, deleteUser);
 
 module.exports = router;

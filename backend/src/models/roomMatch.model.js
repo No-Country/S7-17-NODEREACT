@@ -1,6 +1,6 @@
-const db = require('../utils/database');
-const { DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
+const db = require("../utils/database");
+const { DataTypes } = require("sequelize");
+const bcrypt = require("bcrypt");
 
 /**
  * @openapi
@@ -95,36 +95,36 @@ const bcrypt = require('bcrypt');
  *         opponentUserId: 4
  */
 
-const RoomMatch = db.define('room_match', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-    },
-    userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        field: 'user_id'
-    },
-    opponentUserId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        field: 'opponent_user_id'
-    },
-    dataRoom: {
-        type: DataTypes.ARRAY(DataTypes.JSON),
-        allowNull: false,
-        field: 'data_room'
-    },
-    status: {
-        type: DataTypes.ENUM('waiting', 'gaming'),
-        defaultValue: 'waiting'
-    },
-    typeGame: {
-        type: DataTypes.ENUM('random', 'friends'),
-        defaultValue: 'random'
-    }
+const RoomMatch = db.define("room_match", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: "user_id"
+  },
+  opponentUserId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: "opponent_user_id"
+  },
+  dataRoom: {
+    type: DataTypes.ARRAY(DataTypes.JSON),
+    allowNull: false,
+    field: "data_room"
+  },
+  status: {
+    type: DataTypes.ENUM("waiting", "gaming"),
+    defaultValue: "waiting"
+  },
+  typeGame: {
+    type: DataTypes.ENUM("random", "friends"),
+    defaultValue: "random"
+  }
 });
 
 module.exports = RoomMatch;
