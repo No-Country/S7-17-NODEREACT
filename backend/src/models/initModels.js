@@ -44,7 +44,7 @@ const initModels = () => {
 
   /* -------------------------   Relación Topic - Question   ------------------------- */
 
-  Topic.hasOne(Question);
+  Topic.hasMany(Question);
   Question.belongsTo(Topic);
 
   /* -------------------------     Relación Topic - News     ------------------------- */
