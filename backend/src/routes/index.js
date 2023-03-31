@@ -1,5 +1,5 @@
 const UserRoutes = require("./user.routes");
 const AuthRoutes = require("./auth.routes");
-const UserFriend = require("./userFriends.routes");
+const UserFriendRoutes = require("./userFriend.routes");
 
-module.exports = { UserRoutes, AuthRoutes, UserFriend };
+module.exports = { UserRoutes, AuthRoutes, UserFriendRoutes };
