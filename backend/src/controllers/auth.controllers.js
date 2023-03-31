@@ -1,4 +1,4 @@
-const { Users } = require("../models");
+const { User } = require("../models");
 const { AuthServices } = require("../services");
 
 const userLogin = async (req, res, next) => {
@@ -6,8 +6,8 @@ const userLogin = async (req, res, next) => {
     const credentials = req.body;
     const { getUser } = await AuthServices.authenticate(credentials);
     const { email, password, id, username, profileImg, lifes, points, coins, status } = getUser;
-    const token = AuthServices.genToken({ email, password, id });
-    if (token) await Users.update({ online: true }, { where: { id } });
+    const token = AuthServices.generateToken({ email, password, id });
+    if (token) await User.update({ online: true }, { where: { id } });
     const user = {
       id,
       username,

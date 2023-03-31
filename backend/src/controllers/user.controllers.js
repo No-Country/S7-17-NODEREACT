@@ -1,5 +1,5 @@
-const uploadPhoto = require("../middlewares/upPhoto.middleware");
 const { UserServices } = require("../services");
+const uploadPhoto = require("../middlewares/uploadPhoto.middleware");
 const template = require("../template/template");
 const transporter = require("../utils/mailer");
 const fs = require("fs");
@@ -26,48 +26,48 @@ const createUser = async (req, res, next) => {
   } catch (error) {
     next({
       status: 400,
-      message: "Error al crear",
+      message: "Error al crear usuario",
       errorContent: error
     });
   }
 };
 
-const getUser = async (req, res, next) => {
+const getUserById = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const result = await UserServices.getUser(id);
+    const result = await UserServices.getUserById(id);
     res.status(200).json(result);
   } catch (error) {
     next({
       status: 400,
-      message: "Error al obtener los usuarios",
+      message: "Error al obtener usuario",
       errorContent: error
     });
   }
 };
 
-const getAllUser = async (req, res, next) => {
+const getUsers = async (req, res, next) => {
   try {
-    const result = await UserServices.getAllUsers();
+    const result = await UserServices.getUsers();
     res.status(200).json(result);
   } catch (error) {
     next({
       status: 400,
-      message: "Error al obtener los usuarios",
+      message: "Error al obtener usuarios",
       errorContent: error
     });
   }
 };
 
-const updateOfline = async (req, res, next) => {
+const updateOffline = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await UserServices.updateOfline(id);
+    const result = await UserServices.updateOffline(id);
     res.status(200).json(result);
   } catch (error) {
     next({
       status: 400,
-      message: "Error al obtener los usuarios",
+      message: "Error al actualizar prop online del usuario",
       errorContent: error
     });
   }
@@ -82,7 +82,7 @@ const updateUser = async (req, res, next) => {
   } catch (error) {
     next({
       status: 400,
-      message: "Error al actualizar",
+      message: "Error al actualizar usuario",
       errorContent: error
     });
   }
@@ -96,10 +96,10 @@ const deleteUser = async (req, res, next) => {
   } catch (error) {
     next({
       status: 400,
-      message: "Error al eliminar",
+      message: "Error al eliminar usuario",
       errorContent: error
     });
   }
 };
 
-module.exports = { createUser, getUser, getAllUser, updateOfline, updateUser, deleteUser };
+module.exports = { createUser, getUserById, getUsers, updateOffline, updateUser, deleteUser };

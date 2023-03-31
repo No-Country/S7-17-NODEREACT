@@ -1,30 +1,25 @@
 const {
   createUser,
-  getUser,
-  getAllUser,
-  updateOfline,
+  getUserById,
+  getUsers,
+  updateOffline,
   updateUser,
   deleteUser
 } = require("./user.controllers.js");
-const { userLogin } = require("./auth.controller");
-const {
-  addUserFrined,
-  getAllUserFrineds,
-  deleteUserFrined
-} = require("./userFriend.controllers.js");
-
+const { userLogin } = require("./auth.controllers.js");
+const { addUserFriend, getUserFriends, deleteUserFriend } = require("./userFriend.controllers.js");
 const { getRoomById } = require("./roomMatch.controllers.js");
 
 module.exports = {
   createUser,
-  getUser,
-  getAllUser,
+  getUserById,
+  getUsers,
   updateUser,
   deleteUser,
   userLogin,
-  addUserFrined,
-  updateOfline,
-  getAllUserFrineds,
-  deleteUserFrined,
+  addUserFriend,
+  updateOffline,
+  getUserFriends,
+  deleteUserFriend,
   getRoomById
 };

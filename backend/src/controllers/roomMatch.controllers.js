@@ -8,7 +8,7 @@ const { RoomServices } = require("../services");
     } catch (error) {
         next({
             status: 400,
-            message: 'Error al crear',
+            message: 'Error al crear room',
             errorContent: error
         })
     }
@@ -22,7 +22,7 @@ const getRoomById = async (req, res, next) => {
   } catch (error) {
     next({
       status: 400,
-      message: "Error al obtener los room",
+      message: "Error al obtener room",
       errorContent: error
     });
   }
@@ -35,7 +35,7 @@ const getRoomById = async (req, res, next) => {
     } catch (error) {
         next({
             status: 400,
-            message: 'Error al obtener los usuarios',
+            message: 'Error al obtener rooms',
             errorContent: error
         })
     }
@@ -50,7 +50,7 @@ const update = async (req, res, next) => {
     } catch (error) {
         next({
             status: 400,
-            message: 'Error al actualizar',
+            message: 'Error al actualizar room',
             errorContent: error
         })
     }
@@ -64,7 +64,7 @@ const delete = async (req, res, next) => {
     } catch (error) {
         next({
             status: 400,
-            message: 'Error al eliminar',
+            message: 'Error al eliminar room',
             errorContent: error
         })
     }
