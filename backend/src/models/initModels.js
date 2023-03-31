@@ -1,7 +1,7 @@
-const { 
-  Users,
-  UsersFriends,
-  RoomMatch,
+const {
+  User,
+  User_Friend,
+  Room_Match,
   Achievement,
   Advantage,
   News,
@@ -14,40 +14,40 @@ const {
 } = require("./index");
 
 const initModels = () => {
-  /* ------------ Relacion entre usuarios amigos ------------ */
+  /* ------------------------ Relación entre usuarios amigos ------------------------ */
 
-  Users.hasMany(UsersFriends, { as: "firends", foreignKey: "user_id" });
-  UsersFriends.belongsTo(Users, { as: "userFirend", foreignKey: "user_id" });
+  User.hasMany(User_Friend, { as: "friends", foreignKey: "userId" });
+  User_Friend.belongsTo(User, { as: "userFriend", foreignKey: "userId" });
 
-  Users.hasMany(UsersFriends, { as: "added", foreignKey: "added_user_id" });
-  UsersFriends.belongsTo(Users, { as: "userAdded", foreignKey: "added_user_id" });
+  User.hasMany(User_Friend, { as: "added", foreignKey: "addedUserId" });
+  User_Friend.belongsTo(User, { as: "userAdded", foreignKey: "addedUserId" });
 
-  /* ------------ Relacion entre usuarios  ------------ */
+  /* -------------------------    Relación entre usuarios    ------------------------- */
 
-  Users.hasMany(RoomMatch, { as: "room", foreignKey: "first_participant_id" });
-  RoomMatch.belongsTo(Users, { as: "users", foreignKey: "first_participant_id" });
+  User.hasMany(Room_Match, { as: "rooms", foreignKey: "first_participant_id" });
+  Room_Match.belongsTo(User, { as: "user", foreignKey: "first_participant_id" });
 
-  /* ----------------------- Relación User - Achievement ----------------------- */
+  /* -------------------------  Relación User - Achievement  ------------------------- */
 
-  Users.belongsToMany(Achievement, { through: User_Achievement });
-  Achievement.belongsToMany(Users, { through: User_Achievement });
+  User.belongsToMany(Achievement, { through: User_Achievement });
+  Achievement.belongsToMany(User, { through: User_Achievement });
 
-  /* ----------------------- Relación User - Advantage   ----------------------- */
+  /* -------------------------   Relación User - Advantage   ------------------------- */
 
-  Users.belongsToMany(Advantage, { through: User_Advantage });
-  Advantage.belongsToMany(Users, { through: User_Advantage });
+  User.belongsToMany(Advantage, { through: User_Advantage });
+  Advantage.belongsToMany(User, { through: User_Advantage });
 
-  /* ----------------------- Relación User - Topic       ----------------------- */
+  /* -------------------------     Relación User - Topic     ------------------------- */
 
-  Users.belongsToMany(Topic, { through: User_Topic });
-  Topic.belongsToMany(Users, { through: User_Topic });
+  User.belongsToMany(Topic, { through: User_Topic });
+  Topic.belongsToMany(User, { through: User_Topic });
 
-  /* ----------------------- Relación Topic - Question   ----------------------- */
+  /* -------------------------   Relación Topic - Question   ------------------------- */
 
   Topic.hasOne(Question);
   Question.belongsTo(Topic);
 
-  /* ----------------------- Relación Topic - News       ----------------------- */
+  /* -------------------------     Relación Topic - News     ------------------------- */
 
   Topic.belongsToMany(News, { through: Topic_News });
   News.belongsToMany(Topic, { through: Topic_News });

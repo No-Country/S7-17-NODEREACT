@@ -2,9 +2,9 @@ const { Router } = require("express");
 const { authenticate } = require("../middlewares/auth.middleware");
 const {
   createUser,
-  getUser,
-  getAllUser,
-  updateOfline,
+  getUserById,
+  getUsers,
+  updateOffline,
   updateUser,
   deleteUser
 } = require("../controllers");
@@ -155,11 +155,11 @@ const upload = multer();
 
 router.post("/user/register", upload.any(), createUser);
 
-router.get("/user/:id", authenticate, getUser);
+router.get("/user/:id", authenticate, getUserById);
 
-router.get("/users", authenticate, getAllUser);
+router.get("/users", authenticate, getUsers);
 
-router.put("/user/:id/ofline", authenticate, updateOfline);
+router.put("/user/:id/offline", authenticate, updateOffline);
 
 router.put("/user/:id/update", authenticate, updateUser);
 

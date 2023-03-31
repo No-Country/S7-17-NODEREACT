@@ -1,38 +1,38 @@
-const { UsersFriends, Users } = require("../models");
+const { User_Friend, User } = require("../models");
 
 class UserFriendServices {
-  static async addUserFrined(friend) {
+  static async addUserFriend(friend) {
     try {
-      const result = await UsersFriends.create(friend);
+      const result = await User_Friend.create(friend);
       return result;
     } catch (error) {
       throw error;
     }
   }
-  static async getAllUserFrineds(id) {
+  static async getUserFriends(id) {
     try {
       const [result1, result2] = await Promise.all([
-        UsersFriends.findAll({
+        User_Friend.findAll({
           where: { userId: id },
           attributes: {
             exclude: ["userId", "user_id", "addedUserId", "added_user_id", "updatedAt"]
           },
           include: {
-            model: Users,
+            model: User,
             as: "userAdded",
             attributes: ["id", "username", "email", "profileImg", "online", "status"],
             raw: true
           },
           raw: true
         }),
-        UsersFriends.findAll({
+        User_Friend.findAll({
           where: { addedUserId: id },
           attributes: {
             exclude: ["userId", "user_id", "addedUserId", "added_user_id", "updatedAt"]
           },
           include: {
-            model: Users,
-            as: "userFirend",
+            model: User,
+            as: "userFriend",
             attributes: ["id", "username", "email", "profileImg", "online", "status"],
             raw: true
           },
@@ -45,10 +45,10 @@ class UserFriendServices {
       throw error;
     }
   }
-  static async deleteUserFrined(id) {
+  static async deleteUserFriend(id) {
     try {
-      await UsersFriends.destroy({ where: { id } });
-      return { message: "Deleted successful" };
+      await User_Friend.destroy({ where: { id } });
+      return { message: "Deleted successfully" };
     } catch (error) {
       throw error;
     }

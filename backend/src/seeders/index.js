@@ -1,11 +1,11 @@
 const db = require("../utils/database");
 const initModels = require("../models/initModels");
-const getAchievements = require("./achievements");
-const getAdvantages = require("./advantages");
-const getNews = require("./news");
-const getQuestions = require("./questions");
-const getTopics = require("./topics");
-const getUsers = require("./users");
+const getAchievements = require("./achievement.seeder");
+const getAdvantages = require("./advantage.seeder");
+const getNews = require("./news.seeder");
+const getQuestions = require("./question.seeder");
+const getTopics = require("./topic.seeder");
+const getUsers = require("./user.seeder");
 
 initModels();
 

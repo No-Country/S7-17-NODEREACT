@@ -1,4 +1,4 @@
-const hendleError = (error, req, res, next) => {
+const handleError = (error, req, res, next) => {
   const { status, errorContent, message } = error;
   res.status(status).json({
     message,
@@ -6,4 +6,4 @@ const hendleError = (error, req, res, next) => {
   });
 };
 
-module.exports = hendleError;
+module.exports = handleError;

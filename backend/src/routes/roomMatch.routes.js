@@ -31,7 +31,7 @@ const router = Router();
 
 router.post("/room/friend", authenticate /* , createRoomFriend */);
 
-router.post("/room/ramdon", authenticate /* , createRoomRandom */);
+router.post("/room/random", authenticate /* , createRoomRandom */);
 
 router.get("/room/:id", authenticate, getRoomById);
 

@@ -119,7 +119,9 @@ const codeGenerate = () => Math.floor(Math.random() * 900000) + 100000;
  *       bearerFormat: JWT
  */
 
-const Users = db.define("users", {
+const User = db.define(
+  "user",
+  {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -157,17 +159,15 @@ const Users = db.define("users", {
     },
     profileImg: {
       type: DataTypes.STRING,
-      allowNull: true,
       field: "profile_img"
     },
     online: {
       type: DataTypes.BOOLEAN,
-      allowNull: true,
       defaultValue: true
     },
     status: {
       type: DataTypes.STRING,
-      defaultValue: "Active"
+      defaultValue: "active"
     },
     codeVerify: {
       type: DataTypes.INTEGER,
@@ -181,7 +181,6 @@ const Users = db.define("users", {
     },
     socketId: {
       type: DataTypes.STRING,
-      allowNull: true,
       field: "socket_id"
     }
   },
@@ -197,4 +196,4 @@ const Users = db.define("users", {
   }
 );
 
-module.exports = Users;
+module.exports = User;

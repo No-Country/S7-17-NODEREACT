@@ -2,9 +2,9 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const db = require("./utils/database");
-const hendleError = require("./middlewares/error.middleware");
+const handleError = require("./middlewares/error.middleware");
 const initModels = require("./models/initModels");
-const { UserRoutes, AuthRoutes, UserFriend } = require("./routes/index");
+const { UserRoutes, AuthRoutes, UserFriendRoutes } = require("./routes/index");
 
 const app = express();
 
@@ -26,14 +26,14 @@ app.get("/", (req, res) => {
   console.log("Welcome to the server!");
   res.status(200).json({
     API: "The Question",
-    Documanetation: `${process.env.HOST}/api/v1/docs`
+    Documentation: `${process.env.HOST}/api/v1/docs`
   });
 });
 
 app.use("/api/v1", UserRoutes);
 app.use("/api/v1", AuthRoutes);
-app.use("/api/v1", UserFriend);
+app.use("/api/v1", UserFriendRoutes);
 
-app.use(hendleError);
+app.use(handleError);
 
 module.exports = app;

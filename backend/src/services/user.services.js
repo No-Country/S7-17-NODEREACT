@@ -1,17 +1,17 @@
-const { Users, UsersFriends } = require("../models");
+const { User } = require("../models");
 
 class UserServices {
   static async createUser(user) {
     try {
-      const result = await Users.create(user);
+      const result = await User.create(user);
       return result;
     } catch (error) {
       throw error;
     }
   }
-  static async getUser(id) {
+  static async getUserById(id) {
     try {
-      const result = await Users.findByPk(id, {
+      const result = await User.findByPk(id, {
         attributes: {
           exclude: ["password"]
         }
@@ -21,34 +21,34 @@ class UserServices {
       throw error;
     }
   }
-  static async getAllUsers() {
+  static async getUsers() {
     try {
-      const result = await Users.findAll();
+      const result = await User.findAll();
       return result;
     } catch (error) {
       throw error;
     }
   }
-  static async updateOfline(id) {
+  static async updateOffline(id) {
     try {
-      await Users.update({ online: false }, { where: { id } });
-      return { message: "Update successfull" };
+      await User.update({ online: false }, { where: { id } });
+      return { message: "Updated successfully" };
     } catch (error) {
       throw error;
     }
   }
   static async updateUser(id, body) {
     try {
-      await Users.update(body, { where: { id } });
-      return { message: "User update successful" };
+      await User.update(body, { where: { id } });
+      return { message: "User updated successfully" };
     } catch (error) {
       throw error;
     }
   }
   static async deleteUser(id) {
     try {
-      await Users.destroy({ where: { id } });
-      return { message: "User delete successful" };
+      await User.destroy({ where: { id } });
+      return { message: "User deleted successfully" };
     } catch (error) {
       throw error;
     }

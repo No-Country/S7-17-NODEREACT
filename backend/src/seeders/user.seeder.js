@@ -3,8 +3,8 @@ const { User } = require("../models");
 
 const getUsers = async () => {
   try {
-    // const users = await axios.get("https://apimocha.com/the-question/users");
-    // await User.bulkCreate(users.data);
+    const users = await axios.get("https://apimocha.com/the-question/users");
+    await User.bulkCreate(users.data);
   } catch (error) {
     console.error(error);
   }

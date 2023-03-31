@@ -1,6 +1,5 @@
 const db = require("../utils/database");
 const { DataTypes } = require("sequelize");
-const bcrypt = require("bcrypt");
 
 /**
  * @openapi
@@ -39,23 +38,25 @@ const bcrypt = require("bcrypt");
  *         addedUserId: 2
  */
 
-const UsersFriends = db.define("users_friends", {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false
+const User_Friend = db.define(
+  "user_friend",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    addedUserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   },
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    field: "user_id"
-  },
-  addedUserId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    field: "added_user_id"
-  }
-});
+  { timestamps: false }
+);
 
-module.exports = UsersFriends;
+module.exports = User_Friend;
