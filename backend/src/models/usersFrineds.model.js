@@ -55,6 +55,10 @@ const UsersFriends = db.define("users_friends", {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: "added_user_id"
+  },
+  status: {
+    type: DataTypes.ENUM("acepted", "pending", "refuce"),
+    defaultValue: "pending"
   }
 });
 

@@ -24,8 +24,11 @@ const initModels = () => {
 
   /* ------------ Relacion entre usuarios  ------------ */
 
-  Users.hasMany(RoomMatch, { as: "room", foreignKey: "first_participant_id" });
-  RoomMatch.belongsTo(Users, { as: "users", foreignKey: "first_participant_id" });
+  Users.hasMany(RoomMatch, { as: "room", foreignKey: "user_id" });
+  RoomMatch.belongsTo(Users, { as: "user", foreignKey: "user_id" });
+  
+  Users.hasMany(RoomMatch, { as: "roomMatch", foreignKey: "opponent_user_id" });
+  RoomMatch.belongsTo(Users, { as: "invitated", foreignKey: "opponent_user_id" });
 
   /* ----------------------- Relación User - Achievement ----------------------- */
 

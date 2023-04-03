@@ -1,18 +1,48 @@
 const { RoomServices } = require("../services");
 
-/* const create = async (req, res, next) => {
-    try {
-        const body = req.body;
+const createRoomSolitary = async (req, res, next) => {
+  try {
+    const room = req.body;
+    const result = await RoomServices.createRoomSolitary(room);
+    res.status(201).json(result);
+  } catch (error) {
+    next({
+      status: 400,
+      message: "Error al crear Room",
+      errorContent: error
+    });
+  }
+};
 
-        res.status(201).json(result);
-    } catch (error) {
-        next({
-            status: 400,
-            message: 'Error al crear',
-            errorContent: error
-        })
-    }
-}; */
+const createRoomFriend = async (req, res, next) => {
+  try {
+    const body = req.body;
+    console.log(body);
+    const result = await RoomServices.createRoomFriend(body);
+    res.status(201).json(result);
+  } catch (error) {
+    next({
+      status: 400,
+      message: "Error al crear Room",
+      errorContent: error
+    });
+  }
+};
+
+const createRoomRandom = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const result = await RoomServices.createRoomRandom(body);
+    if (result) res.status(201).json(result);
+    if (!result) res.status(404).json({ message: "Opponent not found" });
+  } catch (error) {
+    next({
+      status: 400,
+      message: "Error al crear Room",
+      errorContent: error
+    });
+  }
+};
 
 const getRoomById = async (req, res, next) => {
   try {
@@ -28,46 +58,53 @@ const getRoomById = async (req, res, next) => {
   }
 };
 
-/* const getAll = async (req, res, next) => {
-    try {
-
-        res.status(200).json(result);
-    } catch (error) {
-        next({
-            status: 400,
-            message: 'Error al obtener los usuarios',
-            errorContent: error
-        })
-    }
+const getAllRoom = async (req, res, next) => {
+  try {
+    res.status(200).json(result);
+  } catch (error) {
+    next({
+      status: 400,
+      message: "Error al obtener los Rooms",
+      errorContent: error
+    });
+  }
 };
 
-const update = async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const body = req.body;
-
-        res.status(200).json(result);
-    } catch (error) {
-        next({
-            status: 400,
-            message: 'Error al actualizar',
-            errorContent: error
-        })
-    }
+const updateRoom = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const updatedRoom = req.body;
+    const result = await RoomServices.updateRoom(id, updatedRoom);
+    res.status(200).json(result);
+  } catch (error) {
+    next({
+      status: 400,
+      message: "Error al actualizar",
+      errorContent: error
+    });
+  }
 };
 
-const delete = async (req, res, next) => {
-    try {
-        const id = req.params.id;
+const deleteRoom = async (req, res, next) => {
+  try {
+    const id = req.params.id;
 
-        res.status(200).json(result);
-    } catch (error) {
-        next({
-            status: 400,
-            message: 'Error al eliminar',
-            errorContent: error
-        })
-    }
-}; */
+    res.status(200).json(result);
+  } catch (error) {
+    next({
+      status: 400,
+      message: "Error al eliminar",
+      errorContent: error
+    });
+  }
+};
 
-module.exports = { getRoomById };
+module.exports = {
+  createRoomSolitary,
+  createRoomFriend,
+  createRoomRandom,
+  getRoomById,
+  getAllRoom,
+  updateRoom,
+  deleteRoom
+};

@@ -85,6 +85,8 @@ router.post("/user/friend", authenticate, addUserFrined);
 
 router.get("/user/:id/friends", authenticate, getAllUserFrineds);
 
+//router.put("/user/friends/:id", authenticate, update);
+
 router.delete("/user/friend/delete/:id", authenticate, deleteUserFrined);
 
 module.exports = router;
