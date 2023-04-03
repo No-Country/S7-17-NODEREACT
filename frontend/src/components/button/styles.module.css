@@ -1,6 +1,5 @@
 .container{
     text-align: center;
-    padding: 15px 40px;
     border-radius: 30px;
 }
 .primary{
@@ -20,9 +19,6 @@
     line-height: 16px;
 }
 .primary__medium{
-    padding: 0;
-    width: 180px;
-    height: 46px;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
@@ -31,9 +27,6 @@
     flex-grow: 0;
 }
 .primary__bigger{
-    padding: 0;
-    width: 307px;
-    height: 46px;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
