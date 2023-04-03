@@ -2,6 +2,7 @@ const {
   createUser,
   getUserById,
   getUsers,
+  getTopRankedUsers,
   updateOffline,
   updateUser,
   deleteUser
@@ -14,6 +15,7 @@ module.exports = {
   createUser,
   getUserById,
   getUsers,
+  getTopRankedUsers,
   updateUser,
   deleteUser,
   userLogin,
