@@ -3,15 +3,25 @@
     height: 100vh;
     background-color: black;
     color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
-.button__container{
+.section{
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+.section__logo{
+    grid-area: 1 / 1 / 2 / 2;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 57px;
+}
+.section__button{
+    grid-area: 2 / 1 / 3 / 2;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
-    gap: 20px;
-    margin-top: 58px;
+    gap: 22px;
 }

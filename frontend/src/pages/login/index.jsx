@@ -1,11 +1,12 @@
 import styles from "../login/styles.module.css";
-import LogoTitle from "@/components/logo-title";
+import Logo from "../../assets/logo.svg";
 import Button from "@/components/button";
 import Link from "next/link";
 import LoginForm from "@/components/login-form";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import Image from "next/image";
 
 const Login = () => {
   const [loginForm, setLoginForm] = useState(false);
@@ -20,22 +21,34 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
-      <LogoTitle />
       {loginForm ? (
         <LoginForm />
       ) : (
-        <div className={styles.button__container}>
-          <div onClick={() => setLoginForm(!loginForm)}>
-            <Button theme="primary" className="primary__bigger">
-              Iniciar Sesión
-            </Button>
+        <section className={styles.section}>
+          <div className={styles.section__logo}>
+            <Image
+              placeholder="blur"
+              blurDataURL={"../../assets/logo.svg"}
+              src={Logo}
+              width={214}
+              height={134}
+              alt="imagen-logo"
+            />
           </div>
-          <Link href="/register">
-            <Button theme="secondary" className="primary__bigger">
-              Registrarse
-            </Button>
-          </Link>
-        </div>
+
+          <div className={styles.section__button}>
+            <div onClick={() => setLoginForm(!loginForm)}>
+              <Button theme="primary" className="primary__bigger" width="307px" height="54px">
+                Iniciar Sesión
+              </Button>
+            </div>
+            <Link href="/register">
+              <Button theme="secondary" className="primary__bigger" width="307px" height="54px">
+                Registrarse
+              </Button>
+            </Link>
+          </div>
+        </section>
       )}
     </div>
   );

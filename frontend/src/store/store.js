@@ -1,5 +1,6 @@
 const { configureStore, combineReducers } = require("@reduxjs/toolkit");
 import authReducer from "@/features/auth/authSlice";
+import regReducer from "@/features/reg/regSlice";
 import storage from 'redux-persist/lib/storage'
 import {
     persistReducer,
@@ -18,7 +19,8 @@ const persistConfig = {
 }
 
 export const rootReducers = combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    reg: regReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducers)
@@ -31,5 +33,6 @@ export const store = configureStore({
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
         }),
+
 
 })
