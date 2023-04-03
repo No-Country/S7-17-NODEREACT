@@ -15,9 +15,9 @@ app.set("io", io);
 
 io.on("connection", socket => {});
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3002;
 
 server.listen(PORT, () => {
-  console.log(`Run server in ${process.env.host}/`);
+  console.log(`Server running on port ${PORT}`);
   swaggerDocs(app, PORT);
 });

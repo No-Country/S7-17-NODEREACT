@@ -1,16 +1,17 @@
-const swaggerJSDOC = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
+const swaggerJSDOC = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 const options = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'The question API',
-            version: '1.0.0',
-            description: 'API que sirve para almacenar datos de un juego'
-        }
-    },
-    apis: ['./src/routes/*.routes.js', './src/models/*.model.js']
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "The Question API",
+      version: "1.0.0",
+      description:
+        "API que sirve para almacenar datos de un juego web y realizar distintas operaciones de tipo CRUD con ellos."
+    }
+  },
+  apis: ["./src/routes/*.routes.js", "./src/models/*.model.js"]
 };
 
 const swaggerSpec = swaggerJSDOC(options);
