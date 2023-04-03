@@ -4,6 +4,7 @@ const {
   createUser,
   getUserById,
   getUsers,
+  getTopRankedUsers,
   updateOffline,
   updateUser,
   deleteUser
@@ -57,18 +58,11 @@ const router = Router();
  *   get:
  *     security:
  *       - bearerAuth: []
- *     summary: Get a User by ID.
+ *     summary: Get an array of all users.
  *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: The User id
  *     responses:
  *       200:
- *         description: The User was successfully found.
+ *         description: The users were successfully found.
  *         content:
  *           application/json:
  *             schema:
@@ -76,12 +70,29 @@ const router = Router();
  *               items:
  *                $ref: '#/components/schemas/User'
  *       404:
- *         description: The User was not found.
- * /api/v1/user/{id}/ofline:
+ *         description: The users were not found.
+ * /api/v1/users/ranking:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Get users ordered by points (best ranked).
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: The users were successfully found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                $ref: '#/components/schemas/User'
+ *       404:
+ *         description: The users were not found.
+ * /api/v1/user/{id}/offline:
  *   put:
  *     security:
  *       - bearerAuth: []
- *     summary: Ofline to a User by ID.
+ *     summary: Update User prop 'online' by ID.
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -103,7 +114,7 @@ const router = Router();
  *   put:
  *     security:
  *       - bearerAuth: []
- *     summary: Updated a User by ID.
+ *     summary: Update a User by ID.
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -158,6 +169,8 @@ router.post("/user/register", upload.any(), createUser);
 router.get("/user/:id", authenticate, getUserById);
 
 router.get("/users", authenticate, getUsers);
+
+router.get("/users/ranking", getTopRankedUsers);
 
 router.put("/user/:id/offline", authenticate, updateOffline);
 
