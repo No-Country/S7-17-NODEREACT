@@ -62,9 +62,9 @@ const codeGenerate = () => Math.floor(Math.random() * 900000) + 100000;
  *         points: 0
  *         coins: 0
  *         advantages:
- *           - name: '50 %'
+ *           - name: 'Martillo'
  *             quatity: 5
- *           - name: 'More Time'
+ *           - name: 'Varita mágica'
  *             quatity: 5
  *         profileImg: 'https://mypictureofmyprofile.png'
  *         online: true

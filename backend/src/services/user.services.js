@@ -1,4 +1,5 @@
 const { User } = require("../models");
+const { Op } = require("sequelize");
 
 class UserServices {
   static async createUser(user) {
@@ -24,6 +25,17 @@ class UserServices {
   static async getUsers() {
     try {
       const result = await User.findAll();
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async getTopRankedUsers() {
+    try {
+      const result = await User.findAll({
+        where: { points: { [Op.gt]: 0 } },
+        order: [["points", "DESC"]]
+      });
       return result;
     } catch (error) {
       throw error;

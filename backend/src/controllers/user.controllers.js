@@ -59,6 +59,19 @@ const getUsers = async (req, res, next) => {
   }
 };
 
+const getTopRankedUsers = async (req, res, next) => {
+  try {
+    const result = await UserServices.getTopRankedUsers();
+    res.status(200).json(result);
+  } catch (error) {
+    next({
+      status: 400,
+      message: "Error al obtener usuarios mejor clasificados",
+      errorContent: error
+    });
+  }
+};
+
 const updateOffline = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -102,4 +115,12 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-module.exports = { createUser, getUserById, getUsers, updateOffline, updateUser, deleteUser };
+module.exports = {
+  createUser,
+  getUserById,
+  getUsers,
+  getTopRankedUsers,
+  updateOffline,
+  updateUser,
+  deleteUser
+};
