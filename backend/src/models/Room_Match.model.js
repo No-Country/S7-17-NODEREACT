@@ -86,12 +86,88 @@ const { DataTypes } = require("sequelize");
  *         userId:
  *           type: integer
  *           description: The User id of the Game Room.
+ *       example:
+ *         userId: 2
+ *     CreateRoomFriend:
+ *       required:
+ *         - userId
+ *         - opponentUserId
+ *       properties:
+ *         userId:
+ *           type: integer
+ *           description: The User id of the Game Room.
  *         opponentUserId:
  *           type: integer
  *           description: The opponent Id of the Game Room.
  *       example:
  *         userId: 2
  *         opponentUserId: 4
+ *     UpdateRoomSolitary:
+ *       properties:
+ *         player:
+ *           type: object
+ *           properties:
+ *                correctAnswers:
+ *                  type: integer
+ *                  description: Total correct answers.
+ *                incorrectAnswers:
+ *                  type: integer
+ *                  description: Total incorrect answers.
+ *                points:
+ *                  type: integer
+ *                  description: Total points won.
+ *                advantages:
+ *                  type: integer
+ *                  description: Total advantages used.
+ *       example:
+ *         player:
+ *           correctAnswers: 5
+ *           incorrectAnswers: 5
+ *           points: 0
+ *           advantages: 2
+ *     UpdateRoomGroup:
+ *       properties:
+ *         player1:
+ *           type: object
+ *           properties:
+ *                correctAnswers:
+ *                  type: integer
+ *                  description: Total correct answers.
+ *                incorrectAnswers:
+ *                  type: integer
+ *                  description: Total incorrect answers.
+ *                points:
+ *                  type: integer
+ *                  description: Total points won.
+ *                advantages:
+ *                  type: integer
+ *                  description: Total advantages used.
+ *         player2:
+ *           type: object
+ *           properties:
+ *                correctAnswers:
+ *                  type: integer
+ *                  description: Total correct answers.
+ *                incorrectAnswers:
+ *                  type: integer
+ *                  description: Total incorrect answers.
+ *                points:
+ *                  type: integer
+ *                  description: Total points won.
+ *                advantages:
+ *                  type: integer
+ *                  description: Total advantages used.
+ *       example:
+ *         player1:
+ *           correctAnswers: 5
+ *           incorrectAnswers: 5
+ *           points: 0
+ *           advantages: 2
+ *         player2:
+ *           correctAnswers: 6
+ *           incorrectAnswers: 4
+ *           points: 20
+ *           advantages: 2
  */
 
 const Room_Match = db.define(
@@ -105,25 +181,26 @@ const Room_Match = db.define(
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      field: "user_id"
     },
     opponentUserId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true,
+      field: "opponent_user_id"
     },
     dataRoom: {
-      type: DataTypes.ARRAY(DataTypes.JSON),
-      allowNull: false,
+      type: DataTypes.JSON,
+      allowNull: true,
       field: "data_room"
     },
     status: {
-      type: DataTypes.ENUM("waiting", "gaming"),
+      type: DataTypes.ENUM("waiting", "gaming", "refused", "finished"),
       defaultValue: "waiting"
     },
     typeGame: {
-      type: DataTypes.ENUM("random", "friend"),
-      defaultValue: "random",
-      field: "type_game"
+      type: DataTypes.ENUM("random", "friends", "solitary"),
+      defaultValue: "random"
     }
   },
   { timestamps: false }

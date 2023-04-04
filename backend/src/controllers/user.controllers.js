@@ -2,12 +2,11 @@ const { UserServices } = require("../services");
 const uploadPhoto = require("../middlewares/uploadPhoto.middleware");
 const template = require("../template/template");
 const transporter = require("../utils/mailer");
-const fs = require("fs");
 
 const createUser = async (req, res, next) => {
   try {
     const newUser = req.body;
-    const img = req.files[0];
+    const img = req.files;
     let newImgs = "";
     if (img) {
       console.log(img);

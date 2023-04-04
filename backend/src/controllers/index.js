@@ -9,7 +9,15 @@ const {
 } = require("./user.controllers.js");
 const { userLogin } = require("./auth.controllers.js");
 const { addUserFriend, getUserFriends, deleteUserFriend } = require("./userFriend.controllers.js");
-const { getRoomById } = require("./roomMatch.controllers.js");
+const {
+  createRoomSolitary,
+  createRoomFriend,
+  createRoomRandom,
+  getRoomById,
+  getAllRoom,
+  updateRoom,
+  deleteRoom
+} = require("./roomMatch.controllers.js");
 
 module.exports = {
   createUser,
@@ -23,5 +31,11 @@ module.exports = {
   updateOffline,
   getUserFriends,
   deleteUserFriend,
-  getRoomById
+  getRoomById,
+  createRoomSolitary,
+  createRoomFriend,
+  createRoomRandom,
+  getAllRoom,
+  updateRoom,
+  deleteRoom
 };

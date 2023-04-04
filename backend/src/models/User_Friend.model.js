@@ -38,25 +38,27 @@ const { DataTypes } = require("sequelize");
  *         addedUserId: 2
  */
 
-const User_Friend = db.define(
-  "user_friend",
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    addedUserId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
+const User_Friend = db.define("user_friend", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false
   },
-  { timestamps: false }
-);
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: "user_id"
+  },
+  addedUserId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: "added_user_id"
+  },
+  status: {
+    type: DataTypes.ENUM("acepted", "pending", "refuce"),
+    defaultValue: "pending"
+  }
+});
 
 module.exports = User_Friend;

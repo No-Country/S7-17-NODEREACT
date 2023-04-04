@@ -3,7 +3,20 @@ const { User_Friend, User } = require("../models");
 class UserFriendServices {
   static async addUserFriend(friend) {
     try {
-      const result = await User_Friend.create(friend);
+      const promises = [
+        User_Friend.findOne({ where: { userId, addedUserId, status: "pending" } }),
+        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "pending" } }),
+        User_Friend.findOne({ where: { userId, addedUserId, status: "refuce" } }),
+        User_Friend.findOne({ where: { userId, addedUserId, status: "acepted" } }),
+        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "acepted" } })
+      ];
+
+      await Promise.all(promises);
+
+      if (promises[0] || promises[1]) throw "Solicitud pendiente";
+      if (promises[2]) throw "Solicitud rechazada";
+      if (promises[3] || promises[4]) throw "¡Ya son amigos!";
+      const result = await User_Friend.create({ userId, addedUserId });
       return result;
     } catch (error) {
       throw error;

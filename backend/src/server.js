@@ -1,11 +1,11 @@
 const app = require("./app");
-const swaggerDocs = require("../swagger");
-const { Server } = require("socket.io");
+const sockeIO = require("socket.io");
 const http = require("http");
+const swaggerDocs = require("../swagger");
 require("dotenv").config();
 
 const server = http.createServer(app);
-const io = new Server(server, {
+const io = sockeIO(server, {
   cors: {
     origin: "*"
   }
@@ -13,7 +13,13 @@ const io = new Server(server, {
 
 app.set("io", io);
 
-io.on("connection", socket => {});
+io.on("connection", socket => {
+  console.log("User connected to socket server");
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected from socket server");
+  });
+});
 
 const PORT = process.env.PORT || 3002;
 
