@@ -17,7 +17,6 @@ const createRoomSolitary = async (req, res, next) => {
 const createRoomFriend = async (req, res, next) => {
   try {
     const body = req.body;
-    console.log(body);
     const result = await RoomServices.createRoomFriend(body);
     res.status(201).json(result);
   } catch (error) {

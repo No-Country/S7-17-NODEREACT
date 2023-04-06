@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { addUserFriend, getUserFriends, deleteUserFriend } = require("../controllers");
+const { addUserFriend, getUserFriends, acceptFriend, deleteUserFriend } = require("../controllers");
 const { authenticate } = require("../middlewares/auth.middleware");
 
 const router = Router();
@@ -25,8 +25,6 @@ const router = Router();
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/UserFriend'
- *       404:
- *         description: The frined was not found.
  * /api/v1/user/{id}/friends:
  *   get:
  *     security:
@@ -39,7 +37,7 @@ const router = Router();
  *         schema:
  *           type: integer
  *         required: true
- *         description: The frined id
+ *         description: The register frined id
  *     responses:
  *       200:
  *         description: The frined was successfully found.
@@ -48,15 +46,13 @@ const router = Router();
  *             schema:
  *               type:
  *               items:
- *                 $ref: '#/components/schemas/UserFriend'
- *       404:
- *         description: The frined was not found.
- * /api/v1/user/friend/delete/{id}:
- *   delete:
+ *                 $ref: '#/components/schemas/User'
+ * /api/v1/user/friend/{id}/status:
+ *   put:
  *     security:
  *       - bearerAuth: []
- *     summary: Delete a frined.
- *     description: To remove a friend, you must send the ID of the record where you specify the friendship relationship.
+ *     summary: Accept or Refuse frined.
+ *     description: Accepted values for this Endpoint, "accept" or "refuse".
  *     tags: [Friends]
  *     parameters:
  *       - in: path
@@ -71,14 +67,43 @@ const router = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/DeletedMessage'
- *       404:
- *         description: The frined was not delete.
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Updated successfull"
+ * /api/v1/user/friend/delete/{id}:
+ *   delete:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Delete a frined.
+ *     description: To remove a friend, you must send the ID of the record where you specify the friendship relationship.
+ *     tags: [Friends]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The register frined id
+ *     responses:
+ *       200:
+ *         description: The frined was successfully delete.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Deleted successfull"
  */
 
 router.post("/user/friend", authenticate, addUserFriend);
 
 router.get("/user/:id/friends", authenticate, getUserFriends);
+
+router.put("/user/friend/:id/status", authenticate, acceptFriend);
 
 router.delete("/user/friend/delete/:id", authenticate, deleteUserFriend);
 

@@ -11,7 +11,6 @@ class AuthServices {
         where: { username }
       });
       await User.update({ socketId }, { where: { id: getUser.id } });
-      console.log(credentials);
       if (!getUser) throw "User not found.";
       const isValid = bcrypt.compareSync(password, getUser.password);
       if (!isValid) throw "Incorrect password.";

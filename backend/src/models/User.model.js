@@ -33,17 +33,6 @@ const codeGenerate = () => Math.floor(Math.random() * 900000) + 100000;
  *         coins:
  *           type: integer
  *           description: The coins of the User.
- *         advantages:
- *           type: array
- *           items:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 description: The name of the advantage.
- *               quantity:
- *                 type: integer
- *                 description: The quantity of the advantage.
  *         profileImg:
  *           type: string
  *           description: The picture of the User.
@@ -61,11 +50,6 @@ const codeGenerate = () => Math.floor(Math.random() * 900000) + 100000;
  *         lifes: 5
  *         points: 0
  *         coins: 0
- *         advantages:
- *           - name: 'Martillo'
- *             quatity: 5
- *           - name: 'Varita mágica'
- *             quatity: 5
  *         profileImg: 'https://mypictureofmyprofile.png'
  *         online: true
  *         status: 'gaming'
@@ -87,13 +71,13 @@ const codeGenerate = () => Math.floor(Math.random() * 900000) + 100000;
  *           type: string
  *           description: The password of the User.
  *         profileImg:
- *           type: string
- *           description: The picture of the User.
+ *           type: object
+ *           description: The picture of the User use formData.append('profileImg', file);.
  *       example:
  *         username: 'My_User_Name'
  *         email: 'example@email.com'
  *         password: '123456'
- *         profileImg: 'https://mypictureofmyprofile.png'
+ *         profileImg:
  *     UpdateUser:
  *       type: object
  *       properties:
@@ -105,13 +89,28 @@ const codeGenerate = () => Math.floor(Math.random() * 900000) + 100000;
  *           format: email
  *           description: The email of the User.
  *         profileImg:
- *           type: string
- *           description: The picture of the User.
+ *           type: object
+ *           description: The picture of the User use formData.append('profileImg', file);.
  *       example:
  *         username: 'My_User_Name'
  *         email: 'example@email.com'
- *         password: '123456'
- *         profileImg: 'https://mypictureofmyprofile.png'
+ *         profileImg:
+ *     UpdatePasswordUser:
+ *       type: object
+ *       properties:
+ *         username:
+ *           type: string
+ *           description: The name of the User.
+ *         password:
+ *           type: string
+ *           description: The password current of the User.
+ *         newPassword:
+ *           type: string
+ *           description: The new password of the user.
+ *       example:
+ *         username: 'My_User_Name'
+ *         password: '123456old'
+ *         newPassword: '1234new'
  *   securitySchemes:
  *     bearerAuth:
  *       type: http
@@ -191,8 +190,7 @@ const User = db.define(
         const hash = bcrypt.hashSync(password, 8);
         user.password = hash;
       }
-    },
-    timestamps: false
+    }
   }
 );
 

@@ -202,8 +202,7 @@ const Room_Match = db.define(
       type: DataTypes.ENUM("random", "friends", "solitary"),
       defaultValue: "random"
     }
-  },
-  { timestamps: false }
+  }
 );
 
 module.exports = Room_Match;

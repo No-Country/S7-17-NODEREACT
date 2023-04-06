@@ -6,7 +6,7 @@ const authenticate = (req, res, next) => {
   if (bearerToken) {
     const token = bearerToken.split("Bearer ")[1];
     try {
-      const decoded = jwt.verify(token, process.env.SECRET_KEY, "HS512");
+      jwt.verify(token, process.env.SECRET_KEY, "HS512");
       next();
     } catch (error) {
       next({
@@ -24,6 +24,28 @@ const authenticate = (req, res, next) => {
   }
 };
 
+const authenticateRoom = tokenUser => {
+  if (tokenUser) {
+    try {
+      const decoded = jwt.verify(tokenUser, process.env.SECRET_KEY, "HS512");
+      return decoded;
+    } catch (error) {
+      next({
+        status: 400,
+        errorContent: error,
+        message: "Invalid Token"
+      });
+    }
+  } else {
+    next({
+      status: 400,
+      errorContent: "No token provided",
+      message: "No token provided"
+    });
+  }
+};
+
 module.exports = {
-  authenticate
+  authenticate,
+  authenticateRoom
 };

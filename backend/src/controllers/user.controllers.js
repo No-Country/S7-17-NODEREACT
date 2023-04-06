@@ -15,13 +15,13 @@ const createUser = async (req, res, next) => {
     }
     const result = await UserServices.createUser(newUser);
     res.status(201).json(result);
-    /* transporter.sendMail({
-            from: '<corporationglya@gmail.com>',
-            to: result.email,
-            subject: 'Welcome to The Question',
-            text: `¡Hello! ${result.userName} this is your verification code: ${result.codeVerify}`,
-            html: template(result)
-        }); */
+    transporter.sendMail({
+      from: "<corporationglya@gmail.com>",
+      to: result.email,
+      subject: "Welcome to The Question",
+      text: `¡Hello! ${result.username} this is your verification code: ${result.codeVerify}`,
+      html: template(result)
+    });
   } catch (error) {
     next({
       status: 400,
@@ -100,6 +100,21 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+const updateUserPassword = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const credentials = req.body;
+    const result = await UserServices.updateUserPassword(id, credentials);
+    res.status(200).json(result);
+  } catch (error) {
+    next({
+      status: 400,
+      message: "Error al eliminar usuario",
+      errorContent: error
+    });
+  }
+};
+
 const deleteUser = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -121,5 +136,6 @@ module.exports = {
   getTopRankedUsers,
   updateOffline,
   updateUser,
+  updateUserPassword,
   deleteUser
 };

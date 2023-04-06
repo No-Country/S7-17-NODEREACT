@@ -5,10 +5,16 @@ const {
   getTopRankedUsers,
   updateOffline,
   updateUser,
+  updateUserPassword,
   deleteUser
 } = require("./user.controllers.js");
 const { userLogin } = require("./auth.controllers.js");
-const { addUserFriend, getUserFriends, deleteUserFriend } = require("./userFriend.controllers.js");
+const {
+  addUserFriend,
+  getUserFriends,
+  acceptFriend,
+  deleteUserFriend
+} = require("./userFriend.controllers.js");
 const {
   createRoomSolitary,
   createRoomFriend,
@@ -25,11 +31,13 @@ module.exports = {
   getUsers,
   getTopRankedUsers,
   updateUser,
+  updateUserPassword,
   deleteUser,
   userLogin,
   addUserFriend,
   updateOffline,
   getUserFriends,
+  acceptFriend,
   deleteUserFriend,
   getRoomById,
   createRoomSolitary,

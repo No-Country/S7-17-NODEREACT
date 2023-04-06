@@ -7,6 +7,7 @@ const {
   getTopRankedUsers,
   updateOffline,
   updateUser,
+  updateUserPassword,
   deleteUser
 } = require("../controllers");
 const multer = require("multer");
@@ -18,6 +19,7 @@ const router = Router();
  * /api/v1/user/register:
  *   post:
  *     summary: Create a User.
+ *     description: To add an image see the description in schemes > create user, section located at the bottom of the page to load an image in the API.
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -52,9 +54,7 @@ const router = Router();
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
- *       404:
- *         description: The User was not found.
- * /api/v1/users:
+ * /api/v1/users/all:
  *   get:
  *     security:
  *       - bearerAuth: []
@@ -69,8 +69,7 @@ const router = Router();
  *               type: array
  *               items:
  *                $ref: '#/components/schemas/User'
- *       404:
- *         description: The users were not found.
+
  * /api/v1/users/ranking:
  *   get:
  *     security:
@@ -86,13 +85,12 @@ const router = Router();
  *               type: array
  *               items:
  *                $ref: '#/components/schemas/User'
- *       404:
- *         description: The users were not found.
  * /api/v1/user/{id}/offline:
  *   put:
  *     security:
  *       - bearerAuth: []
  *     summary: Update User prop 'online' by ID.
+ *     description: To add an image see the description in schemes > create user, section located at the bottom of the page to load an image in the API.
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -107,9 +105,11 @@ const router = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Message'
- *       404:
- *         description: The User was not updated.
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Updated successfull"
  * /api/v1/user/{id}/update:
  *   put:
  *     security:
@@ -135,9 +135,41 @@ const router = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Message'
- *       404:
- *         description: The User was not updated.
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Updated successfull"
+ * /api/v1/user/:id/update/password:
+ *   put:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Update password a User by ID.
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The User id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdatePasswordUser'
+ *     responses:
+ *       200:
+ *         description: The User was successfully updated.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Updated successfull"
  * /api/v1/user/{id}/delete:
  *   delete:
  *     security:
@@ -157,9 +189,11 @@ const router = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Message'
- *       404:
- *         description: The User was not deleted.
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Deleted successfull"
  */
 
 const upload = multer();
@@ -168,13 +202,15 @@ router.post("/user/register", upload.any(), createUser);
 
 router.get("/user/:id", authenticate, getUserById);
 
-router.get("/users", authenticate, getUsers);
+router.get("/users/all", authenticate, getUsers);
 
 router.get("/users/ranking", getTopRankedUsers);
 
 router.put("/user/:id/offline", authenticate, updateOffline);
 
 router.put("/user/:id/update", authenticate, updateUser);
+
+router.put("/user/:id/update/password", authenticate, updateUserPassword);
 
 router.delete("/user/:id/delete", authenticate, deleteUser);
 

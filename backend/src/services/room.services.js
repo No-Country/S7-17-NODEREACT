@@ -1,4 +1,5 @@
-const { RoomMatch, Users, Question } = require("../models");
+const { authenticateRoom } = require("../middlewares/auth.middleware");
+const { Room_Match, User, Question } = require("../models");
 const getRandom = require("../utils/getRandom.js");
 
 class RoomServices {
@@ -20,31 +21,47 @@ class RoomServices {
           typeGame: "solitary"
         }
       };
-      const result = await RoomMatch.create(newRoom);
+      const result = await Room_Match.create(newRoom);
       return result;
     } catch (error) {}
   }
-  static async createRoomFriend({ userId, opponentUserId }) {
+  static async createRoomFriend({ userId, opponentUserId, token }) {
     try {
-      const newRoom = {
-        userId,
-        opponentUserId,
-        typeGame: "friends"
-      };
-      const roomCreated = { ...newRoom }; //await RoomMatch.create(newRoom);
-      const { socketId } = await Users.findByPk(opponentUserId);
+      if (authenticateRoom(token)) {
+        const questions = await Question.findAll();
 
-      io.to(socketId).emit("invite", roomCreated);
-
-      return roomCreated;
+        const newRoom = {
+          userId,
+          opponentUserId,
+          typeGame: "friends",
+          dataRoom: {
+            questions: getRandom(questions, 10),
+            player1: {
+              correctAnswers: 0,
+              incorrectAnswers: 0,
+              points: 0,
+              advantages: 0
+            },
+            player2: {
+              correctAnswers: 0,
+              incorrectAnswers: 0,
+              points: 0,
+              advantages: 0
+            }
+          }
+        };
+        const roomCreated = await Room_Match.create(newRoom);
+        const user = await User.findByPk(opponentUserId);
+        //console.log(user)
+        return { roomCreated, socketId: user.socketId };
+      }
     } catch (error) {
       throw error;
     }
   }
-  static async createRoomRandom(body) {
+  static async createRoomRandom({ userId }) {
     try {
-      const { userId } = body;
-      const roomAvailable = await RoomMatch.findAll({
+      const roomAvailable = await Room_Match.findAll({
         where: { typeGame: "random", status: "waiting" }
       });
       const questions = await Question.findAll();
@@ -55,7 +72,7 @@ class RoomServices {
         const roomSelected = roomAvailable[randomIndex];
         roomSelected.status = "gaming";
         roomSelected.opponentUserId = userId;
-        await RoomMatch.update(
+        await Room_Match.update(
           { status: "gaming", opponentUserId: userId },
           { where: { id: roomSelected.id } }
         );
@@ -82,9 +99,9 @@ class RoomServices {
           }
         };
 
-        const roomCreated = await RoomMatch.create(newRoom);
+        const roomCreated = await Room_Match.create(newRoom);
 
-        io.to().emit("invite", roomCreated);
+        //io.to().emit("invite", roomCreated);
         return roomCreated;
       }
     } catch (error) {
@@ -108,7 +125,7 @@ class RoomServices {
   }
   static async updateRoom(id, updatedRoom) {
     try {
-      await RoomMatch.update(updatedRoom, { where: { id } });
+      await Room_Match.update(updatedRoom, { where: { id } });
       return { message: "Updated successfull" };
     } catch (error) {
       throw error;
@@ -164,7 +181,7 @@ module.exports = RoomServices;
                 typeGame: "friends"
               };
       
-              const roomCreated = await RoomMatch.create(newRoom);
+              const roomCreated = await Room_Match.create(newRoom);
       
               io.to(userId).emit("roomCreated");
               return roomCreated;

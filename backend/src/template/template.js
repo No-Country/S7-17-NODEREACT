@@ -195,7 +195,7 @@ const template = data => {
                                                                             <p
                                                                                 style="margin: 0; font-size: 16px; text-align: left; mso-line-height-alt: 24px;">
                                                                                 <span style="font-size:16px;">Hi
-                                                                                    <strong><u>${data.userName}</u></strong>,</span>
+                                                                                    <strong><u>${data.username}</u></strong>,</span>
                                                                             </p>
                                                                             <p
                                                                                 style="margin: 0; text-align: left; font-size: 16px; mso-line-height-alt: 21px;">

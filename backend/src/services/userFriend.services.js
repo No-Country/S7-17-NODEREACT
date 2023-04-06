@@ -1,14 +1,18 @@
 const { User_Friend, User } = require("../models");
 
 class UserFriendServices {
-  static async addUserFriend(friend) {
+  static async addUserFriend({ userId, addedUserId }) {
     try {
       const promises = [
         User_Friend.findOne({ where: { userId, addedUserId, status: "pending" } }),
-        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "pending" } }),
-        User_Friend.findOne({ where: { userId, addedUserId, status: "refuce" } }),
-        User_Friend.findOne({ where: { userId, addedUserId, status: "acepted" } }),
-        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "acepted" } })
+        User_Friend.findOne({
+          where: { userId: addedUserId, addedUserId: userId, status: "pending" }
+        }),
+        User_Friend.findOne({ where: { userId, addedUserId, status: "refuse" } }),
+        User_Friend.findOne({ where: { userId, addedUserId, status: "accept" } }),
+        User_Friend.findOne({
+          where: { userId: addedUserId, addedUserId: userId, status: "accept" }
+        })
       ];
 
       await Promise.all(promises);
@@ -26,7 +30,7 @@ class UserFriendServices {
     try {
       const [result1, result2] = await Promise.all([
         User_Friend.findAll({
-          where: { userId: id },
+          where: { userId: id, status: "accept" },
           attributes: {
             exclude: ["userId", "user_id", "addedUserId", "added_user_id", "updatedAt"]
           },
@@ -39,7 +43,7 @@ class UserFriendServices {
           raw: true
         }),
         User_Friend.findAll({
-          where: { addedUserId: id },
+          where: { addedUserId: id, status: "accept" },
           attributes: {
             exclude: ["userId", "user_id", "addedUserId", "added_user_id", "updatedAt"]
           },
@@ -52,8 +56,16 @@ class UserFriendServices {
           raw: true
         })
       ]);
-      const friends = [...result1, ...result2];
-      return friends;
+      const result = [...result1, ...result2];
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async acceptFriend(id, status) {
+    try {
+      await User_Friend.update(status, { where: { id } });
+      return { message: "Updated successfully" };
     } catch (error) {
       throw error;
     }
