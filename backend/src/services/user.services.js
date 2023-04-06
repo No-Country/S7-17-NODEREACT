@@ -48,11 +48,11 @@ class UserServices {
       throw error;
     }
   }
-  static async verifyUser(id, code) {
+  static async verifyUser(id, {code}) {
     try {
       const { codeVerify } = await User.findByPk(id);
       if (code !== codeVerify) throw "Código de verificación incorrecto";
-      await User.update({ isVefiry: true }, { where: { id } });
+      await User.update({ isVerify: true }, { where: { id } });
       return { message: "User verified" };
     } catch (error) {
       throw error;

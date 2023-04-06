@@ -8,7 +8,7 @@ module.exports = io => {
     /* Almacenamos  */
 
     socket.on("login", id => {
-      User.update({ socketId: socket.id }, { where: { id } });
+      User.update({ socketId: socket.id, online: true }, { where: { id } });
     });
 
     /* Escuchamos el evento socket invitar frined */
@@ -25,6 +25,9 @@ module.exports = io => {
       socket.broadcast.emit("invite", result);
     });
 
-    socket.on("disconnect", socket => console.log("User disconnected from socket server"));
+    socket.on("disconnect", socket => {
+      console.log("User disconnected from socket server");
+      User.update({ online: false }, { where: { socketId: socket.id } });
+    });
   });
 };
