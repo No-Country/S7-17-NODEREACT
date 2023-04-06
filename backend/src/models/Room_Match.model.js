@@ -28,33 +28,39 @@ const { DataTypes } = require("sequelize");
  *             player1:
  *               type: object
  *               properties:
- *                    correctAnswers:
- *                      type: integer
- *                      description: Total correct answers.
- *                    incorrectAnswers:
- *                      type: integer
- *                      description: Total incorrect answers.
- *                    points:
- *                      type: integer
- *                      description: Total points won.
- *                    advantages:
- *                      type: integer
- *                      description: Total advantages used.
+ *                 correctAnswers:
+ *                   type: integer
+ *                   description: Total correct answers.
+ *                 incorrectAnswers:
+ *                   type: integer
+ *                   description: Total incorrect answers.
+ *                 points:
+ *                   type: integer
+ *                   description: Total points won.
+ *                 hammer:
+ *                   type: integer
+ *                   description: Total advantage used.
+ *                 magicWand:
+ *                   type: integer
+ *                   description: Total advantage used.
  *             player2:
  *               type: object
  *               properties:
- *                    correctAnswers:
- *                      type: integer
- *                      description: Total correct answers.
- *                    incorrectAnswers:
- *                      type: integer
- *                      description: Total incorrect answers.
- *                    points:
- *                      type: integer
- *                      description: Total points won.
- *                    advantages:
- *                      type: integer
- *                      description: Total advantages used.
+ *                 correctAnswers:
+ *                   type: integer
+ *                   description: Total correct answers.
+ *                 incorrectAnswers:
+ *                   type: integer
+ *                   description: Total incorrect answers.
+ *                 points:
+ *                   type: integer
+ *                   description: Total points won.
+ *                 hammer:
+ *                   type: integer
+ *                   description: Total advantage used.
+ *                 magicWand:
+ *                   type: integer
+ *                   description: Total advantage used.
  *         status:
  *           type: string
  *           description: Status of the Room.
@@ -71,12 +77,14 @@ const { DataTypes } = require("sequelize");
  *             correctAnswers: 5
  *             incorrectAnswers: 5
  *             points: 0
- *             advantages: 2
+ *             hammer: 2
+ *             magicWand: 2
  *           player2:
  *             correctAnswers: 6
  *             incorrectAnswers: 4
  *             points: 20
- *             advantages: 2
+ *             hammer: 2
+ *             magicWand: 2
  *         status: 'waiting'
  *         typeGame: 'random'
  *     CreateRoom:
@@ -113,92 +121,101 @@ const { DataTypes } = require("sequelize");
  *         points:
  *           type: integer
  *           description: Total points won.
- *         advantages:
+ *         hammer:
  *           type: integer
- *           description: Total advantages used.
+ *           description: Total advantage used.
+ *         magicWand:
+ *           type: integer
+ *           description: Total advantage used.
  *       example:
  *         correctAnswers: 5
  *         incorrectAnswers: 5
  *         points: 0
- *         advantages: 2
+ *         hammer: 2
+ *         magicWand:
  *     UpdateRoomGroup:
  *       properties:
  *         player1:
  *           type: object
  *           properties:
- *                correctAnswers:
- *                  type: integer
- *                  description: Total correct answers.
- *                incorrectAnswers:
- *                  type: integer
- *                  description: Total incorrect answers.
- *                points:
- *                  type: integer
- *                  description: Total points won.
- *                advantages:
- *                  type: integer
- *                  description: Total advantages used.
+ *             correctAnswers:
+ *               type: integer
+ *               description: Total correct answers.
+ *             incorrectAnswers:
+ *               type: integer
+ *               description: Total incorrect answers.
+ *             points:
+ *               type: integer
+ *               description: Total points won.
+ *             hammer:
+ *               type: integer
+ *               description: Total advantage used.
+ *             magicWand:
+ *               type: integer
+ *               description: Total advantage used.
  *         player2:
  *           type: object
  *           properties:
- *                correctAnswers:
- *                  type: integer
- *                  description: Total correct answers.
- *                incorrectAnswers:
- *                  type: integer
- *                  description: Total incorrect answers.
- *                points:
- *                  type: integer
- *                  description: Total points won.
- *                advantages:
- *                  type: integer
- *                  description: Total advantages used.
+ *             correctAnswers:
+ *               type: integer
+ *               description: Total correct answers.
+ *             incorrectAnswers:
+ *               type: integer
+ *               description: Total incorrect answers.
+ *             points:
+ *               type: integer
+ *               description: Total points won.
+ *             hammer:
+ *               type: integer
+ *               description: Total advantage used.
+ *             magicWand:
+ *               type: integer
+ *               description: Total advantage used.
  *       example:
  *         player1:
  *           correctAnswers: 5
  *           incorrectAnswers: 5
  *           points: 0
- *           advantages: 2
+ *           hammer: 2
+ *           magicWand: 2
  *         player2:
  *           correctAnswers: 6
  *           incorrectAnswers: 4
  *           points: 20
- *           advantages: 2
+ *           hammer: 2
+ *           magicWand: 2
  */
 
-const Room_Match = db.define(
-  "room_match",
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      field: "user_id"
-    },
-    opponentUserId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      field: "opponent_user_id"
-    },
-    dataRoom: {
-      type: DataTypes.JSON,
-      allowNull: true,
-      field: "data_room"
-    },
-    status: {
-      type: DataTypes.ENUM("waiting", "gaming", "refused", "finished"),
-      defaultValue: "waiting"
-    },
-    typeGame: {
-      type: DataTypes.ENUM("random", "friends", "solitary"),
-      defaultValue: "random"
-    }
+const Room_Match = db.define("room_match", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: "user_id"
+  },
+  opponentUserId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    field: "opponent_user_id"
+  },
+  dataRoom: {
+    type: DataTypes.JSON,
+    allowNull: true,
+    field: "data_room"
+  },
+  status: {
+    type: DataTypes.ENUM("waiting", "gaming", "refused", "finished"),
+    defaultValue: "waiting"
+  },
+  typeGame: {
+    type: DataTypes.ENUM("random", "friends", "solitary"),
+    defaultValue: "random"
   }
-);
+});
 
 module.exports = Room_Match;

@@ -1,5 +1,5 @@
 const { authenticateRoom } = require("../middlewares/auth.middleware");
-const { Room_Match, User, Question } = require("../models");
+const { Room_Match, User, Question, User_Advantage } = require("../models");
 const getRandom = require("../utils/getRandom.js");
 
 class RoomServices {
@@ -136,6 +136,8 @@ class RoomServices {
     try {
       const room = await Room_Match.findByPk(id);
       const user = await User.findByPk(room.userId);
+      const hammer = await User_Advantage.findOne({ where: { advantageId: 1 } });
+      const magicWand = await User_Advantage.findOne({ where: { advantageId: 2 } });
       const updateRoom = {
         dataRoom: {
           questions: room.dataRoom.questions,
@@ -145,7 +147,15 @@ class RoomServices {
       };
       const promise = [
         Room_Match.update({ ...updateRoom }, { where: { id } }),
-        User.update({ points: user.points + dataPlayer.points }, { where: { id: user.id } })
+        User.update({ points: user.points + dataPlayer.points }, { where: { id: user.id } }),
+        User_Advantage.update(
+          { quantity: hammer.quantity - dataPlayer.hammer },
+          { where: { userId: user.id, advantageId: 1 } }
+        ),
+        User_Advantage.update(
+          { quantity: magicWand.quantity - dataPlayer.magicWand },
+          { where: { userId: user.id, advantageId: 2 } }
+        )
       ];
 
       await Promise.all(promise);

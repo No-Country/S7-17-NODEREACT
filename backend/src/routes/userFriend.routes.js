@@ -25,11 +25,11 @@ const router = Router();
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/UserFriend'
- * /api/v1/user/{id}/friends:
+ * /api/v1/user/{id}/friends/accept:
  *   get:
  *     security:
  *       - bearerAuth: []
- *     summary: Get all new frined.
+ *     summary: Get all friends.
  *     tags: [Friends]
  *     parameters:
  *       - in: path
@@ -37,7 +37,29 @@ const router = Router();
  *         schema:
  *           type: integer
  *         required: true
- *         description: The register frined id
+ *         description: The user ID.
+ *     responses:
+ *       200:
+ *         description: The frined was successfully found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type:
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ * /api/v1/user/{id}/friends/pending:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Get all friends pending.
+ *     tags: [Friends]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The user ID.
  *     responses:
  *       200:
  *         description: The frined was successfully found.
@@ -61,6 +83,12 @@ const router = Router();
  *           type: integer
  *         required: true
  *         description: The frined id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdateUserFriend'
  *     responses:
  *       200:
  *         description: The frined was successfully delete.
@@ -101,7 +129,9 @@ const router = Router();
 
 router.post("/user/friend", authenticate, addUserFriend);
 
-router.get("/user/:id/friends", authenticate, getUserFriends);
+router.get("/user/:id/friends/accept", authenticate, getUserFriends);
+
+router.get("/user/:id/friends/pending", authenticate, getUserFriends);
 
 router.put("/user/friend/:id/status", authenticate, acceptFriend);
 

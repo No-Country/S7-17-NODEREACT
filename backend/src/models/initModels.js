@@ -16,11 +16,11 @@ const {
 const initModels = () => {
   /* ------------------------ Relación entre usuarios amigos ------------------------ */
 
-  User.hasMany(User_Friend, { as: "friends", foreignKey: "userId" });
-  User_Friend.belongsTo(User, { as: "userFriend", foreignKey: "userId" });
+  User.hasMany(User_Friend, { as: "friends", foreignKey: "user_id" });
+  User_Friend.belongsTo(User, { as: "userFriend", foreignKey: "user_id" });
 
-  User.hasMany(User_Friend, { as: "added", foreignKey: "addedUserId" });
-  User_Friend.belongsTo(User, { as: "userAdded", foreignKey: "addedUserId" });
+  User.hasMany(User_Friend, { as: "added", foreignKey: "added_user_id" });
+  User_Friend.belongsTo(User, { as: "userAdded", foreignKey: "added_user_id" });
 
   /* -------------------------    Relación entre usuarios    ------------------------- */
 

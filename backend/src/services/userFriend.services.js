@@ -5,32 +5,29 @@ class UserFriendServices {
     try {
       const promises = [
         User_Friend.findOne({ where: { userId, addedUserId, status: "pending" } }),
-        User_Friend.findOne({
-          where: { userId: addedUserId, addedUserId: userId, status: "pending" }
-        }),
+        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "pending" } }),
         User_Friend.findOne({ where: { userId, addedUserId, status: "refuse" } }),
         User_Friend.findOne({ where: { userId, addedUserId, status: "accept" } }),
-        User_Friend.findOne({
-          where: { userId: addedUserId, addedUserId: userId, status: "accept" }
-        })
+        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "accept" } })
       ];
 
       await Promise.all(promises);
 
-      if (promises[0] || promises[1]) throw "Solicitud pendiente";
-      if (promises[2]) throw "Solicitud rechazada";
-      if (promises[3] || promises[4]) throw "¡Ya son amigos!";
+      if (promises[0].id || promises[1].id) throw "Solicitud pendiente";
+      if (promises[2].id) throw "Solicitud rechazada";
+      if (promises[3].id || promises[4].id) throw "¡Ya son amigos!";
+      
       const result = await User_Friend.create({ userId, addedUserId });
       return result;
     } catch (error) {
       throw error;
     }
   }
-  static async getUserFriends(id) {
+  static async getUserFriends(id, status) {
     try {
       const [result1, result2] = await Promise.all([
         User_Friend.findAll({
-          where: { userId: id, status: "accept" },
+          where: { userId: id, status },
           attributes: {
             exclude: ["userId", "user_id", "addedUserId", "added_user_id", "updatedAt"]
           },
@@ -43,7 +40,7 @@ class UserFriendServices {
           raw: true
         }),
         User_Friend.findAll({
-          where: { addedUserId: id, status: "accept" },
+          where: { addedUserId: id, status },
           attributes: {
             exclude: ["userId", "user_id", "addedUserId", "added_user_id", "updatedAt"]
           },

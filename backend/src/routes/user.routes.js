@@ -90,7 +90,7 @@ const router = Router();
  *   put:
  *     security:
  *       - bearerAuth: []
- *     summary: Update User prop 'online' by ID.
+ *     summary: Verify User.
  *     description: To add an image see the description in schemes > create user, section located at the bottom of the page to load an image in the API.
  *     tags: [Users]
  *     parameters:
