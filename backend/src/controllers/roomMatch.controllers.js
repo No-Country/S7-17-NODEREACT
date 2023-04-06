@@ -2,6 +2,7 @@ const { RoomServices } = require("../services");
 
 const createRoomSolitary = async (req, res, next) => {
   try {
+    console.log('hi controller')
     const room = req.body;
     const result = await RoomServices.createRoomSolitary(room);
     res.status(201).json(result);
@@ -69,11 +70,11 @@ const getAllRoom = async (req, res, next) => {
   }
 };
 
-const updateRoom = async (req, res, next) => {
+const updateRoomSolitary = async (req, res, next) => {
   try {
     const id = req.params.id;
     const updatedRoom = req.body;
-    const result = await RoomServices.updateRoom(id, updatedRoom);
+    const result = await RoomServices.updateRoomSolitary(id, updatedRoom);
     res.status(200).json(result);
   } catch (error) {
     next({
@@ -104,6 +105,6 @@ module.exports = {
   createRoomRandom,
   getRoomById,
   getAllRoom,
-  updateRoom,
+  updateRoomSolitary,
   deleteRoom
 };

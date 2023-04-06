@@ -104,27 +104,23 @@ const { DataTypes } = require("sequelize");
  *         opponentUserId: 4
  *     UpdateRoomSolitary:
  *       properties:
- *         player:
- *           type: object
- *           properties:
- *                correctAnswers:
- *                  type: integer
- *                  description: Total correct answers.
- *                incorrectAnswers:
- *                  type: integer
- *                  description: Total incorrect answers.
- *                points:
- *                  type: integer
- *                  description: Total points won.
- *                advantages:
- *                  type: integer
- *                  description: Total advantages used.
+ *         correctAnswers:
+ *           type: integer
+ *           description: Total correct answers.
+ *         incorrectAnswers:
+ *           type: integer
+ *           description: Total incorrect answers.
+ *         points:
+ *           type: integer
+ *           description: Total points won.
+ *         advantages:
+ *           type: integer
+ *           description: Total advantages used.
  *       example:
- *         player:
- *           correctAnswers: 5
- *           incorrectAnswers: 5
- *           points: 0
- *           advantages: 2
+ *         correctAnswers: 5
+ *         incorrectAnswers: 5
+ *         points: 0
+ *         advantages: 2
  *     UpdateRoomGroup:
  *       properties:
  *         player1:

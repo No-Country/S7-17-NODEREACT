@@ -24,25 +24,9 @@ const authenticate = (req, res, next) => {
   }
 };
 
-const authenticateRoom = tokenUser => {
-  if (tokenUser) {
-    try {
-      const decoded = jwt.verify(tokenUser, process.env.SECRET_KEY, "HS512");
-      return decoded;
-    } catch (error) {
-      next({
-        status: 400,
-        errorContent: error,
-        message: "Invalid Token"
-      });
-    }
-  } else {
-    next({
-      status: 400,
-      errorContent: "No token provided",
-      message: "No token provided"
-    });
-  }
+const authenticateRoom = token => {
+  if (!token) return token;
+  return jwt.verify(token, process.env.SECRET_KEY, "HS512");
 };
 
 module.exports = {

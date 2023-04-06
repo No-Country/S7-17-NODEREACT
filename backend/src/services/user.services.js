@@ -26,6 +26,7 @@ class UserServices {
   static async getUsers() {
     try {
       const result = await User.findAll({
+        where: { isVefiry: true },
         attributes: {
           exclude: ["password", "codeVerify"]
         },
@@ -43,6 +44,16 @@ class UserServices {
         order: [["points", "DESC"]]
       });
       return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async verifyUser(id, code) {
+    try {
+      const { codeVerify } = await User.findByPk(id);
+      if (code !== codeVerify) throw "Código de verificación incorrecto";
+      await User.update({ isVefiry: true }, { where: { id } });
+      return { message: "User verified" };
     } catch (error) {
       throw error;
     }

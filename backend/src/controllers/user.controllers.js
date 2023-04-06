@@ -71,6 +71,21 @@ const getTopRankedUsers = async (req, res, next) => {
   }
 };
 
+const verifyUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const codeVerify = req.body;
+    const result = await UserServices.verifyUser(id, codeVerify);
+    res.status(200).json(result);
+  } catch (error) {
+    next({
+      status: 400,
+      message: "Error al verificar al usuario",
+      errorContent: error
+    });
+  }
+};
+
 const updateOffline = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -134,6 +149,7 @@ module.exports = {
   getUserById,
   getUsers,
   getTopRankedUsers,
+  verifyUser,
   updateOffline,
   updateUser,
   updateUserPassword,

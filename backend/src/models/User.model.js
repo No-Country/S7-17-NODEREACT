@@ -78,6 +78,14 @@ const codeGenerate = () => Math.floor(Math.random() * 900000) + 100000;
  *         email: 'example@email.com'
  *         password: '123456'
  *         profileImg:
+ *     Verify:
+ *       type: object
+ *       properties:
+ *         code:
+ *           type: integer
+ *           description: The code of verify recived for email.
+ *       example:
+ *         code: 123456
  *     UpdateUser:
  *       type: object
  *       properties:

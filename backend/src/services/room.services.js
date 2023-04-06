@@ -3,8 +3,9 @@ const { Room_Match, User, Question } = require("../models");
 const getRandom = require("../utils/getRandom.js");
 
 class RoomServices {
-  static async createRoomSolitary(userId) {
+  static async createRoomSolitary({ userId }) {
     try {
+      console.log("hi service", userId);
       const questions = await Question.findAll();
       const selectedQuestions = getRandom(questions, 10);
       const newRoom = {
@@ -16,45 +17,53 @@ class RoomServices {
             incorrectAnswers: 0,
             points: 0,
             advantages: 0
-          },
-          status: "gaming",
-          typeGame: "solitary"
-        }
+          }
+        },
+        status: "gaming",
+        typeGame: "solitary"
       };
       const result = await Room_Match.create(newRoom);
       return result;
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   }
   static async createRoomFriend({ userId, opponentUserId, token }) {
     try {
-      if (authenticateRoom(token)) {
-        const questions = await Question.findAll();
-
-        const newRoom = {
-          userId,
-          opponentUserId,
-          typeGame: "friends",
-          dataRoom: {
-            questions: getRandom(questions, 10),
-            player1: {
-              correctAnswers: 0,
-              incorrectAnswers: 0,
-              points: 0,
-              advantages: 0
-            },
-            player2: {
-              correctAnswers: 0,
-              incorrectAnswers: 0,
-              points: 0,
-              advantages: 0
-            }
+      const { socketId } = await User.findByPk(opponentUserId);
+      if (!authenticateRoom(token)) {
+        return {
+          socketId,
+          data: {
+            message: "No token provided"
           }
         };
-        const roomCreated = await Room_Match.create(newRoom);
-        const user = await User.findByPk(opponentUserId);
-        //console.log(user)
-        return { roomCreated, socketId: user.socketId };
       }
+      const questions = await Question.findAll();
+
+      const newRoom = {
+        userId,
+        opponentUserId,
+        typeGame: "friends",
+        dataRoom: {
+          questions: getRandom(questions, 10),
+          player1: {
+            correctAnswers: 0,
+            incorrectAnswers: 0,
+            points: 0,
+            advantages: 0
+          },
+          player2: {
+            correctAnswers: 0,
+            incorrectAnswers: 0,
+            points: 0,
+            advantages: 0
+          }
+        }
+      };
+      const roomCreated = await Room_Match.create(newRoom);
+      //console.log(user)
+      return { socketId, data: roomCreated };
     } catch (error) {
       throw error;
     }
@@ -123,9 +132,23 @@ class RoomServices {
       throw error;
     }
   }
-  static async updateRoom(id, updatedRoom) {
+  static async updateRoomSolitary(id, dataPlayer) {
     try {
-      await Room_Match.update(updatedRoom, { where: { id } });
+      const room = await Room_Match.findByPk(id);
+      const user = await User.findByPk(room.userId);
+      const updateRoom = {
+        dataRoom: {
+          questions: room.dataRoom.questions,
+          player: { ...dataPlayer }
+        },
+        status: "finished"
+      };
+      const promise = [
+        Room_Match.update({ ...updateRoom }, { where: { id } }),
+        User.update({ points: user.points + dataPlayer.points }, { where: { id: user.id } })
+      ];
+
+      await Promise.all(promise);
       return { message: "Updated successfull" };
     } catch (error) {
       throw error;
@@ -140,62 +163,3 @@ class RoomServices {
 }
 
 module.exports = RoomServices;
-
-/* // Espera la respuesta del oponente
-            const { accepted } = await new Promise(resolve => {
-              // Crea un listener para la respuesta del oponente
-              io.to(socketId).once("response", ({ accepted }) => {
-                resolve({ accepted });
-              });
-      
-              // Configura un timeout de 30 segundos para la respuesta del oponente
-              setTimeout(() => {
-                resolve({ accepted: false });
-              }, 30000);
-            });
-      
-            // Si el oponente acepta, crea la sala y envía la respuesta al usuario que la inició
-            if (accepted) {
-              const questions = await Question.findAll();
-              const selectedQuestions = getRandomQuestions(questions, 10);
-      
-              const newRoom = {
-                userId,
-                opponentUserId,
-                dataRoom: {
-                  questions: selectedQuestions,
-                  player1: {
-                    correctAnswers: 0,
-                    incorrectAnswers: 0,
-                    points: 0,
-                    advantages: 0
-                  },
-                  player2: {
-                    correctAnswers: 0,
-                    incorrectAnswers: 0,
-                    points: 0,
-                    advantages: 0
-                  }
-                },
-                status: "gaming",
-                typeGame: "friends"
-              };
-      
-              const roomCreated = await Room_Match.create(newRoom);
-      
-              io.to(userId).emit("roomCreated");
-              return roomCreated;
-            } else {
-              // Si el oponente rechaza, envía una notificación al usuario que la inició
-              const roomRefused = {
-                userId,
-                opponentUserId,
-                status: "refused",
-                typeGame: "friends"
-              };
-      
-              const roomCreated = await RoomMatch.create(roomRefused);
-      
-              io.to(userId).emit("roomRefused");
-              return roomCreated;
-            } */

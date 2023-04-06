@@ -3,6 +3,7 @@ const {
   getUserById,
   getUsers,
   getTopRankedUsers,
+  verifyUser,
   updateOffline,
   updateUser,
   updateUserPassword,
@@ -21,7 +22,7 @@ const {
   createRoomRandom,
   getRoomById,
   getAllRoom,
-  updateRoom,
+  updateRoomSolitary,
   deleteRoom
 } = require("./roomMatch.controllers.js");
 
@@ -30,12 +31,13 @@ module.exports = {
   getUserById,
   getUsers,
   getTopRankedUsers,
+  verifyUser,
+  updateOffline,
   updateUser,
   updateUserPassword,
   deleteUser,
   userLogin,
   addUserFriend,
-  updateOffline,
   getUserFriends,
   acceptFriend,
   deleteUserFriend,
@@ -44,6 +46,6 @@ module.exports = {
   createRoomFriend,
   createRoomRandom,
   getAllRoom,
-  updateRoom,
+  updateRoomSolitary,
   deleteRoom
 };

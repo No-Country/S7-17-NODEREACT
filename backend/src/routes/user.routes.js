@@ -5,6 +5,7 @@ const {
   getUserById,
   getUsers,
   getTopRankedUsers,
+  verifyUser,
   updateOffline,
   updateUser,
   updateUserPassword,
@@ -85,6 +86,37 @@ const router = Router();
  *               type: array
  *               items:
  *                $ref: '#/components/schemas/User'
+ * /api/v1/user/{id}/verify:
+ *   put:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Update User prop 'online' by ID.
+ *     description: To add an image see the description in schemes > create user, section located at the bottom of the page to load an image in the API.
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The User id.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Verify'
+ *     responses:
+ *       200:
+ *         description: The User was successfully updated.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Updated successfull"
  * /api/v1/user/{id}/offline:
  *   put:
  *     security:
@@ -204,7 +236,9 @@ router.get("/user/:id", authenticate, getUserById);
 
 router.get("/users/all", authenticate, getUsers);
 
-router.get("/users/ranking", getTopRankedUsers);
+router.get("/users/ranking", authenticate, getTopRankedUsers);
+
+router.put("/user/:id/verify", authenticate, verifyUser);
 
 router.put("/user/:id/offline", authenticate, updateOffline);
 
