@@ -87,18 +87,14 @@ const router = Router();
 
 router.post("/room/solitary", authenticate, createRoomSolitary);
 
-/* router.post("/room/friend", authenticate, createRoomFriend);
-
-router.post("/room/random", authenticate, createRoomRandom); */
-
 router.get("/room/:id", authenticate, getRoomById);
 
 //router.get("/room/user/:id", authenticate, getAllRoom);
 
 router.put("/room/:id/solitary", authenticate, updateRoomSolitary);
 
-/* router.put("/room/:id/group", authenticate, updateRoom); */
+//router.put("/room/:id/group", authenticate, updateRoom);
 
-router.delete("/room/:id", authenticate, deleteRoom);
+//router.delete("/room/:id", authenticate, deleteRoom);
 
 module.exports = router;

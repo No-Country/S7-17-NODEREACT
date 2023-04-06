@@ -1,5 +1,5 @@
 const { User } = require("./models");
-const { createRoomFriend } = require("./services/room.services");
+const { createRoomFriend, createRoomRandom } = require("./services/room.services");
 
 module.exports = io => {
   io.on("connection", socket => {
