@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { addUserFriend, getUserFriends, acceptFriend, deleteUserFriend } = require("../controllers");
+const { addUserFriend, getUserFriends, acceptFriend, deleteFriend } = require("../controllers");
 const { authenticate } = require("../middlewares/auth.middleware");
 
 const router = Router();
@@ -10,7 +10,7 @@ const router = Router();
  *   post:
  *     security:
  *       - bearerAuth: []
- *     summary: Add a new frined.
+ *     summary: Add a new friend.
  *     tags: [Friends]
  *     requestBody:
  *       required: true
@@ -20,7 +20,7 @@ const router = Router();
  *             $ref: '#/components/schemas/AddUserFriend'
  *     responses:
  *       201:
- *         description: The frined was successfully found.
+ *         description: The friend request was successfully sent.
  *         content:
  *           application/json:
  *             schema:
@@ -40,7 +40,7 @@ const router = Router();
  *         description: The user ID.
  *     responses:
  *       200:
- *         description: The frined was successfully found.
+ *         description: The friends were successfully found.
  *         content:
  *           application/json:
  *             schema:
@@ -51,7 +51,7 @@ const router = Router();
  *   get:
  *     security:
  *       - bearerAuth: []
- *     summary: Get all friends pending.
+ *     summary: Get all pending friends.
  *     tags: [Friends]
  *     parameters:
  *       - in: path
@@ -62,7 +62,7 @@ const router = Router();
  *         description: The user ID.
  *     responses:
  *       200:
- *         description: The frined was successfully found.
+ *         description: The pending friends were successfully found.
  *         content:
  *           application/json:
  *             schema:
@@ -73,7 +73,7 @@ const router = Router();
  *   put:
  *     security:
  *       - bearerAuth: []
- *     summary: Accept or Refuse frined.
+ *     summary: Accept or Refuse friend.
  *     description: Accepted values for this Endpoint, "accept" or "refuse".
  *     tags: [Friends]
  *     parameters:
@@ -82,7 +82,7 @@ const router = Router();
  *         schema:
  *           type: integer
  *         required: true
- *         description: The frined id
+ *         description: The friend id
  *     requestBody:
  *       required: true
  *       content:
@@ -91,7 +91,7 @@ const router = Router();
  *             $ref: '#/components/schemas/UpdateUserFriend'
  *     responses:
  *       200:
- *         description: The frined was successfully delete.
+ *         description: The friend was successfully updated.
  *         content:
  *           application/json:
  *             schema:
@@ -99,12 +99,12 @@ const router = Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Updated successfull"
+ *                   example: "Updated successfully"
  * /api/v1/user/friend/delete/{id}:
  *   delete:
  *     security:
  *       - bearerAuth: []
- *     summary: Delete a frined.
+ *     summary: Delete a friend.
  *     description: To remove a friend, you must send the ID of the record where you specify the friendship relationship.
  *     tags: [Friends]
  *     parameters:
@@ -113,10 +113,10 @@ const router = Router();
  *         schema:
  *           type: integer
  *         required: true
- *         description: The register frined id
+ *         description: The friend id
  *     responses:
  *       200:
- *         description: The frined was successfully delete.
+ *         description: The friend was successfully deleted.
  *         content:
  *           application/json:
  *             schema:
@@ -124,7 +124,7 @@ const router = Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Deleted successfull"
+ *                   example: "Deleted successfully"
  */
 
 router.post("/user/friend", authenticate, addUserFriend);
@@ -135,6 +135,6 @@ router.get("/user/:id/friends/pending", authenticate, getUserFriends);
 
 router.put("/user/friend/:id/status", authenticate, acceptFriend);
 
-router.delete("/user/friend/delete/:id", authenticate, deleteUserFriend);
+router.delete("/user/friend/delete/:id", authenticate, deleteFriend);
 
 module.exports = router;

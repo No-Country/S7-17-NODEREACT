@@ -19,11 +19,10 @@ const uploadPhoto = async file => {
   const command = new PutObjectCommand(params);
 
   try {
-    const data = await s3Client.send(command);
+    await s3Client.send(command);
     const url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
     return url;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };

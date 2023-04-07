@@ -11,7 +11,7 @@ module.exports = io => {
       User.update({ socketId: socket.id, online: true }, { where: { id } });
     });
 
-    /* Escuchamos el evento socket invitar frined */
+    /* Escuchamos el evento socket invitar friend */
 
     socket.on("invitar friend", async data => {
       const result = await createRoomFriend(data);
