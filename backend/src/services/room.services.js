@@ -1,25 +1,34 @@
 const { authenticateRoom } = require("../middlewares/auth.middleware");
 const { Room_Match, User, Question, User_Advantage } = require("../models");
 const getRandom = require("../utils/getRandom.js");
+const dataRoom = {
+  questions: getRandom(10),
+  player1: {
+    correctAnswers: 0,
+    incorrectAnswers: 0,
+    points: 0,
+    hammer: 0,
+    magicWand: 0
+  },
+  player2: {
+    correctAnswers: 0,
+    incorrectAnswers: 0,
+    points: 0,
+    hammer: 0,
+    magicWand: 0
+  }
+};
 
 class RoomServices {
   static async createRoomSolitary({ userId }) {
     try {
-      console.log("hi service", userId);
-      const questions = await Question.findAll();
-      const selectedQuestions = getRandom(questions, 10);
       const newRoom = {
         userId,
         dataRoom: {
-          questions: [...selectedQuestions],
-          player: {
-            correctAnswers: 0,
-            incorrectAnswers: 0,
-            points: 0,
-            advantages: 0
-          }
+          questions: dataRoom.questions,
+          player: dataRoom.player1
         },
-        status: "gaming",
+        status: "playing",
         typeGame: "solitary"
       };
       const result = await Room_Match.create(newRoom);
@@ -31,38 +40,15 @@ class RoomServices {
   static async createRoomFriend({ userId, opponentUserId, token }) {
     try {
       const { socketId } = await User.findByPk(opponentUserId);
-      if (!authenticateRoom(token)) {
-        return {
-          socketId,
-          data: {
-            message: "No token provided"
-          }
-        };
-      }
-      const questions = await Question.findAll();
+      if (!authenticateRoom(token)) return { socketId, data: { message: "No token provided" } };
 
       const newRoom = {
         userId,
         opponentUserId,
         typeGame: "friends",
-        dataRoom: {
-          questions: getRandom(questions, 10),
-          player1: {
-            correctAnswers: 0,
-            incorrectAnswers: 0,
-            points: 0,
-            advantages: 0
-          },
-          player2: {
-            correctAnswers: 0,
-            incorrectAnswers: 0,
-            points: 0,
-            advantages: 0
-          }
-        }
+        dataRoom
       };
       const roomCreated = await Room_Match.create(newRoom);
-      //console.log(user)
       return { socketId, data: roomCreated };
     } catch (error) {
       throw error;
@@ -70,48 +56,49 @@ class RoomServices {
   }
   static async createRoomRandom({ userId }) {
     try {
+      //Primero buscamos una lista de salas disponibles
       const roomAvailable = await Room_Match.findAll({
         where: { typeGame: "random", status: "waiting" }
       });
-      const questions = await Question.findAll();
-      const selectedQuestions = getRandom(questions, 10);
+
+      //Si exísten salas disponibles se ejecuta el siguiente código
       if (roomAvailable.length >= 1) {
-        console.log("hi1");
+        //A continuación seleccionamos de manera aleatoria una sala disponible
         const randomIndex = Math.floor(Math.random() * roomAvailable.length);
         const roomSelected = roomAvailable[randomIndex];
-        roomSelected.status = "gaming";
+
+        //Cambiamos el estado de "esperando" a "jugando" y agregamos el usuario como oponente.
+        roomSelected.status = "playing";
         roomSelected.opponentUserId = userId;
+
+        //Guardamos la actualización en la base de datos
         await Room_Match.update(
-          { status: "gaming", opponentUserId: userId },
+          { status: "playing", opponentUserId: userId },
           { where: { id: roomSelected.id } }
         );
 
-        return roomSelected;
+        //Buscamos el socket ID del usuario creador de la sala
+        const { socketId } = await User.findByPk(roomSelected.userId);
+
+        return { id: 1, socketId, data: roomSelected };
+
+        //Si NO exísten salas disponibles se ejecuta el siguiente código
       } else {
-        console.log("hi2");
+        //Creamos la base para una sala en espera de jugadores
         const newRoom = {
           userId,
-          dataRoom: {
-            questions: [...selectedQuestions],
-            player1: {
-              correctAnswers: 0,
-              incorrectAnswers: 0,
-              points: 0,
-              advantages: 0
-            },
-            player2: {
-              correctAnswers: 0,
-              incorrectAnswers: 0,
-              points: 0,
-              advantages: 0
-            }
-          }
+          dataRoom
         };
 
+        //Validacions de seguridad, Verificamops que una sala con las mismas caracteristicas no exista
+        const room = await Room_Match.findOne({
+          where: { userId, satus: "waiting", typeGame: "random" }
+        });
+
+        //Generamos la sala en la base de datos
         const roomCreated = await Room_Match.create(newRoom);
 
-        //io.to().emit("invite", roomCreated);
-        return roomCreated;
+        return { id: 2, socketId, data: roomCreated };
       }
     } catch (error) {
       throw error;

@@ -1,8 +1,6 @@
 const { Router } = require("express");
 const {
   createRoomSolitary,
-  createRoomFriend,
-  createRoomRandom,
   getRoomById,
   getAllRoom,
   updateRoomSolitary,

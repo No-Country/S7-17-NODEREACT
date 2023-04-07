@@ -209,7 +209,7 @@ const Room_Match = db.define("room_match", {
     field: "data_room"
   },
   status: {
-    type: DataTypes.ENUM("waiting", "gaming", "refused", "finished"),
+    type: DataTypes.ENUM("waiting", "playing", "refused", "finished"),
     defaultValue: "waiting"
   },
   typeGame: {

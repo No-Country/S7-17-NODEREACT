@@ -18,8 +18,6 @@ const {
 } = require("./userFriend.controllers.js");
 const {
   createRoomSolitary,
-  createRoomFriend,
-  createRoomRandom,
   getRoomById,
   getAllRoom,
   updateRoomSolitary,
@@ -43,8 +41,6 @@ module.exports = {
   deleteUserFriend,
   getRoomById,
   createRoomSolitary,
-  createRoomFriend,
-  createRoomRandom,
   getAllRoom,
   updateRoomSolitary,
   deleteRoom

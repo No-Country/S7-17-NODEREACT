@@ -1,4 +1,7 @@
-const getRandom = (questions, count) => {
+const { Question } = require("../models");
+
+const getRandom = async count => {
+  const questions = await Question.findAll();
   const result = [];
   while (result.length < count) {
     const randomIndex = Math.floor(Math.random() * questions.length);

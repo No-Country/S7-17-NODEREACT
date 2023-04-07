@@ -15,35 +15,6 @@ const createRoomSolitary = async (req, res, next) => {
   }
 };
 
-const createRoomFriend = async (req, res, next) => {
-  try {
-    const body = req.body;
-    const result = await RoomServices.createRoomFriend(body);
-    res.status(201).json(result);
-  } catch (error) {
-    next({
-      status: 400,
-      message: "Error al crear Room",
-      errorContent: error
-    });
-  }
-};
-
-const createRoomRandom = async (req, res, next) => {
-  try {
-    const body = req.body;
-    const result = await RoomServices.createRoomRandom(body);
-    if (result) res.status(201).json(result);
-    if (!result) res.status(404).json({ message: "Opponent not found" });
-  } catch (error) {
-    next({
-      status: 400,
-      message: "Error al crear Room",
-      errorContent: error
-    });
-  }
-};
-
 const getRoomById = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -101,8 +72,6 @@ const deleteRoom = async (req, res, next) => {
 
 module.exports = {
   createRoomSolitary,
-  createRoomFriend,
-  createRoomRandom,
   getRoomById,
   getAllRoom,
   updateRoomSolitary,

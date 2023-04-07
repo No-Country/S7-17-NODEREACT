@@ -26,7 +26,7 @@ class UserServices {
   static async getUsers() {
     try {
       const result = await User.findAll({
-        where: { isVefiry: true },
+        where: { isVerify: true },
         attributes: {
           exclude: ["password", "codeVerify"]
         },
@@ -48,7 +48,7 @@ class UserServices {
       throw error;
     }
   }
-  static async verifyUser(id, {code}) {
+  static async verifyUser(id, { code }) {
     try {
       const { codeVerify } = await User.findByPk(id);
       if (code !== codeVerify) throw "Código de verificación incorrecto";
