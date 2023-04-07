@@ -4,19 +4,23 @@ class UserFriendServices {
   static async addUserFriend({ userId, addedUserId }) {
     try {
       const promises = [
-        User_Friend.findOne({ where: { userId, addedUserId, status: "pending" } }),
-        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "pending" } }),
+        User_Friend.findOne({ where: { userId: 2, addedUserId: 1, status: "pending" } }),
+        User_Friend.findOne({
+          where: { userId: addedUserId, addedUserId: userId, status: "pending" }
+        }),
         User_Friend.findOne({ where: { userId, addedUserId, status: "refuse" } }),
         User_Friend.findOne({ where: { userId, addedUserId, status: "accept" } }),
-        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "accept" } })
+        User_Friend.findOne({
+          where: { userId: addedUserId, addedUserId: userId, status: "accept" }
+        })
       ];
 
-      await Promise.all(promises);
+      const promisesAll = await Promise.all(promises);
 
-      if (promises[0].id || promises[1].id) throw "Solicitud pendiente";
-      if (promises[2].id) throw "Solicitud rechazada";
-      if (promises[3].id || promises[4].id) throw "¡Ya son amigos!";
-      
+      if (promisesAll[0].id || promisesAll[1].id) throw "Solicitud pendiente";
+      if (promisesAll[2].id) throw "Solicitud rechazada";
+      if (promisesAll[3].id || promisesAll[4].id) throw "¡Ya son amigos!";
+
       const result = await User_Friend.create({ userId, addedUserId });
       return result;
     } catch (error) {
@@ -34,10 +38,8 @@ class UserFriendServices {
           include: {
             model: User,
             as: "userAdded",
-            attributes: ["id", "username", "email", "profileImg", "online", "status"],
-            raw: true
-          },
-          raw: true
+            attributes: ["id", "username", "email", "profileImg", "online", "status"]
+          }
         }),
         User_Friend.findAll({
           where: { addedUserId: id, status },
@@ -47,10 +49,8 @@ class UserFriendServices {
           include: {
             model: User,
             as: "userFriend",
-            attributes: ["id", "username", "email", "profileImg", "online", "status"],
-            raw: true
-          },
-          raw: true
+            attributes: ["id", "username", "email", "profileImg", "online", "status"]
+          }
         })
       ]);
       const result = [...result1, ...result2];
