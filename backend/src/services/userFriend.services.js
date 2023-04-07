@@ -13,9 +13,9 @@ class UserFriendServices {
 
       const promisesAll = await Promise.all(promises);
 
-      if (promisesAll[0].id || promisesAll[1].id) throw "Solicitud pendiente";
-      if (promisesAll[2].id) throw "Solicitud rechazada";
-      if (promisesAll[3].id || promisesAll[4].id) throw "¡Ya son amigos!";
+      if (promisesAll[0]|| promisesAll[1]) throw "Solicitud pendiente";
+      if (promisesAll[2]) throw "Solicitud rechazada";
+      if (promisesAll[3] || promisesAll[4]) throw "Ya son amigos";
 
       const result = await User_Friend.create({ userId, addedUserId });
       return result;
