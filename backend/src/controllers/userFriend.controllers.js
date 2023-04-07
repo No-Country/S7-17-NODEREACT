@@ -3,6 +3,7 @@ const { UserFriendServices } = require("../services");
 const addUserFriend = async (req, res, next) => {
   try {
     const body = req.body;
+
     const result = await UserFriendServices.addUserFriend(body);
     res.status(201).json(result);
   } catch (error) {
@@ -19,6 +20,7 @@ const getUserFriends = async (req, res, next) => {
     const { id } = req.params;
     const path = req.route.path.split("/");
     const status = path[path.length - 1];
+
     const result = await UserFriendServices.getUserFriends(id, status);
     res.status(200).json(result);
   } catch (error) {
@@ -34,21 +36,23 @@ const acceptFriend = async (req, res, next) => {
   try {
     const { id } = req.params;
     const body = req.body;
+
     const result = await UserFriendServices.acceptFriend(id, body);
     res.status(200).json(result);
   } catch (error) {
     next({
       status: 400,
-      message: "Error al eliminar amigo",
+      message: "Error al aceptar amigo",
       errorContent: error
     });
   }
 };
 
-const deleteUserFriend = async (req, res, next) => {
+const deleteFriend = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const result = await UserFriendServices.deleteUserFriend(id);
+
+    const result = await UserFriendServices.deleteFriend(id);
     res.status(200).json(result);
   } catch (error) {
     next({
@@ -63,5 +67,5 @@ module.exports = {
   addUserFriend,
   getUserFriends,
   acceptFriend,
-  deleteUserFriend
+  deleteFriend
 };
