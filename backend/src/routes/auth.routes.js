@@ -49,22 +49,6 @@ const router = Router();
  *                   type: string
  *                   description: Picture of the user.
  *                   example: 'https://mypictureprofile.png'
- *                 lifes:
- *                   type: integer
- *                   description: The lifes of the user.
- *                   example: 5
- *                 points:
- *                   type: integer
- *                   description: The points of the user.
- *                   example: 100
- *                 coins:
- *                   type: integer
- *                   description: The coins of the user.
- *                   example: 150
- *                 online:
- *                   type: boolen
- *                   description: Current status of the user.
- *                   example: true
  *                 token:
  *                   type: string
  *                   description: Value Token

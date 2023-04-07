@@ -70,7 +70,6 @@ const router = Router();
  *               type: array
  *               items:
  *                $ref: '#/components/schemas/User'
-
  * /api/v1/users/ranking:
  *   get:
  *     security:
@@ -90,7 +89,7 @@ const router = Router();
  *   put:
  *     security:
  *       - bearerAuth: []
- *     summary: Verify User.
+ *     summary: Verify User by ID.
  *     description: To add an image see the description in schemes > create user, section located at the bottom of the page to load an image in the API.
  *     tags: [Users]
  *     parameters:
@@ -108,7 +107,7 @@ const router = Router();
  *             $ref: '#/components/schemas/Verify'
  *     responses:
  *       200:
- *         description: The User was successfully updated.
+ *         description: The User was successfully verified.
  *         content:
  *           application/json:
  *             schema:
@@ -116,7 +115,7 @@ const router = Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Updated successfull"
+ *                   example: "User verified successfully"
  * /api/v1/user/{id}/offline:
  *   put:
  *     security:
@@ -141,7 +140,7 @@ const router = Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Updated successfull"
+ *                   example: "User prop 'online' updated successfully"
  * /api/v1/user/{id}/update:
  *   put:
  *     security:
@@ -171,12 +170,12 @@ const router = Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Updated successfull"
+ *                   example: "User updated successfully"
  * /api/v1/user/:id/update/password:
  *   put:
  *     security:
  *       - bearerAuth: []
- *     summary: Update password a User by ID.
+ *     summary: Update User Password by ID.
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -193,7 +192,7 @@ const router = Router();
  *             $ref: '#/components/schemas/UpdatePasswordUser'
  *     responses:
  *       200:
- *         description: The User was successfully updated.
+ *         description: The User Password was successfully updated.
  *         content:
  *           application/json:
  *             schema:
@@ -201,7 +200,7 @@ const router = Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Updated successfull"
+ *                   example: "User Password updated successfully"
  * /api/v1/user/{id}/delete:
  *   delete:
  *     security:
@@ -225,7 +224,7 @@ const router = Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Deleted successfull"
+ *                   example: "User deleted successfully"
  */
 
 const upload = multer();
