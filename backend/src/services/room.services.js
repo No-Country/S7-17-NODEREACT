@@ -1,13 +1,12 @@
 const { authenticateRoom } = require("../middlewares/auth.middleware");
-const { Room_Match, User, Question, User_Advantage } = require("../models");
-const getRandom = require("../utils/getRandom.js");
+const { Room_Match, User, User_Advantage } = require("../models");
+const getRandomQuestions = require("../utils/randomQuestions.js");
 
 class RoomServices {
   static async createRoomSolitary({ userId }) {
     try {
-      console.log("hi service", userId);
-      const questions = await Question.findAll();
-      const selectedQuestions = getRandom(questions, 10);
+      const selectedQuestions = getRandomQuestions();
+
       const newRoom = {
         userId,
         dataRoom: {
@@ -22,6 +21,7 @@ class RoomServices {
         status: "gaming",
         typeGame: "solitary"
       };
+
       const result = await Room_Match.create(newRoom);
       return result;
     } catch (error) {
@@ -30,23 +30,16 @@ class RoomServices {
   }
   static async createRoomFriend({ userId, opponentUserId, token }) {
     try {
-      const { socketId } = await User.findByPk(opponentUserId);
-      if (!authenticateRoom(token)) {
-        return {
-          socketId,
-          data: {
-            message: "No token provided"
-          }
-        };
-      }
-      const questions = await Question.findAll();
+      if (!authenticateRoom(token)) throw "No token provided";
+
+      const selectedQuestions = getRandomQuestions();
 
       const newRoom = {
         userId,
         opponentUserId,
         typeGame: "friends",
         dataRoom: {
-          questions: getRandom(questions, 10),
+          questions: [...selectedQuestions],
           player1: {
             correctAnswers: 0,
             incorrectAnswers: 0,
@@ -61,8 +54,9 @@ class RoomServices {
           }
         }
       };
+
+      const { socketId } = await User.findByPk(opponentUserId);
       const roomCreated = await Room_Match.create(newRoom);
-      //console.log(user)
       return { socketId, data: roomCreated };
     } catch (error) {
       throw error;
@@ -73,12 +67,13 @@ class RoomServices {
       const roomAvailable = await Room_Match.findAll({
         where: { typeGame: "random", status: "waiting" }
       });
-      const questions = await Question.findAll();
-      const selectedQuestions = getRandom(questions, 10);
+
+      const selectedQuestions = getRandomQuestions();
+
       if (roomAvailable.length >= 1) {
-        console.log("hi1");
         const randomIndex = Math.floor(Math.random() * roomAvailable.length);
         const roomSelected = roomAvailable[randomIndex];
+
         roomSelected.status = "gaming";
         roomSelected.opponentUserId = userId;
         await Room_Match.update(
@@ -88,7 +83,6 @@ class RoomServices {
 
         return roomSelected;
       } else {
-        console.log("hi2");
         const newRoom = {
           userId,
           dataRoom: {
@@ -109,8 +103,6 @@ class RoomServices {
         };
 
         const roomCreated = await Room_Match.create(newRoom);
-
-        //io.to().emit("invite", roomCreated);
         return roomCreated;
       }
     } catch (error) {
@@ -119,7 +111,8 @@ class RoomServices {
   }
   static async getRoomById(id) {
     try {
-      if (!id) throw "Id is not found";
+      if (!id) throw "Id not found";
+
       const result = await Room_Match.findByPk(id);
       return result;
     } catch (error) {
@@ -138,6 +131,7 @@ class RoomServices {
       const user = await User.findByPk(room.userId);
       const hammer = await User_Advantage.findOne({ where: { advantageId: 1 } });
       const magicWand = await User_Advantage.findOne({ where: { advantageId: 2 } });
+
       const updateRoom = {
         dataRoom: {
           questions: room.dataRoom.questions,
@@ -145,6 +139,7 @@ class RoomServices {
         },
         status: "finished"
       };
+
       const promise = [
         Room_Match.update({ ...updateRoom }, { where: { id } }),
         User.update({ points: user.points + dataPlayer.points }, { where: { id: user.id } }),
@@ -157,9 +152,9 @@ class RoomServices {
           { where: { userId: user.id, advantageId: 2 } }
         )
       ];
-
       await Promise.all(promise);
-      return { message: "Updated successfull" };
+
+      return { message: "Room updated successfully" };
     } catch (error) {
       throw error;
     }
