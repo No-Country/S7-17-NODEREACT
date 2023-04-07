@@ -1,9 +1,10 @@
 const app = require("./app");
 const http = require("http");
 const swaggerDocs = require("../swagger");
+const socketIO = require("socket.io");
+
 const server = http.createServer(app);
-const sockeIO = require("socket.io");
-const io = sockeIO(server, {
+const io = socketIO(server, {
   cors: {
     origin: "*"
   }
