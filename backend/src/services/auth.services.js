@@ -7,14 +7,18 @@ class AuthServices {
   static async authenticate(credentials) {
     try {
       const { username, password, socketId } = credentials;
-      const getUser = await User.findOne({
+
+      const userFound = await User.findOne({
         where: { username }
       });
-      await User.update({ socketId }, { where: { id: getUser.id } });
-      if (!getUser) throw "User not found.";
-      const isValid = bcrypt.compareSync(password, getUser.password);
-      if (!isValid) throw "Incorrect password.";
-      return { isValid, getUser };
+      if (!userFound) throw "User not found";
+
+      const isValid = bcrypt.compareSync(password, userFound.password);
+      if (!isValid) throw "Incorrect password";
+
+      await User.update({ socketId }, { where: { id: userFound.id } });
+
+      return { isValid, userFound };
     } catch (error) {
       throw error;
     }

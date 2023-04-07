@@ -5,18 +5,21 @@ class UserFriendServices {
     try {
       const promises = [
         User_Friend.findOne({ where: { userId, addedUserId, status: "pending" } }),
-        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "pending" } }),
+        User_Friend.findOne({
+          where: { userId: addedUserId, addedUserId: userId, status: "pending" }
+        }),
         User_Friend.findOne({ where: { userId, addedUserId, status: "refuse" } }),
         User_Friend.findOne({ where: { userId, addedUserId, status: "accept" } }),
-        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "accept" } })
+        User_Friend.findOne({
+          where: { userId: addedUserId, addedUserId: userId, status: "accept" }
+        })
       ];
-
       await Promise.all(promises);
 
-      if (promises[0].id || promises[1].id) throw "Solicitud pendiente";
-      if (promises[2].id) throw "Solicitud rechazada";
-      if (promises[3].id || promises[4].id) throw "¡Ya son amigos!";
-      
+      if (promises[0].id || promises[1].id) throw "Friend request pending";
+      if (promises[2].id) throw "Friend request refused";
+      if (promises[3].id || promises[4].id) throw "Already friends";
+
       const result = await User_Friend.create({ userId, addedUserId });
       return result;
     } catch (error) {
@@ -53,6 +56,7 @@ class UserFriendServices {
           raw: true
         })
       ]);
+
       const result = [...result1, ...result2];
       return result;
     } catch (error) {
@@ -62,15 +66,17 @@ class UserFriendServices {
   static async acceptFriend(id, status) {
     try {
       await User_Friend.update(status, { where: { id } });
-      return { message: "Updated successfully" };
+
+      return { message: "Friend accepted successfully" };
     } catch (error) {
       throw error;
     }
   }
-  static async deleteUserFriend(id) {
+  static async deleteFriend(id) {
     try {
       await User_Friend.destroy({ where: { id } });
-      return { message: "Deleted successfully" };
+
+      return { message: "Friend deleted successfully" };
     } catch (error) {
       throw error;
     }
