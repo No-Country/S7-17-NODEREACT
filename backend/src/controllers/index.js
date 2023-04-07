@@ -14,7 +14,7 @@ const {
   addUserFriend,
   getUserFriends,
   acceptFriend,
-  deleteUserFriend
+  deleteFriend
 } = require("./userFriend.controllers.js");
 const {
   createRoomSolitary,
@@ -38,7 +38,7 @@ module.exports = {
   addUserFriend,
   getUserFriends,
   acceptFriend,
-  deleteUserFriend,
+  deleteFriend,
   getRoomById,
   createRoomSolitary,
   getAllRoom,

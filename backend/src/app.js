@@ -5,6 +5,7 @@ const db = require("./utils/database");
 const handleError = require("./middlewares/error.middleware");
 const initModels = require("./models/initModels");
 const { UserRoutes, AuthRoutes, UserFriendRoutes, RoomMatchRoutes } = require("./routes/index");
+require("dotenv").config();
 
 const app = express();
 

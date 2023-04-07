@@ -1,6 +1,6 @@
 const { authenticateRoom } = require("../middlewares/auth.middleware");
 const { Room_Match, User, Question, User_Advantage } = require("../models");
-const getRandom = require("../utils/getRandom.js");
+const getRandom = require("../utils/randomQuestions.js");
 const dataRoom = {
   questions: getRandom(10),
   player1: {
@@ -31,6 +31,7 @@ class RoomServices {
         status: "playing",
         typeGame: "solitary"
       };
+
       const result = await Room_Match.create(newRoom);
       return result;
     } catch (error) {
@@ -48,6 +49,7 @@ class RoomServices {
         typeGame: "friends",
         dataRoom
       };
+
       const roomCreated = await Room_Match.create(newRoom);
       return { socketId, data: roomCreated };
     } catch (error) {
@@ -106,7 +108,8 @@ class RoomServices {
   }
   static async getRoomById(id) {
     try {
-      if (!id) throw "Id is not found";
+      if (!id) throw "Id not found";
+
       const result = await Room_Match.findByPk(id);
       return result;
     } catch (error) {
@@ -125,6 +128,7 @@ class RoomServices {
       const user = await User.findByPk(room.userId);
       const hammer = await User_Advantage.findOne({ where: { advantageId: 1 } });
       const magicWand = await User_Advantage.findOne({ where: { advantageId: 2 } });
+
       const updateRoom = {
         dataRoom: {
           questions: room.dataRoom.questions,
@@ -132,6 +136,7 @@ class RoomServices {
         },
         status: "finished"
       };
+
       const promise = [
         Room_Match.update({ ...updateRoom }, { where: { id } }),
         User.update({ points: user.points + dataPlayer.points }, { where: { id: user.id } }),
@@ -144,9 +149,9 @@ class RoomServices {
           { where: { userId: user.id, advantageId: 2 } }
         )
       ];
-
       await Promise.all(promise);
-      return { message: "Updated successfull" };
+
+      return { message: "Room updated successfully" };
     } catch (error) {
       throw error;
     }

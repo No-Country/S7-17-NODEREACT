@@ -12,11 +12,13 @@ module.exports = io => {
       if (user.id) User.update({ socketId: socket.id, online: true }, { where: { id } });
     });
 
-    /* Escuchamos el evento socket invitar frined */
+    /* Escuchamos el evento socket invitar friend */
 
     socket.on("invitation friend", async data => {
+      
       //Esperamos que a función createRoomFriend cree la sala de juego y retorne el socket ID del oponente
       const result = await createRoomFriend(data);
+      
       //Emitimos un mensaje de invitacion al oponente con los datos de la sala
       io.to(result.socketId).emit("invite", result.data);
     });
@@ -24,8 +26,10 @@ module.exports = io => {
     /* Escuchamos el evento socket invitación aleatoria */
 
     socket.on("invitation random", async data => {
+      
       //Esperamos que a función createRoomRandom cree la sala de juego y retorne el socket ID del oponente aleatorio
       const result = await createRoomRandom(data);
+      
       //Emitimos un mensaje de invitacion al oponente aleatorio con los datos de la sala
       io.to(result.socketId).emit("invite", result.data);
     });

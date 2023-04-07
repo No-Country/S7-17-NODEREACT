@@ -51,8 +51,10 @@ class UserServices {
   static async verifyUser(id, { code }) {
     try {
       const { codeVerify } = await User.findByPk(id);
-      if (code !== codeVerify) throw "Código de verificación incorrecto";
+      if (code !== codeVerify) throw "Incorrect verification code";
+
       await User.update({ isVerify: true }, { where: { id } });
+
       return { message: "User verified" };
     } catch (error) {
       throw error;
@@ -61,7 +63,8 @@ class UserServices {
   static async updateOffline(id) {
     try {
       await User.update({ online: false }, { where: { id } });
-      return { message: "Updated successfully" };
+
+      return { message: "User Online updated successfully" };
     } catch (error) {
       throw error;
     }
@@ -69,6 +72,7 @@ class UserServices {
   static async updateUser(id, body) {
     try {
       await User.update(body, { where: { id } });
+
       return { message: "User updated successfully" };
     } catch (error) {
       throw error;
@@ -78,8 +82,10 @@ class UserServices {
     try {
       const { getUser } = AuthServices.authenticate(credentials);
       const hash = bcrypt.hashSync(credentials.newPassword, 8);
+
       await User.update({ password: hash }, { where: { id: getUser.id } });
-      return { message: "Password updated successfully" };
+
+      return { message: "User Password updated successfully" };
     } catch (error) {
       throw error;
     }
@@ -87,6 +93,7 @@ class UserServices {
   static async deleteUser(id) {
     try {
       await User.destroy({ where: { id } });
+
       return { message: "User deleted successfully" };
     } catch (error) {
       throw error;

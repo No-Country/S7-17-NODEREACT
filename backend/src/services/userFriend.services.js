@@ -4,15 +4,11 @@ class UserFriendServices {
   static async addUserFriend({ userId, addedUserId }) {
     try {
       const promises = [
-        User_Friend.findOne({ where: { userId: 2, addedUserId: 1, status: "pending" } }),
-        User_Friend.findOne({
-          where: { userId: addedUserId, addedUserId: userId, status: "pending" }
-        }),
+        User_Friend.findOne({ where: { userId, addedUserId, status: "pending" } }),
+        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "pending" } }),
         User_Friend.findOne({ where: { userId, addedUserId, status: "refuse" } }),
         User_Friend.findOne({ where: { userId, addedUserId, status: "accept" } }),
-        User_Friend.findOne({
-          where: { userId: addedUserId, addedUserId: userId, status: "accept" }
-        })
+        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "accept" } })
       ];
 
       const promisesAll = await Promise.all(promises);
@@ -53,6 +49,7 @@ class UserFriendServices {
           }
         })
       ]);
+
       const result = [...result1, ...result2];
       return result;
     } catch (error) {
@@ -62,15 +59,17 @@ class UserFriendServices {
   static async acceptFriend(id, status) {
     try {
       await User_Friend.update(status, { where: { id } });
-      return { message: "Updated successfully" };
+
+      return { message: "Friend accepted successfully" };
     } catch (error) {
       throw error;
     }
   }
-  static async deleteUserFriend(id) {
+  static async deleteFriend(id) {
     try {
       await User_Friend.destroy({ where: { id } });
-      return { message: "Deleted successfully" };
+
+      return { message: "Friend deleted successfully" };
     } catch (error) {
       throw error;
     }
