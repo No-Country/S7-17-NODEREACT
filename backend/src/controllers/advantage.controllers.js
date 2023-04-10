@@ -28,4 +28,20 @@ const getUserAdvantages = async (req, res, next) => {
   }
 };
 
-module.exports = { getAdvantages, getUserAdvantages };
+const updateUserAdvantages = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const body = req.body;
+
+    const userAdvantages = await AdvantageServices.updateUserAdvantages(id, body);
+    res.status(200).json(userAdvantages);
+  } catch (error) {
+    next({
+      status: 400,
+      message: "Error al obtener ventajas de usuario",
+      errorContent: error
+    });
+  }
+};
+
+module.exports = { getAdvantages, getUserAdvantages, updateUserAdvantages };
