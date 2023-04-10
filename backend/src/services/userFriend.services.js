@@ -34,7 +34,7 @@ class UserFriendServices {
           include: {
             model: User,
             as: "userAdded",
-            attributes: ["id", "username", "email", "profileImg", "online", "status"]
+            attributes: ["id", "username", "email", "profileImg", "points", "online", "status"]
           }
         }),
         User_Friend.findAll({
@@ -45,13 +45,16 @@ class UserFriendServices {
           include: {
             model: User,
             as: "userFriend",
-            attributes: ["id", "username", "email", "profileImg", "online", "status"]
+            attributes: ["id", "username", "email", "profileImg", "points", "online", "status"]
           }
         })
       ]);
 
-      const result = [...result1, ...result2];
-      return result;
+      if ( status === "accept"){
+        return [...result1, ...result2];
+      } else {
+        return [...result2];
+      }
     } catch (error) {
       throw error;
     }

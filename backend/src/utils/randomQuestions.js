@@ -12,7 +12,6 @@ const getRandomQuestions = async count => {
       result.push(randomObject);
     }
   }
-
   return result;
 };
 
