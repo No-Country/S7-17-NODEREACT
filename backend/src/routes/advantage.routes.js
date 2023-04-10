@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getAdvantages, getUserAdvantages } = require("../controllers");
+const { getAdvantages, getUserAdvantages, updateUserAdvantages } = require("../controllers");
 
 const router = Router();
 
@@ -56,5 +56,6 @@ const router = Router();
 
 router.get("/advantages/all", getAdvantages);
 router.get("/advantages/user/:id", getUserAdvantages);
+router.put("/advantages/user/:id", updateUserAdvantages);
 
 module.exports = router;
