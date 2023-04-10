@@ -38,7 +38,7 @@ const updateUserAdvantages = async (req, res, next) => {
   } catch (error) {
     next({
       status: 400,
-      message: "Error al obtener ventajas de usuario",
+      message: "Error al actualizar ventajas de usuario",
       errorContent: error
     });
   }
