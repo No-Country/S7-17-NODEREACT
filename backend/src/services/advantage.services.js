@@ -28,6 +28,8 @@ class AdvantageServices {
     try {
       const { buy, advantageId, quantity } = body;
 
+      if (!advantageId) throw "The advantageId body property is missing";
+
       if (buy) {
         await User_Advantage.update(
           { quantity: sequelize.literal(`quantity + ${quantity}`) },
