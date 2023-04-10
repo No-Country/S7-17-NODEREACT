@@ -19,7 +19,7 @@ const router = Router();
  *             schema:
  *               type: array
  *               items:
- *                $ref: '#/components/schemas/Achievement'
+ *                 $ref: '#/components/schemas/Achievement'
  * /api/v1//achievements/user/{id}:
  *   get:
  *     security:
@@ -41,7 +41,7 @@ const router = Router();
  *             schema:
  *               type: array
  *               items:
- *                $ref: '#/components/schemas/Achievement'
+ *                 $ref: '#/components/schemas/Achievement'
  */
 
 router.get("/achievements/all", getAchievements);
