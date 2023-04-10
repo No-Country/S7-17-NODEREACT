@@ -1,6 +1,6 @@
 const { Achievement, User_Achievement } = require("../models");
 
-class AuthServices {
+class AchievementServices {
   static async getAchievements() {
     try {
       const achievements = await Achievement.findAll();
@@ -27,4 +27,4 @@ class AuthServices {
   }
 }
 
-module.exports = AuthServices;
+module.exports = AchievementServices;
