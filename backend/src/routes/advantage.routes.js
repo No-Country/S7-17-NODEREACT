@@ -20,7 +20,7 @@ const router = Router();
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Advantage'
- * /api/v1//advantages/user/{id}:
+ * /api/v1/advantages/user/{id}:
  *   get:
  *     security:
  *       - bearerAuth: []
@@ -52,6 +52,29 @@ const router = Router();
  *                   advantageId: 1
  *                 - quantity: 5
  *                   advantageId: 2
+ *   put:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Update advantages from a particular user by their id.
+ *     tags: [Advantages]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The User id
+ *     responses:
+ *       200:
+ *         description: The advantages of the user were successfully updated.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User's advantages updated successfully"
  */
 
 router.get("/advantages/all", getAdvantages);
