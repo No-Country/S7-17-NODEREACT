@@ -20,7 +20,7 @@ const router = Router();
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Achievement'
- * /api/v1//achievements/user/{id}:
+ * /api/v1/achievements/user/{id}:
  *   get:
  *     security:
  *       - bearerAuth: []
