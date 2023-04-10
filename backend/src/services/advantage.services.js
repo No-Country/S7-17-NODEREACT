@@ -36,10 +36,10 @@ class AdvantageServices {
 
         return { message: "User's advantage updated successfully" };
       } else {
-        const advantageIsAlreadyZero = await User_Advantage.findOne({
+        const advantageToUpdate = await User_Advantage.findOne({
           where: { userId: id, advantageId }
         });
-        if (advantageIsAlreadyZero.dataValues.quantity === 0)
+        if (advantageToUpdate.dataValues.quantity === 0)
           return { message: "The user advantage's quantity is already zero" };
 
         await User_Advantage.update(
