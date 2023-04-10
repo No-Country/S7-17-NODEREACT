@@ -1,4 +1,4 @@
-const { Advantage, User_Advantage } = require("../models");
+const { Advantage, User_Advantage, User } = require("../models");
 const sequelize = require("sequelize");
 
 class AdvantageServices {
@@ -29,15 +29,25 @@ class AdvantageServices {
       const { buy, advantageId, quantity } = body;
 
       if (buy) {
-        User_Advantage.update(
+        await User_Advantage.update(
           { quantity: sequelize.literal(`quantity + ${quantity}`) },
           { where: { userId: id, advantageId } }
         );
+
+        return { message: "User's advantage updated successfully" };
       } else {
-        User_Advantage.update(
+        const advantageIsAlreadyZero = await User_Advantage.findOne({
+          where: { userId: id, advantageId }
+        });
+        if (advantageIsAlreadyZero.dataValues.quantity === 0)
+          return { message: "The user advantage's quantity is already zero" };
+
+        await User_Advantage.update(
           { quantity: sequelize.literal("quantity - 1") },
           { where: { userId: id, advantageId } }
         );
+
+        return { message: "User's advantage updated successfully" };
       }
     } catch (error) {
       throw error;
