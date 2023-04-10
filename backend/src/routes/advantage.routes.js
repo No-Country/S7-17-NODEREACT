@@ -64,6 +64,12 @@ const router = Router();
  *           type: integer
  *         required: true
  *         description: The User id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdateUserAdvantages'
  *     responses:
  *       200:
  *         description: The advantages of the user were successfully updated.
