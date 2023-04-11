@@ -28,12 +28,12 @@ const getUserAdvantages = async (req, res, next) => {
   }
 };
 
-const updateUserAdvantages = async (req, res, next) => {
+const buyUserAdvantages = async (req, res, next) => {
   try {
     const { id } = req.params;
     const body = req.body;
 
-    const userAdvantages = await AdvantageServices.updateUserAdvantages(id, body);
+    const userAdvantages = await AdvantageServices.buyUserAdvantages(id, body);
     res.status(200).json(userAdvantages);
   } catch (error) {
     next({
@@ -44,4 +44,4 @@ const updateUserAdvantages = async (req, res, next) => {
   }
 };
 
-module.exports = { getAdvantages, getUserAdvantages, updateUserAdvantages };
+module.exports = { getAdvantages, getUserAdvantages, buyUserAdvantages };

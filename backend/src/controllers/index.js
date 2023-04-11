@@ -27,7 +27,7 @@ const { getAchievements, getUserUnlockedAchievements } = require("./achievement.
 const {
   getAdvantages,
   getUserAdvantages,
-  updateUserAdvantages
+  buyUserAdvantages
 } = require("./advantage.controllers.js");
 
 module.exports = {
@@ -54,5 +54,5 @@ module.exports = {
   getUserUnlockedAchievements,
   getAdvantages,
   getUserAdvantages,
-  updateUserAdvantages
+  buyUserAdvantages
 };
