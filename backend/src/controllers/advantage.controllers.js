@@ -13,21 +13,6 @@ const getAdvantages = async (req, res, next) => {
   }
 };
 
-const getUserAdvantages = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    const userAdvantages = await AdvantageServices.getUserAdvantages(id);
-    res.status(200).json(userAdvantages);
-  } catch (error) {
-    next({
-      status: 400,
-      message: "Error al obtener ventajas de usuario",
-      errorContent: error
-    });
-  }
-};
-
 const buyUserAdvantages = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -44,4 +29,4 @@ const buyUserAdvantages = async (req, res, next) => {
   }
 };
 
-module.exports = { getAdvantages, getUserAdvantages, buyUserAdvantages };
+module.exports = { getAdvantages, buyUserAdvantages };

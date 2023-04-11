@@ -1,4 +1,4 @@
-const { Advantage, User, User_Advantage } = require("../models");
+const { Advantage, User_Advantage } = require("../models");
 const sequelize = require("sequelize");
 
 class AdvantageServices {
@@ -6,25 +6,6 @@ class AdvantageServices {
     try {
       const advantages = await Advantage.findAll();
       return advantages;
-    } catch (error) {
-      throw error;
-    }
-  }
-  static async getUserAdvantages(id) {
-    try {
-      const userAdvantages = await User.findByPk(id, {
-        attributes: [],
-        include: {
-          model: Advantage,
-          as: "advantages",
-          attributes: ["name", "description"],
-          through: {
-            attributes: ["quantity"]
-          }
-        }
-      });
-
-      return userAdvantages;
     } catch (error) {
       throw error;
     }
