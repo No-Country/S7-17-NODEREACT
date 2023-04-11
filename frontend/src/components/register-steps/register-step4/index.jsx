@@ -13,17 +13,22 @@ const RegisterStep4 = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
+  async function fetchLogin(username, password) {
+    return await axios
+      .post(urlLogin, JSON.stringify({ username, password }), {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        }
+      })
+      .then(response => response.data)
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   const postRegister = async data => {
     setIsLoading(true);
-    /*  const response = await fetch("http://localhost:3000/api/register", {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify(data),
-     });
-     const result = await response.json();
-     console.log(result); */
 
     setTimeout(() => {
       dispatch(updateStep4());

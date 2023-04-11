@@ -4,7 +4,14 @@ const cors = require("cors");
 const db = require("./utils/database");
 const handleError = require("./middlewares/error.middleware");
 const initModels = require("./models/initModels");
-const { UserRoutes, AuthRoutes, UserFriendRoutes, RoomMatchRoutes } = require("./routes/index");
+const {
+  UserRoutes,
+  AuthRoutes,
+  UserFriendRoutes,
+  RoomMatchRoutes,
+  AchievementRoutes,
+  AdvantageRoutes
+} = require("./routes/index");
 require("dotenv").config();
 
 const app = express();
@@ -35,6 +42,8 @@ app.use("/api/v1", UserRoutes);
 app.use("/api/v1", AuthRoutes);
 app.use("/api/v1", UserFriendRoutes);
 app.use("/api/v1", RoomMatchRoutes);
+app.use("/api/v1", AchievementRoutes);
+app.use("/api/v1", AdvantageRoutes);
 
 app.use(handleError);
 

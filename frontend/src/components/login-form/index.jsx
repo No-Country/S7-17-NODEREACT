@@ -7,27 +7,35 @@ import { loginAuth } from "@/features/auth/authSlice";
 import { useRouter } from "next/router";
 import Img from "../../assets/logo.svg";
 import Image from "next/image";
+import axios from "axios";
+import useMutation from "@/hooks/useMutation";
 
 const LoginForm = () => {
-  const [login, setLogin] = useState({ username: "", password: "", session: false });
+  const [login, setLogin] = useState({ username: "", password: "" });
   const dispatch = useDispatch();
   const authState = useSelector(state => state.auth);
   const { push } = useRouter();
+  const postLogin = useMutation();
 
   const handleChange = e => {
     setLogin({
       ...login,
-      [e.target.name]: e.target.value.toLowerCase()
+      [e.target.name]: e.target.value
     });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     if (login.username !== "" && login.password !== "") {
-      dispatch(loginAuth(login));
-      if (authState.session) {
-        push("/");
-      }
+      postLogin
+        .mutate("/auth/login", login)
+        .then(response => {
+          dispatch(loginAuth(response.data));
+          push("/");
+        })
+        .catch(error => {
+          console.log(error);
+        });
     } else {
       console.log("Los campos no pueden ir");
     }
@@ -67,7 +75,7 @@ const LoginForm = () => {
               name="password"
               onChange={handleChange}
               className={styles.form__input}
-              type="text"
+              type="password"
             />
           </div>
           <div className={styles.bottom__container}>

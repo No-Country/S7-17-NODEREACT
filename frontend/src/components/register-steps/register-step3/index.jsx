@@ -3,12 +3,36 @@ import Image from "next/image";
 import Img from "../../../assets/logo.svg";
 import Button from "@/components/button";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changePage, updateStep3 } from "@/features/reg/regSlice";
+import { loginAuth } from "@/features/auth/authSlice";
+import useMutation from "@/hooks/useMutation";
+import useAuthorizedHeaders from "@/hooks/useAuthorizedHeaders";
+import useFetch from "@/hooks/useFetch";
 
 const RegisterStep3 = () => {
+  const store = useSelector(state => state.reg);
+  const dataLogin = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const [code, setCode] = useState("");
+  const authorizationHeaders = useAuthorizedHeaders();
+  useFetch(
+    "/auth/login",
+    {
+      method: "POST",
+      data: JSON.stringify({
+        username: `${store.username}`,
+        password: `${store.password}`
+      })
+    },
+    data => dispatch(loginAuth(data))
+  );
+
+  const postCode = useMutation({
+    method: "PUT",
+    ...authorizationHeaders
+  });
+
   const handlePreviousPage = e => {
     e.preventDefault();
     dispatch(changePage(-1));
@@ -17,9 +41,20 @@ const RegisterStep3 = () => {
     e.preventDefault();
     if (code.length > 0) {
       dispatch(updateStep3({ code }));
+      fetchCode(code, dataLogin);
       dispatch(changePage(1));
     }
   };
+
+  function fetchCode(code, dataLogin) {
+    postCode
+      .mutate(`/user/${dataLogin.id}/verify`, {
+        code: Number(code)
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.container__top}>

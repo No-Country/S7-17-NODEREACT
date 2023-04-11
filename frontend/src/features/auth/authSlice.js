@@ -2,12 +2,11 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState =
 {
+    id: "",
     username: "",
     email: "",
     profileImg: "",
-    lifes: 0,
-    points: 0,
-    coins: 0,
+    token: "",
     session: false
 }
 
@@ -16,8 +15,11 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         loginAuth: (state, action) => {
-            const { username } = action.payload
+            const { id, username, profileImg, token } = action.payload
+            state.id = id
             state.username = username
+            state.profileImg = profileImg
+            state.token = token
             state.session = true
         }
     }
