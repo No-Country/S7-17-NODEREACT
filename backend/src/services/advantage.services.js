@@ -1,4 +1,4 @@
-const { Advantage, User_Advantage, User } = require("../models");
+const { Advantage, User, User_Advantage } = require("../models");
 const sequelize = require("sequelize");
 
 class AdvantageServices {
@@ -12,45 +12,36 @@ class AdvantageServices {
   }
   static async getUserAdvantages(id) {
     try {
-      const userAdvantages = await User_Advantage.findAll({
-        where: { userId: id },
-        attributes: {
-          exclude: ["id", "userId"]
+      const userAdvantages = await User.findByPk(id, {
+        attributes: [],
+        include: {
+          model: Advantage,
+          as: "advantages",
+          attributes: ["name", "description"],
+          through: {
+            attributes: ["quantity"]
+          }
         }
       });
-      const remainingAdvantages = userAdvantages.map(advantage => advantage.dataValues);
-      return remainingAdvantages;
+
+      return userAdvantages;
     } catch (error) {
       throw error;
     }
   }
-  static async updateUserAdvantages(id, body) {
+  static async buyUserAdvantages(id, { advantageId, quantity }) {
     try {
-      const { buy, advantageId, quantity } = body;
-
       if (!advantageId) throw "The advantageId body property is missing";
+      if (!quantity) throw "The quantity body property is missing";
 
-      if (buy) {
-        await User_Advantage.update(
-          { quantity: sequelize.literal(`quantity + ${quantity}`) },
-          { where: { userId: id, advantageId } }
-        );
+      const result = await User_Advantage.update(
+        { quantity: sequelize.literal(`quantity + ${quantity}`) },
+        { where: { userId: id, advantageId } }
+      );
 
-        return { message: "User's advantage updated successfully" };
-      } else {
-        const advantageToUpdate = await User_Advantage.findOne({
-          where: { userId: id, advantageId }
-        });
-        if (advantageToUpdate.dataValues.quantity === 0)
-          return { message: "The user advantage's quantity is already zero" };
+      if (result[0] === 0) throw "User or Advantage not found.";
 
-        await User_Advantage.update(
-          { quantity: sequelize.literal("quantity - 1") },
-          { where: { userId: id, advantageId } }
-        );
-
-        return { message: "User's advantage updated successfully" };
-      }
+      return { message: "User's advantage updated successfully" };
     } catch (error) {
       throw error;
     }
