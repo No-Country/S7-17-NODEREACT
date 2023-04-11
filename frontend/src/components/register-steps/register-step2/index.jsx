@@ -5,6 +5,7 @@ import styles from "../register-step2/styles.module.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changePage, updateStep2 } from "@/features/reg/regSlice";
+import useMutation from "@/hooks/useMutation";
 
 const RegisterStep2 = () => {
   const dispatch = useDispatch();
@@ -12,24 +13,21 @@ const RegisterStep2 = () => {
   const [email, setEmail] = useState(store.email);
   const [password, setPassword] = useState(store.password);
   const [password2, setPassword2] = useState(store.password);
-
-  function sendEmail(email) {
-    console.log("Se ha enviado un correo a " + email + " para verificar tu cuenta.");
-  }
+  const postRegister = useMutation();
 
   const handlePreviousPage = e => {
     e.preventDefault();
     dispatch(changePage(-1));
   };
 
-  const handleNextPage = e => {
+  const handleNextPage = async e => {
     e.preventDefault();
     const fieldsAreValid = !!email && !!password && !!password2;
     const passwordIsValid = password === password2;
     if (fieldsAreValid && passwordIsValid) {
       dispatch(updateStep2({ email, password }));
+      await postRegister.mutate("/user/register", { username: store.username, email, password });
       dispatch(changePage(1));
-      sendEmail(email);
     }
   };
   return (
