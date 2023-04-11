@@ -1,5 +1,6 @@
 const { Router } = require("express");
-const { getAdvantages, getUserAdvantages, updateUserAdvantages } = require("../controllers");
+const { getAdvantages, getUserAdvantages, buyUserAdvantages } = require("../controllers");
+const { authenticate } = require("../middlewares/auth.middleware");
 
 const router = Router();
 
@@ -52,6 +53,7 @@ const router = Router();
  *                   advantageId: 1
  *                 - quantity: 5
  *                   advantageId: 2
+ * /api/v1/advantages/update/user/{id}:
  *   put:
  *     security:
  *       - bearerAuth: []
@@ -83,8 +85,8 @@ const router = Router();
  *                   example: "User's advantages updated successfully"
  */
 
-router.get("/advantages/all", getAdvantages);
-router.get("/advantages/user/:id", getUserAdvantages);
-router.put("/advantages/user/:id", updateUserAdvantages);
+router.get("/advantages/all", authenticate, getAdvantages);
+router.get("/advantages/user/:id", authenticate, getUserAdvantages);
+router.put("/advantages/update/user/:id", authenticate, buyUserAdvantages);
 
 module.exports = router;
