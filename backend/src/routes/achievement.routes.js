@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { getAchievements, getUserUnlockedAchievements } = require("../controllers");
+const { authenticate } = require("../middlewares/auth.middleware");
 
 const router = Router();
 
@@ -44,7 +45,7 @@ const router = Router();
  *                 $ref: '#/components/schemas/Achievement'
  */
 
-router.get("/achievements/all", getAchievements);
-router.get("/achievements/user/:id", getUserUnlockedAchievements);
+router.get("/achievements/all", authenticate, getAchievements);
+router.get("/achievements/user/:id", authenticate, getUserUnlockedAchievements);
 
 module.exports = router;
