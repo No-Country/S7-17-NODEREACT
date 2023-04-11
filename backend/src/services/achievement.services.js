@@ -1,4 +1,4 @@
-const { Achievement, User_Achievement } = require("../models");
+const { Achievement, User } = require("../models");
 
 class AchievementServices {
   static async getAchievements() {
@@ -11,16 +11,18 @@ class AchievementServices {
   }
   static async getUserUnlockedAchievements(id) {
     try {
-      const userUnlockedAchievements = await User_Achievement.findAll({ where: { userId: id } });
-      const achievementsArray = userUnlockedAchievements.map(achievement => achievement.dataValues);
+      const userUnlockedAchievements = await User.findByPk(id, {
+        attributes: ["username"],
+        include: {
+          model: Achievement,
+          as: "achievements",
+          through: {
+            attributes: []
+          }
+        }
+      });
 
-      const unlockedAchievements = [];
-      for (const achievement of achievementsArray) {
-        const unlockedAchievement = await Achievement.findByPk(achievement.achievementId);
-        unlockedAchievements.push(unlockedAchievement.dataValues);
-      }
-
-      return unlockedAchievements;
+      return userUnlockedAchievements || { message: "There is no user with that id" };
     } catch (error) {
       throw error;
     }
