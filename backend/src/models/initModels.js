@@ -26,24 +26,24 @@ const initModels = () => {
 
   User.hasMany(Room_Match, { as: "rooms", foreignKey: "user_id" });
   Room_Match.belongsTo(User, { as: "user", foreignKey: "user_id" });
-  
+
   User.hasMany(Room_Match, { as: "roomsMatch", foreignKey: "opponent_user_id" });
   Room_Match.belongsTo(User, { as: "opponent", foreignKey: "opponent_user_id" });
-  
+
   /* -------------------------  Relación User - Achievement  ------------------------- */
 
-  User.belongsToMany(Achievement, { through: User_Achievement });
-  Achievement.belongsToMany(User, { through: User_Achievement });
+  User.belongsToMany(Achievement, { as: "achievements", through: User_Achievement });
+  Achievement.belongsToMany(User, { as: "users", through: User_Achievement });
 
   /* -------------------------   Relación User - Advantage   ------------------------- */
 
-  User.belongsToMany(Advantage, { through: User_Advantage });
-  Advantage.belongsToMany(User, { through: User_Advantage });
+  User.belongsToMany(Advantage, { as: "advantages", through: User_Advantage });
+  Advantage.belongsToMany(User, { as: "users", through: User_Advantage });
 
   /* -------------------------     Relación User - Topic     ------------------------- */
 
-  User.belongsToMany(Topic, { through: User_Topic });
-  Topic.belongsToMany(User, { through: User_Topic });
+  User.belongsToMany(Topic, { as: "topics", through: User_Topic });
+  Topic.belongsToMany(User, { as: "users", through: User_Topic });
 
   /* -------------------------   Relación Topic - Question   ------------------------- */
 
@@ -52,8 +52,8 @@ const initModels = () => {
 
   /* -------------------------     Relación Topic - News     ------------------------- */
 
-  Topic.belongsToMany(News, { through: Topic_News });
-  News.belongsToMany(Topic, { through: Topic_News });
+  Topic.belongsToMany(News, { as: "news", through: Topic_News });
+  News.belongsToMany(Topic, { as: "topics", through: Topic_News });
 };
 
 module.exports = initModels;
