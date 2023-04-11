@@ -33,19 +33,16 @@ const { DataTypes } = require("sequelize");
  *       type: object
  *       required:
  *         - advantageId
+ *         - quantity
  *       properties:
  *         advantageId:
  *           type: integer
  *           description: The id of the advantage that needs to update.
- *         buy:
- *           type: boolean
- *           description: If it's true, the user is buying advantages in the store.
  *         quantity:
  *           type: integer
  *           description: The total amount of advantages that the user is buying.
  *       example:
  *         advantageId: 1
- *         buy: true
  *         quantity: 3
  */
 
