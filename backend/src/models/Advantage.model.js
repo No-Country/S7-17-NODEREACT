@@ -27,7 +27,7 @@ const { DataTypes } = require("sequelize");
  *         id: 1
  *         name: 'Martillo'
  *         description: 'Elimina 2 opciones de las 4 posibles.'
- *         iconImg: 'https://mi.imagen.com/icono-martillo.jpg'
+ *         iconImg: 'https:/galeriadeimagenes.com/icono-martillo.jpg'
  *         price: 20
  *     UpdateUserAdvantages:
  *       type: object

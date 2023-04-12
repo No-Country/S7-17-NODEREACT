@@ -24,7 +24,7 @@ const { DataTypes } = require("sequelize");
  *         id: 1
  *         name: 'Trotamundos'
  *         description: 'Responde correctamente 5 preguntas de Geografía.'
- *         iconImg: 'https://mi.imagen.com/globo-terraqueo.jpg'
+ *         iconImg: 'https://galeriadeimagenes.com/globo-terraqueo.jpg'
  */
 
 const Achievement = db.define(

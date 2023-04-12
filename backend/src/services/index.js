@@ -4,6 +4,7 @@ const UserFriendServices = require("./userFriend.services");
 const RoomServices = require("./room.services");
 const AchievementServices = require("./achievement.services");
 const AdvantageServices = require("./advantage.services");
+const NewsServices = require("./news.services");
 
 module.exports = {
   UserServices,
@@ -11,5 +12,6 @@ module.exports = {
   UserFriendServices,
   RoomServices,
   AchievementServices,
-  AdvantageServices
+  AdvantageServices,
+  NewsServices
 };
