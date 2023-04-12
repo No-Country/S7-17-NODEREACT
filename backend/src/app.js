@@ -10,7 +10,8 @@ const {
   UserFriendRoutes,
   RoomMatchRoutes,
   AchievementRoutes,
-  AdvantageRoutes
+  AdvantageRoutes,
+  NewsRoutes
 } = require("./routes/index");
 require("dotenv").config();
 
@@ -44,6 +45,7 @@ app.use("/api/v1", UserFriendRoutes);
 app.use("/api/v1", RoomMatchRoutes);
 app.use("/api/v1", AchievementRoutes);
 app.use("/api/v1", AdvantageRoutes);
+app.use("/api/v1", NewsRoutes);
 
 app.use(handleError);
 
