@@ -1,16 +1,16 @@
 const { Router } = require("express");
-const { getNewsByTopic } = require("../controllers");
+const { getNewsByUserTopics } = require("../controllers");
 const { authenticate } = require("../middlewares/auth.middleware");
 
 const router = Router();
 
 /**
  * @openapi
- * /api/v1/news/topic/{id}:
+ * /api/v1/news/topic/user/{id}:
  *   get:
  *     security:
  *       - bearerAuth: []
- *     summary: Get an array of news by topic.
+ *     summary: Get an array of news by topic and user ID.
  *     tags: [News]
  *     parameters:
  *       - in: path
@@ -18,7 +18,7 @@ const router = Router();
  *         schema:
  *           type: integer
  *         required: true
- *         description: The Topic id
+ *         description: The User id
  *     responses:
  *       200:
  *         description: The news were successfully found.
@@ -30,6 +30,6 @@ const router = Router();
  *                 $ref: '#/components/schemas/News'
  */
 
-router.get("/news/topic/:id", getNewsByTopic);
+router.get("/news/topic/user/:id", getNewsByUserTopics);
 
 module.exports = router;

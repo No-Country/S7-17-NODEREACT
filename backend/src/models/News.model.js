@@ -28,6 +28,8 @@ const { DataTypes } = require("sequelize");
  *         summary: 'Un impresionante hallazgo espacial se ha dado a conocer en las últimas horas. Si quieres conocer más, entra al link.'
  *         img: 'https://galeriadeimagenes.com/via-lactea.jpg'
  *         link: 'https://eldiario.com/noticias/gran-descubrimiento-espacial'
+ *         topic:
+ *           name: 'Ciencias y Naturaleza'
  */
 
 const News = db.define(
