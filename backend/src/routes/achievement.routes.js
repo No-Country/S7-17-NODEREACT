@@ -46,6 +46,6 @@ const router = Router();
  */
 
 router.get("/achievements/all", authenticate, getAchievements);
-router.get("/achievements/user/:id", authenticate, getUserUnlockedAchievements);
+router.get("/achievements/user/:id", getUserUnlockedAchievements);
 
 module.exports = router;
