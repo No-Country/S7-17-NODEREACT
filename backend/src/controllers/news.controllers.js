@@ -1,10 +1,10 @@
 const { NewsServices } = require("../services");
 
-const getNewsByTopic = async (req, res, next) => {
+const getNewsByUserTopics = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const result = await NewsServices.getNewsByTopic(id);
+    const result = await NewsServices.getNewsByUserTopics(id);
     res.status(200).json(result);
   } catch (error) {
     next({
@@ -15,4 +15,4 @@ const getNewsByTopic = async (req, res, next) => {
   }
 };
 
-module.exports = { getNewsByTopic };
+module.exports = { getNewsByUserTopics };
