@@ -1,7 +1,15 @@
-const { News, Topic, User_Topic, User } = require("../models");
+const { News, Topic, User } = require("../models");
 const { Op } = require("sequelize");
 
 class NewsServices {
+  static async getNews() {
+    try {
+      const result = await News.findAll();
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
   static async getNewsByUserTopics(id) {
     try {
       if (!id) throw "Id not found";

@@ -24,12 +24,12 @@ const { DataTypes } = require("sequelize");
  *           type: string
  *           description: The price of the News.
  *       example:
+ *         id: 1
  *         title: 'Gran descubrimiento espacial'
  *         summary: 'Un impresionante hallazgo espacial se ha dado a conocer en las últimas horas. Si quieres conocer más, entra al link.'
  *         img: 'https://galeriadeimagenes.com/via-lactea.jpg'
  *         link: 'https://eldiario.com/noticias/gran-descubrimiento-espacial'
- *         topic:
- *           name: 'Ciencias y Naturaleza'
+ *         topicId: 5
  */
 
 const News = db.define(
