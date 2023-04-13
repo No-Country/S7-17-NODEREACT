@@ -4,28 +4,26 @@ const { Op } = require("sequelize");
 class NewsServices {
   static async getNewsByUserTopics(id) {
     try {
-      if (!id) throw "Ids not found";
+      if (!id) throw "Id not found";
       if (isNaN(parseInt(id))) throw "Id param must be an integer";
 
-      // const { topics } = await User.findByPk(id, {
-      //   attributes: [],
-      //   include: {
-      //     model: Topic,
-      //     as: "topics",
-      //     attributes: ["id"],
-      //     through: {
-      //       attributes: []
-      //     }
-      //   }
-      // });
-
-      const topics = await User_Topic.findAll({ where: { userId: id }, attributes: ["topicId"] });
-      const topicId = topics.map(topic => topic.dataValues.topicId);
+      const { topics } = await User.findByPk(id, {
+        attributes: [],
+        include: {
+          model: Topic,
+          as: "topics",
+          attributes: ["id"],
+          through: {
+            attributes: []
+          }
+        }
+      });
+      const topicIds = topics.map(topic => topic.id);
 
       const news = await News.findAll({
         where: {
           topicId: {
-            [Op.and]: [topicId]
+            [Op.and]: [topicIds]
           }
         },
         attributes: ["title", "summary", "img", "link"],

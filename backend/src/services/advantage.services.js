@@ -20,7 +20,7 @@ class AdvantageServices {
         { where: { userId: id, advantageId } }
       );
 
-      if (result[0] === 0) throw "User or Advantage not found.";
+      if (result[0] === 0) throw "User or Advantage not found";
 
       return { message: "User's advantage updated successfully" };
     } catch (error) {
