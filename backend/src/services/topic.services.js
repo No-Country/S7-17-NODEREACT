@@ -1,4 +1,4 @@
-const { Topic, User } = require("../models");
+const { Topic, User, User_Topic } = require("../models");
 
 class TopicServices {
   static async getTopics() {
@@ -21,6 +21,36 @@ class TopicServices {
 
       const { topics } = result;
       return topics;
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async addUserTopic(id, topicId) {
+    try {
+      if (!topicId) throw "There is no topic to add";
+      if (isNaN(parseInt(id)) || isNaN(parseInt(topicId)))
+        throw "Both id param and topicId body param must be integers";
+
+      const [result, created] = await User_Topic.findOrCreate({
+        where: { userId: id, topicId }
+      });
+      if (!created) throw "User's topic already added";
+
+      return { message: "Topic added successfully" };
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async deleteUserTopic(id, topicId) {
+    try {
+      if (!topicId) throw "There is no topic to delete";
+      if (isNaN(parseInt(id)) || isNaN(parseInt(topicId)))
+        throw "Both id param and topicId body param must be integers";
+
+      const userTopicDeleted = await User_Topic.destroy({ where: { userId: id, topicId } });
+      if (userTopicDeleted === 0) throw "User's topic already deleted";
+
+      return { message: "Topic deleted successfully" };
     } catch (error) {
       throw error;
     }
