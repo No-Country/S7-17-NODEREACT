@@ -1,4 +1,6 @@
 import Head from "next/head";
+import Navbar from "../navbar";
+import styles from "../layout/styles.module.css";
 
 const Layout = ({ children }) => {
   return (
@@ -9,7 +11,12 @@ const Layout = ({ children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>{children}</div>
+      <div className={styles.container}>
+        <div className={styles.main}>{children}</div>
+        <div className={styles.navbar}>
+          <Navbar />
+        </div>
+      </div>
     </>
   );
 };

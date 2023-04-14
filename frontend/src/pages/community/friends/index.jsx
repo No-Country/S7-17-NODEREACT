@@ -7,6 +7,7 @@ import FriendsPending from "@/components/community-section/friends-pending";
 import AllUsersDetail from "@/components/community-section/all-users-detail";
 import useFetch from "@/hooks/useFetch";
 import FriendsAccept from "@/components/community-section/friends-accept";
+import Layout from "@/components/layout";
 
 const Friends = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -17,41 +18,43 @@ const Friends = () => {
   const { data: dataAllUsers } = useFetch(`/users/all`);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.search}>
-        <SearchUser
-          onChange={value => {
-            setSearchText(value);
-            setSearchResults(dataAllUsers.filter(users => users.username.includes(value)));
-          }}
-        />
-      </div>
-      <div className={styles.title__container}>
-        <p className={styles.title}>Comunidad</p>
-      </div>
-      <div className={styles.button__container}>
-        <button type="button" className={styles.button1}>
-          Amigos
-        </button>
-        <Link href="/community/all-users">
-          <button type="button" className={styles.button2}>
-            Otros usuarios
+    <Layout>
+      <div className={styles.container}>
+        <div className={styles.search}>
+          <SearchUser
+            onChange={value => {
+              setSearchText(value);
+              setSearchResults(dataAllUsers.filter(users => users.username.includes(value)));
+            }}
+          />
+        </div>
+        <div className={styles.title__container}>
+          <p className={styles.title}>Comunidad</p>
+        </div>
+        <div className={styles.button__container}>
+          <button type="button" className={styles.button1}>
+            Amigos
           </button>
-        </Link>
-      </div>
-      <div className={styles.userdetail__container}>
-        {searchText == ""
-          ? ""
-          : searchResults?.map(el => <AllUsersDetail background="green" key={el.id} data={el} />)}
+          <Link href="/community/all-users">
+            <button type="button" className={styles.button2}>
+              Otros usuarios
+            </button>
+          </Link>
+        </div>
+        <div className={styles.userdetail__container}>
+          {searchText == ""
+            ? ""
+            : searchResults?.map(el => <AllUsersDetail background="green" key={el.id} data={el} />)}
 
-        {dataFriendsPending?.map(el => (
-          <FriendsPending key={`${el.id}-${el.userAdded?.id}`} data={el} />
-        ))}
-        {dataFriendsAccept?.map(el => (
-          <FriendsAccept key={`${el.id}-${el.userAdded?.id}`} data={el} />
-        ))}
+          {dataFriendsPending?.map(el => (
+            <FriendsPending key={`${el.id}-${el.userAdded?.id}`} data={el} />
+          ))}
+          {dataFriendsAccept?.map(el => (
+            <FriendsAccept key={`${el.id}-${el.userAdded?.id}`} data={el} />
+          ))}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
