@@ -5,6 +5,7 @@ const RoomMatchRoutes = require("./roomMatch.routes");
 const AchievementRoutes = require("./achievement.routes");
 const AdvantageRoutes = require("./advantage.routes");
 const NewsRoutes = require("./news.routes");
+const TopicRoutes = require("./topic.routes");
 
 module.exports = {
   UserRoutes,
@@ -13,5 +14,6 @@ module.exports = {
   RoomMatchRoutes,
   AchievementRoutes,
   AdvantageRoutes,
-  NewsRoutes
+  NewsRoutes,
+  TopicRoutes
 };
