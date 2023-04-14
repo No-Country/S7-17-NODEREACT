@@ -100,3 +100,8 @@
     line-height: 40px;
     color: #FFFFFF;
 }
+@media (min-width: 768px){
+    .register__logo{
+    display: none;
+    }
+}
