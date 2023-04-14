@@ -1,14 +1,15 @@
 .container{
     width: 100%;
     height: 100vh;
-    background-color: black;
     color: white;
+    position: relative;
 }
 .section{
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
+    background-color: rgb(70, 70, 70);
 }
 .section__logo{
     grid-area: 1 / 1 / 2 / 2;
@@ -24,4 +25,78 @@
     justify-content: flex-start;
     align-items: center;
     gap: 22px;
+}
+.form{
+position: absolute;
+z-index: 10;
+background-color: black;
+width: 100%;
+height: 100vh;
+}
+.none{
+    display: none;
+}
+.button1{
+    text-align: center;
+    border-radius: 30px;
+    background: #14AE5C;
+    color: black;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    width:307px;
+    height:54px;
+}
+.button2{
+    text-align: center;
+    border-radius: 30px;
+    background: #FFFFFF;
+    color: black;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    width: 307px;
+    height: 54px;
+}
+@media (min-width: 768px){
+    .form{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 25%;
+        height: 100vh;
+    }
+    .button1{
+        background: none;
+        color: white;
+        border: none;
+        height: auto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 20px;
+        letter-spacing: 0.01em;
+        font-feature-settings: 'pnum' on, 'lnum' on;
+    }
+    .button2 {
+        background: none;
+        color: white;
+        border: none;
+        height: auto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 20px;
+        letter-spacing: 0.01em;
+        font-feature-settings: 'pnum' on, 'lnum' on;
+    }
+    .section__button{
+        margin-top: 50px;
+        gap: 30px;
+    }
+    .section__logo{
+        padding-bottom: 0px;
+    }
 }
