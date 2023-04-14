@@ -27,6 +27,13 @@ const router = Router();
  *       - bearerAuth: []
  *     summary: Get an array of topics by user.
  *     tags: [Topics]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The User id
  *     responses:
  *       200:
  *         description: The topics were successfully found.
@@ -39,6 +46,6 @@ const router = Router();
  */
 
 router.get("/topics/all", authenticate, getTopics);
-router.get("/topics/user/:id", getUserTopics);
+router.get("/topics/user/:id", authenticate, getUserTopics);
 
 module.exports = router;

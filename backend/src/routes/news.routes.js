@@ -65,6 +65,6 @@ const router = Router();
  */
 
 router.get("/news/all", authenticate, getNews);
-router.get("/news/topic/user/:id", getNewsByUserTopics);
+router.get("/news/topic/user/:id", authenticate, getNewsByUserTopics);
 
 module.exports = router;
