@@ -26,6 +26,8 @@ const {
 } = require("./roomMatch.controllers.js");
 const { getAchievements, getUserUnlockedAchievements } = require("./achievement.controllers.js");
 const { getAdvantages, buyUserAdvantages } = require("./advantage.controllers.js");
+const { getNews, getNewsByUserTopics } = require("./news.controllers.js");
+const { getTopics, getUserTopics } = require("./topic.controllers.js");
 
 module.exports = {
   createUser,
@@ -51,5 +53,9 @@ module.exports = {
   getAchievements,
   getUserUnlockedAchievements,
   getAdvantages,
-  buyUserAdvantages
+  buyUserAdvantages,
+  getNews,
+  getNewsByUserTopics,
+  getTopics,
+  getUserTopics
 };
