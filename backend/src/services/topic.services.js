@@ -14,11 +14,13 @@ class TopicServices {
       if (isNaN(parseInt(id))) throw "Id param must be an integer";
 
       const result = await User.findByPk(id, {
-        attributes: ["username"],
+        attributes: [],
         include: { model: Topic, as: "topics", through: { attributes: [] } }
       });
+      if (result === null) throw "User not found";
 
-      return result || { message: "There is no user with that id" };
+      const { topics } = result;
+      return topics || { message: "There is no user with that id" };
     } catch (error) {
       throw error;
     }
