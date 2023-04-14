@@ -7,6 +7,7 @@ const {
   getRoomById
 } = require("./services/room.services");
 
+
 module.exports = io => {
   io.on("connection", socket => {
     console.log("User connected to socket server");
@@ -99,7 +100,7 @@ module.exports = io => {
         io.to(socket.id).emit("feedback", result.data);
       }
 
-      //Emitimos un mensaje de invitacion al oponente con los datos de la sala
+      //Emitimos un mensaje al creador con los datos de la sala
       if (result.id === 2) {
         io.to(socket.id).emit("feedback", result.data);
 
@@ -131,6 +132,7 @@ module.exports = io => {
     socket.on("invitation accepted", async data => {
       //const result = await
     });
+
 
     /* Recibimos el evento cuando el usuario cierra secion*/
 

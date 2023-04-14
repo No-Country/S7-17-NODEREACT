@@ -1,6 +1,9 @@
+const sequelize = require("sequelize");
 const { authenticateRoom } = require("../middlewares/auth.middleware");
-const { Room_Match, User, Question, User_Advantage } = require("../models");
+const { Room_Match, User, Question, User_Advantage, User_Achievement } = require("../models");
 const getRandom = require("../utils/randomQuestions.js");
+const getUserTotalAnswers = require("../utils/getUserTotalAswers");
+const getValidationsAchivements = require("../utils/validationAchivement");
 const dataRoom = {
   player1: {
     correctAnswers: 0,
@@ -21,7 +24,7 @@ const dataRoom = {
 class RoomServices {
   static async createRoomSolitary({ userId }) {
     try {
-      if(!userId) throw "No hay datos para continuar"
+      if (!userId) throw "No hay datos para continuar";
       dataRoom["questions"] = await getRandom(10);
       const newRoom = {
         userId,
@@ -42,15 +45,17 @@ class RoomServices {
   static async createRoomFriend({ userId, opponentUserId, token }) {
     try {
       //Buscamos una sala en espera con los mismos datos
-      const roomEsxistent = await Room_Match.findOne({ where: { userId, opponentUserId, status: "playing" } });
-      
-      
+      const roomEsxistent = await Room_Match.findOne({
+        where: { userId, opponentUserId, status: "playing" }
+      });
+
       //Si existe una sala, en espera, igual a la que se quiere crear retornamos un mensaje al creador
       if (roomEsxistent) return { id: 1, data: { message: "Ya existe una sala " } };
-      
+
       //Valídamos si el creador está autorizado, con el token
-      if (!authenticateRoom(token)) return { id: 1, socketId, data: { message: "No token provided" } };
-      
+      if (!authenticateRoom(token))
+        return { id: 1, socketId, data: { message: "No token provided" } };
+
       //Agregamos 10 preguntas aleatorias a los datos de la sala
       dataRoom["questions"] = await getRandom(10);
 
@@ -75,10 +80,13 @@ class RoomServices {
   static async createRoomRandom({ userId, token }) {
     try {
       //Valídamos si el creador está autorizado, con el token
-      if (!authenticateRoom(token)) return { id: 1, socketId, data: { message: "No token provided" } };
+      if (!authenticateRoom(token))
+        return { id: 1, socketId, data: { message: "No token provided" } };
 
       //Primero buscamos una lista de salas disponibles
-      const roomAvailable = await Room_Match.findAll({ where: { typeGame: "random", status: "waiting" } });
+      const roomAvailable = await Room_Match.findAll({
+        where: { typeGame: "random", status: "waiting" }
+      });
 
       //Si exísten salas disponibles se ejecuta el siguiente código
       if (roomAvailable.length >= 1) {
@@ -112,13 +120,13 @@ class RoomServices {
 
         //Validacions de seguridad, Verificamops que una sala con las mismas caracteristicas no exista
         const room = await Room_Match.findOne({
-          where: { userId, satus: "waiting", typeGame: "random" }
+          where: { userId, status: "waiting", typeGame: "random" }
         });
 
         //Generamos la sala en la base de datos
         const roomCreated = await Room_Match.create(newRoom);
 
-        return { id: 2, socketId, data: roomCreated };
+        return { id: 2, data: roomCreated };
       }
     } catch (error) {
       throw error;
@@ -151,6 +159,8 @@ class RoomServices {
       ];
       const promisesAll = await Promise.all(promises);
 
+      console.log(promisesAll[1]);
+
       if (promisesAll[1].status === "playing" || promisesAll[1].status === "finished") {
         return { id: 1, data: { message: "Juego en curso o finalizado" } };
       } else {
@@ -182,8 +192,6 @@ class RoomServices {
     try {
       const room = await Room_Match.findByPk(id);
       const user = await User.findByPk(room.userId);
-      const hammer = await User_Advantage.findOne({ where: { advantageId: 1 } });
-      const magicWand = await User_Advantage.findOne({ where: { advantageId: 2 } });
 
       const updateRoom = {
         dataRoom: {
@@ -195,15 +203,89 @@ class RoomServices {
 
       const promise = [
         Room_Match.update({ ...updateRoom }, { where: { id } }),
-        User.update({ points: user.points + dataPlayer.points }, { where: { id: user.id } }),
-        User_Advantage.update( { quantity: hammer.quantity - dataPlayer.hammer }, { where: { userId: user.id, advantageId: 1 } } ),
-        User_Advantage.update( { quantity: magicWand.quantity - dataPlayer.magicWand }, { where: { userId: user.id, advantageId: 2 } }
+        User.update(
+          { points: sequelize.literal(`points + ${dataPlayer.points}`) },
+          { where: { id: user.id } }
+        ),
+        User_Advantage.update(
+          { quantity: sequelize.literal(`quantity - ${dataPlayer.hammer}`) },
+          { where: { userId: user.id, advantageId: 1 } }
+        ),
+        User_Advantage.update(
+          { quantity: sequelize.literal(`quantity - ${dataPlayer.magicWand}`) },
+          { where: { userId: user.id, advantageId: 2 } }
         )
       ];
-      
+
       await Promise.all(promise);
 
       return { message: "Room updated successfully" };
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async updateRoomGroup(id, { player1, player2 }) {
+    try {
+      const room = await Room_Match.findByPk(id);
+      const promises = [
+        User.findByPk(room.userId),
+        User.findByPk(room.opponentUserId),
+        User_Achievement.findAll({
+          where: { userId: room.userId },
+          attributes: ["achievementId", "userId"] }),
+        User_Achievement.findAll({
+          where: { userId: room.opponentUserId },
+          attributes: ["achievementId", "userId"]
+        })
+      ];
+      const promisesAll = await Promise.all(promises);
+
+      const dataRoom = {
+        questions: room.dataRoom.questions,
+        player1,
+        player2
+      };
+
+      const valor1 = await getUserTotalAnswers(promisesAll[0].id);
+      const valor2 = await getUserTotalAnswers(promisesAll[1].id);
+      const coinsPromises = [
+        getValidationsAchivements(valor1, promisesAll[2], room.userId),
+        getValidationsAchivements(valor2, promisesAll[3], room.opponentUserId)
+      ];
+
+      const coins = await Promise.all(coinsPromises);
+
+      const updatePromises = [
+        Room_Match.update({ dataRoom, status: "finished" }, { where: { id } }),
+        User.update(
+          { points: sequelize.literal(`points + ${player1.points}`), coins: sequelize.literal(`coins + ${coins[0]}`) },
+          { where: { id: promisesAll[0].id } }
+        ),
+        User.update(
+          { points: sequelize.literal(`points + ${player2.points}`), coins: sequelize.literal(`coins + ${coins[1]}`) },
+          { where: { id: promisesAll[1].id } }
+        ),
+        User_Advantage.update(
+          { quantity: sequelize.literal(`quantity - ${player1.hammer}`) },
+          { where: { userId: promisesAll[0].id, advantageId: 1 } }
+        ),
+        User_Advantage.update(
+          { quantity: sequelize.literal(`quantity - ${player1.magicWand}`) },
+          { where: { userId: promisesAll[0].id, advantageId: 2 } }
+        ),
+        User_Advantage.update(
+          { quantity: sequelize.literal(`quantity - ${player2.hammer}`) },
+          { where: { userId: promisesAll[1].id, advantageId: 1 } }
+        ),
+        User_Advantage.update(
+          { quantity: sequelize.literal(`quantity - ${player2.magicWand}`) },
+          { where: { userId: promisesAll[1].id, advantageId: 2 } }
+        )
+      ];
+      
+      await Promise.all(updatePromises);
+      
+      return { message: "Partida finalizada" };
     } catch (error) {
       throw error;
     }

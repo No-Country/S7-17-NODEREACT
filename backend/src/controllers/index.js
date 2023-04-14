@@ -21,6 +21,7 @@ const {
   getRoomById,
   getAllRoom,
   updateRoomSolitary,
+  updateRoomGroup,
   deleteRoom
 } = require("./roomMatch.controllers.js");
 const { getAchievements, getUserUnlockedAchievements } = require("./achievement.controllers.js");
@@ -43,6 +44,7 @@ module.exports = {
   deleteFriend,
   getRoomById,
   createRoomSolitary,
+  updateRoomGroup,
   getAllRoom,
   updateRoomSolitary,
   deleteRoom,

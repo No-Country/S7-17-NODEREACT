@@ -4,6 +4,7 @@ const {
   getRoomById,
   getAllRoom,
   updateRoomSolitary,
+  updateRoomGroup,
   deleteRoom
 } = require("../controllers");
 const { authenticate } = require("../middlewares/auth.middleware");
@@ -27,6 +28,46 @@ const router = Router();
  *     responses:
  *       201:
  *         description: The Room was successfully created.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/RoomMatch'
+ * SOCKET=> invitation friend:
+ *   post:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Create socket event for start play with a friend.
+ *     description: io.on("invitation friend", data => { console.log( data ) })
+ *     tags: [Room]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateRoomFriend'
+ *     responses:
+ *       201:
+ *         description: The information is received listening the socket event with name "feedback".
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/RoomMatch'
+ * SOCKET=> invitation random:
+ *   post:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Create socket event for start play random.
+ *     description: io.on("invitation random", data => { console.log( data ) })
+ *     tags: [Room]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateRoom'
+ *     responses:
+ *       201:
+ *         description: The information is received listening the socket event with name "feedback".
  *         content:
  *           application/json:
  *             schema:
@@ -81,6 +122,36 @@ const router = Router();
  *                 message:
  *                   type: string
  *                   example: "Updated successfull"
+ * /api/v1/room/{id}/group:
+ *   put:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: End game.
+ *     tags: [Room]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdateRoomGroup'
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The Room ID.
+ *     responses:
+ *       200:
+ *         description: The Room was successfully created.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Updated successfull"
  */
 
 router.post("/room/solitary", authenticate, createRoomSolitary);
@@ -91,7 +162,7 @@ router.get("/room/:id", authenticate, getRoomById);
 
 router.put("/room/:id/solitary", authenticate, updateRoomSolitary);
 
-//router.put("/room/:id/group", authenticate, updateRoom);
+router.put("/room/:id/group", /* authenticate, */ updateRoomGroup);
 
 //router.delete("/room/:id", authenticate, deleteRoom);
 

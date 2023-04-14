@@ -29,10 +29,10 @@ const { DataTypes } = require("sequelize");
  *               type: object
  *               properties:
  *                 correctAnswers:
- *                   type: integer
+ *                   type: array
  *                   description: Total correct answers.
  *                 incorrectAnswers:
- *                   type: integer
+ *                   type: array
  *                   description: Total incorrect answers.
  *                 points:
  *                   type: integer
@@ -47,10 +47,10 @@ const { DataTypes } = require("sequelize");
  *               type: object
  *               properties:
  *                 correctAnswers:
- *                   type: integer
+ *                   type: array
  *                   description: Total correct answers.
  *                 incorrectAnswers:
- *                   type: integer
+ *                   type: array
  *                   description: Total incorrect answers.
  *                 points:
  *                   type: integer
@@ -74,19 +74,27 @@ const { DataTypes } = require("sequelize");
  *         dataRoom:
  *           questions: []
  *           player1:
- *             correctAnswers: 5
- *             incorrectAnswers: 5
+ *             correctAnswers:
+ *               - 1
+ *               - 2
+ *             incorrectAnswers:
+ *               - 1
+ *               - 2
  *             points: 0
  *             hammer: 2
  *             magicWand: 2
  *           player2:
- *             correctAnswers: 6
- *             incorrectAnswers: 4
+ *             correctAnswers:
+ *               - 1
+ *               - 2
+ *             incorrectAnswers:
+ *               - 1
+ *               - 2
  *             points: 20
  *             hammer: 2
  *             magicWand: 2
- *         status: 'waiting'
- *         typeGame: 'random'
+ *         status: 'playing'
+ *         typeGame: 'random o friend'
  *     CreateRoom:
  *       required:
  *         - userId
@@ -113,10 +121,10 @@ const { DataTypes } = require("sequelize");
  *     UpdateRoomSolitary:
  *       properties:
  *         correctAnswers:
- *           type: integer
+ *           type: array
  *           description: Total correct answers.
  *         incorrectAnswers:
- *           type: integer
+ *           type: array
  *           description: Total incorrect answers.
  *         points:
  *           type: integer
@@ -128,8 +136,12 @@ const { DataTypes } = require("sequelize");
  *           type: integer
  *           description: Total advantage used.
  *       example:
- *         correctAnswers: 5
- *         incorrectAnswers: 5
+ *         correctAnswers:
+ *           - 1
+ *           - 2
+ *         incorrectAnswers:
+ *           - 1
+ *           - 2
  *         points: 0
  *         hammer: 2
  *         magicWand:
@@ -139,10 +151,10 @@ const { DataTypes } = require("sequelize");
  *           type: object
  *           properties:
  *             correctAnswers:
- *               type: integer
+ *               type: array
  *               description: Total correct answers.
  *             incorrectAnswers:
- *               type: integer
+ *               type: array
  *               description: Total incorrect answers.
  *             points:
  *               type: integer
@@ -157,10 +169,10 @@ const { DataTypes } = require("sequelize");
  *           type: object
  *           properties:
  *             correctAnswers:
- *               type: integer
+ *               type: array
  *               description: Total correct answers.
  *             incorrectAnswers:
- *               type: integer
+ *               type: array
  *               description: Total incorrect answers.
  *             points:
  *               type: integer
@@ -173,14 +185,22 @@ const { DataTypes } = require("sequelize");
  *               description: Total advantage used.
  *       example:
  *         player1:
- *           correctAnswers: 5
- *           incorrectAnswers: 5
+ *           correctAnswers:
+ *             - 1
+ *             - 2
+ *           incorrectAnswers:
+ *             - 1
+ *             - 2
  *           points: 0
  *           hammer: 2
  *           magicWand: 2
  *         player2:
- *           correctAnswers: 6
- *           incorrectAnswers: 4
+ *           correctAnswers:
+ *             - 1
+ *             - 2
+ *           incorrectAnswers:
+ *             - 1
+ *             - 2
  *           points: 20
  *           hammer: 2
  *           magicWand: 2
