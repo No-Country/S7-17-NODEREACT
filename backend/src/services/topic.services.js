@@ -20,7 +20,7 @@ class TopicServices {
       if (result === null) throw "User not found";
 
       const { topics } = result;
-      return topics || { message: "There is no user with that id" };
+      return topics;
     } catch (error) {
       throw error;
     }
