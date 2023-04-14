@@ -12,10 +12,9 @@ class NewsServices {
   }
   static async getNewsByUserTopics(id) {
     try {
-      if (!id) throw "Id not found";
       if (isNaN(parseInt(id))) throw "Id param must be an integer";
 
-      const { topics } = await User.findByPk(id, {
+      const userTopics = await User.findByPk(id, {
         attributes: [],
         include: {
           model: Topic,
@@ -26,6 +25,9 @@ class NewsServices {
           }
         }
       });
+      if (userTopics === null) throw "User not found";
+
+      const { topics } = userTopics.dataValues;
       const topicIds = topics.map(topic => topic.id);
 
       const news = await News.findAll({
@@ -39,6 +41,7 @@ class NewsServices {
       });
       return news;
     } catch (error) {
+      console.log(error);
       throw error;
     }
   }
