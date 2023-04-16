@@ -43,7 +43,7 @@ class RoomServices {
       throw error;
     }
   }
-  static async createRoomFriend({ userId, opponentUserId, token }) {
+  static async createRoomFriends({ userId, opponentUserId, token }) {
     try {
       //Buscamos una sala en espera con los mismos datos
       const roomEsxistent = await Room_Match.findOne({

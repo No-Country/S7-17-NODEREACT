@@ -7,7 +7,7 @@ const authenticate = (req, res, next) => {
   if (bearerToken) {
     try {
       const token = bearerToken.split("Bearer ")[1];
-      jwt.verify(token, process.env.SECRET_KEY, "HS512");
+      jwt.verify(token, process.env.JWT_SECRET, "HS512");
       next();
     } catch (error) {
       next({
@@ -27,7 +27,7 @@ const authenticate = (req, res, next) => {
 const authenticateRoom = token => {
   if (!token) return token;
 
-  return jwt.verify(token, process.env.SECRET_KEY, "HS512");
+  return jwt.verify(token, process.env.JWT_SECRET, "HS512");
 };
 
 module.exports = {
