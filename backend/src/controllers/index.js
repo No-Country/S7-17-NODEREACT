@@ -27,7 +27,12 @@ const {
 const { getAchievements, getUserUnlockedAchievements } = require("./achievement.controllers.js");
 const { getAdvantages, buyUserAdvantages } = require("./advantage.controllers.js");
 const { getNews, getNewsByUserTopics } = require("./news.controllers.js");
-const { getTopics, getUserTopics } = require("./topic.controllers.js");
+const {
+  getTopics,
+  getUserTopics,
+  addUserTopic,
+  deleteUserTopic
+} = require("./topic.controllers.js");
 
 module.exports = {
   createUser,
@@ -57,5 +62,7 @@ module.exports = {
   getNews,
   getNewsByUserTopics,
   getTopics,
-  getUserTopics
+  getUserTopics,
+  addUserTopic,
+  deleteUserTopic
 };
