@@ -25,7 +25,7 @@ const router = Router();
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/UserFriend'
- * /api/v1/user/{id}/friends/accept:
+ * /api/v1/user/{id}/friends/accepted:
  *   get:
  *     security:
  *       - bearerAuth: []
@@ -74,7 +74,7 @@ const router = Router();
  *     security:
  *       - bearerAuth: []
  *     summary: Accept or Refuse friend.
- *     description: Accepted values for this Endpoint, "accept" or "refuse".
+ *     description: Accepted values for this Endpoint, "accepted" or "refused".
  *     tags: [Friends]
  *     parameters:
  *       - in: path
@@ -129,7 +129,7 @@ const router = Router();
 
 router.post("/user/friend", authenticate, addUserFriend);
 
-router.get("/user/:id/friends/accept", authenticate, getUserFriends);
+router.get("/user/:id/friends/accepted", authenticate, getUserFriends);
 
 router.get("/user/:id/friends/pending", authenticate, getUserFriends);
 

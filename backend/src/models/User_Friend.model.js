@@ -43,7 +43,7 @@ const { DataTypes } = require("sequelize");
  *           type: string
  *           description: The User ID of the User Friend relation.
  *       example:
- *         status: 'accept'
+ *         status: 'accepted'
  */
 
 const User_Friend = db.define("user_friend", {
@@ -64,7 +64,7 @@ const User_Friend = db.define("user_friend", {
     field: "added_user_id"
   },
   status: {
-    type: DataTypes.ENUM("accept", "pending", "refuse"),
+    type: DataTypes.ENUM("accepted", "pending", "refused"),
     defaultValue: "pending"
   }
 });
