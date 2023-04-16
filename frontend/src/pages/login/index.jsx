@@ -12,7 +12,7 @@ const Login = () => {
   const [windowWidth, setWindowWidth] = useState(useRef(window.innerWidth));
   const authState = useSelector(state => state.auth);
   const { push } = useRouter();
-  console.log(windowWidth.current);
+
   useEffect(() => {
     if (authState.session) {
       push("/");
