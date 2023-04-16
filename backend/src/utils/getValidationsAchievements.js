@@ -1,10 +1,10 @@
 const { User_Achievement } = require("../models");
 
-const getValidationsAchivements = async (valor, promisesAll, userId) => {
+const getValidationsAchievements = async (valor, promisesAll, userId) => {
   let coins = 0;
 
   if (valor >= 5) {
-    if (!promisesAll.find(item => item = { achievementId: 7, userId })) {
+    if (!promisesAll.find(item => (item = { achievementId: 7, userId }))) {
       await User_Achievement.create({ userId, achievementId: 7 });
       coins = 50;
     }
@@ -23,7 +23,7 @@ const getValidationsAchivements = async (valor, promisesAll, userId) => {
       coins = 150;
     }
   }
-  
+
   if (valor >= 20) {
     if (!promisesAll.find(item => (item = { achievementId: 10, userId }))) {
       await User_Achievement.create({ userId, achievementId: 10 });
@@ -34,4 +34,4 @@ const getValidationsAchivements = async (valor, promisesAll, userId) => {
   return coins;
 };
 
-module.exports = getValidationsAchivements;
+module.exports = getValidationsAchievements;
