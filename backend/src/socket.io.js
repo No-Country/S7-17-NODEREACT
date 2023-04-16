@@ -7,7 +7,6 @@ const {
   getRoomById
 } = require("./services/room.services");
 
-
 module.exports = io => {
   io.on("connection", socket => {
     console.log("User connected to socket server");
@@ -21,6 +20,15 @@ module.exports = io => {
 
     //Definimos una variable global donde alamcenaremos todas las salas en espera
     const waitingRooms = [];
+
+    /* Escuchamos el evento socket view results */
+
+    socket.on("view results", async roomId => {
+      const result = await viewResult(roomId);
+
+      io.to(result.player1.socketId).emit("result", result.player1.message);
+      io.to(result.player2.socketId).emit("result", result.player2.message);
+    });
 
     /* Escuchamos el evento socket invitar friend */
 
@@ -132,7 +140,6 @@ module.exports = io => {
     socket.on("invitation accepted", async data => {
       //const result = await
     });
-
 
     /* Recibimos el evento cuando el usuario cierra secion*/
 

@@ -9,18 +9,21 @@ const getValidationsAchivements = async (valor, promisesAll, userId) => {
       coins = 50;
     }
   }
+
   if (valor >= 10) {
     if (!promisesAll.find(item => (item = { achievementId: 8, userId }))) {
       await User_Achievement.create({ userId, achievementId: 8 });
       coins = 100;
     }
   }
+
   if (valor >= 15) {
     if (!promisesAll.find(item => (item = { achievementId: 9, userId }))) {
       await User_Achievement.create({ userId, achievementId: 9 });
       coins = 150;
     }
   }
+  
   if (valor >= 20) {
     if (!promisesAll.find(item => (item = { achievementId: 10, userId }))) {
       await User_Achievement.create({ userId, achievementId: 10 });

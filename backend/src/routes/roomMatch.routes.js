@@ -37,7 +37,7 @@ const router = Router();
  *     security:
  *       - bearerAuth: []
  *     summary: Create socket event for start play with a friend.
- *     description: io.on("invitation friend", data => { console.log( data ) })
+ *     description: Emitir evento => socket.emit("invitation friend", body )  recibir feedback => socket.on("feedback", data => { console.log(data) }) 
  *     tags: [Room]
  *     requestBody:
  *       required: true
@@ -57,7 +57,7 @@ const router = Router();
  *     security:
  *       - bearerAuth: []
  *     summary: Create socket event for start play random.
- *     description: io.on("invitation random", data => { console.log( data ) })
+ *     description: Emitir evento => socket.emit("invitation random", body )   recibir feedback => socket.on("feedback", data => { console.log(data) })
  *     tags: [Room]
  *     requestBody:
  *       required: true
@@ -72,6 +72,32 @@ const router = Router();
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/RoomMatch'
+ * SOCKET=> view results:
+ *   get:
+ *     summary: Create socket event for start play random.
+ *     description: Emitir evento => socket.emit("view results", roomId )   recibir feedback => socket.on("result", data => { console.log(data) })
+ *     tags: [Room]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *           application/json:
+ *             schema:
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   description: The ID of the room
+ *                   example: 1
+ *     responses:
+ *       200:
+ *         description: The information is received listening the socket event with name "feedback".
+ *         content:
+ *           application/json:
+ *             schema:
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Room feedback
+ *                   example: 'Haz ganado'
  * /api/v1/room/{id}:
  *   get:
  *     security:

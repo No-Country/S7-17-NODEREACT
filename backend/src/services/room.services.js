@@ -6,15 +6,15 @@ const getUserTotalAnswers = require("../utils/getUserTotalAswers");
 const getValidationsAchivements = require("../utils/validationAchivement");
 const dataRoom = {
   player1: {
-    correctAnswers: 0,
-    incorrectAnswers: 0,
+    correctAnswers: [],
+    incorrectAnswers: [],
     points: 0,
     hammer: 0,
     magicWand: 0
   },
   player2: {
-    correctAnswers: 0,
-    incorrectAnswers: 0,
+    correctAnswers: [],
+    incorrectAnswers: [],
     points: 0,
     hammer: 0,
     magicWand: 0
@@ -232,7 +232,8 @@ class RoomServices {
         User.findByPk(room.opponentUserId),
         User_Achievement.findAll({
           where: { userId: room.userId },
-          attributes: ["achievementId", "userId"] }),
+          attributes: ["achievementId", "userId"]
+        }),
         User_Achievement.findAll({
           where: { userId: room.opponentUserId },
           attributes: ["achievementId", "userId"]
@@ -240,10 +241,13 @@ class RoomServices {
       ];
       const promisesAll = await Promise.all(promises);
 
+      const dataPlayer1 = player1 || room.dataRoom.player1;
+      const dataPlayer2 = player1 || room.dataRoom.player2;
+
       const dataRoom = {
         questions: room.dataRoom.questions,
-        player1,
-        player2
+        player1: dataPlayer1,
+        player2: dataPlayer2
       };
 
       const valor1 = await getUserTotalAnswers(promisesAll[0].id);
@@ -255,37 +259,81 @@ class RoomServices {
 
       const coins = await Promise.all(coinsPromises);
 
-      const updatePromises = [
-        Room_Match.update({ dataRoom, status: "finished" }, { where: { id } }),
-        User.update(
-          { points: sequelize.literal(`points + ${player1.points}`), coins: sequelize.literal(`coins + ${coins[0]}`) },
-          { where: { id: promisesAll[0].id } }
-        ),
-        User.update(
-          { points: sequelize.literal(`points + ${player2.points}`), coins: sequelize.literal(`coins + ${coins[1]}`) },
-          { where: { id: promisesAll[1].id } }
-        ),
-        User_Advantage.update(
-          { quantity: sequelize.literal(`quantity - ${player1.hammer}`) },
-          { where: { userId: promisesAll[0].id, advantageId: 1 } }
-        ),
-        User_Advantage.update(
-          { quantity: sequelize.literal(`quantity - ${player1.magicWand}`) },
-          { where: { userId: promisesAll[0].id, advantageId: 2 } }
-        ),
-        User_Advantage.update(
-          { quantity: sequelize.literal(`quantity - ${player2.hammer}`) },
-          { where: { userId: promisesAll[1].id, advantageId: 1 } }
-        ),
-        User_Advantage.update(
-          { quantity: sequelize.literal(`quantity - ${player2.magicWand}`) },
-          { where: { userId: promisesAll[1].id, advantageId: 2 } }
-        )
-      ];
-      
-      await Promise.all(updatePromises);
-      
+      await Room_Match.update({ dataRoom, status: "finished" }, { where: { id } });
+
+      if (player1) {
+        const updatePlayer1 = [
+          User.update(
+            {
+              points: sequelize.literal(`points + ${player1.points}`),
+              coins: sequelize.literal(`coins + ${coins[0]}`)
+            },
+            { where: { id: promisesAll[0].id } }
+          ),
+          User_Advantage.update(
+            { quantity: sequelize.literal(`quantity - ${player1.hammer}`) },
+            { where: { userId: promisesAll[0].id, advantageId: 1 } }
+          ),
+          User_Advantage.update(
+            { quantity: sequelize.literal(`quantity - ${player1.magicWand}`) },
+            { where: { userId: promisesAll[0].id, advantageId: 2 } }
+          )
+        ];
+
+        await Promise.all(updatePlayer1);
+      }
+
+      if (player2) {
+        const updatePlayer2 = [
+          User.update(
+            {
+              points: sequelize.literal(`points + ${player2.points}`),
+              coins: sequelize.literal(`coins + ${coins[1]}`)
+            },
+            { where: { id: promisesAll[1].id } }
+          ),
+          User_Advantage.update(
+            { quantity: sequelize.literal(`quantity - ${player2.hammer}`) },
+            { where: { userId: promisesAll[1].id, advantageId: 1 } }
+          ),
+          User_Advantage.update(
+            { quantity: sequelize.literal(`quantity - ${player2.magicWand}`) },
+            { where: { userId: promisesAll[1].id, advantageId: 2 } }
+          )
+        ];
+        await Promise.all(updatePlayer2);
+      }
+
       return { message: "Partida finalizada" };
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async viewResult(id) {
+    try {
+      const { userId, opponentUserId, dataRoom } = await Room_Match.findByPk(id);
+      const promises = [User.findByPk(userId), User.findByPk(opponentUserId)];
+      const promisesAll = await Promise.all(promises);
+
+      const player1 = dataRoom.player1.correctAnswers.length;
+      const player2 = dataRoom.player2.correctAnswers.length;
+
+      if (player1 > player2) {
+        return {
+          player1: { socketId: promisesAll[0].socketId, message: "Haz ganado" },
+          player2: { socketId: promisesAll[1].socketId, message: "haz perdido" }
+        };
+      } else if (player2 > player1) {
+        return {
+          player1: { socketId: promisesAll[0].socketId, message: "Haz perdido" },
+          player2: { socketId: promisesAll[1].socketId, message: "haz ganado" }
+        };
+      } else if (player1 === player2) {
+        return {
+          player1: { socketId: promisesAll[0].socketId, message: "Juego empatado" },
+          player2: { socketId: promisesAll[1].socketId, message: "Juego empatado" }
+        };
+      }
     } catch (error) {
       throw error;
     }

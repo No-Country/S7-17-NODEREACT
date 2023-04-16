@@ -166,7 +166,8 @@ const User = db.define(
     },
     profileImg: {
       type: DataTypes.STRING,
-      field: "profile_img"
+      field: "profile_img",
+      defaultValue: "https://imagenes-glya.s3.amazonaws.com/user_318-875902.png"
     },
     online: {
       type: DataTypes.BOOLEAN,

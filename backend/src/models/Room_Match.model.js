@@ -161,28 +161,10 @@ const { DataTypes } = require("sequelize");
  *               description: Total points won.
  *             hammer:
  *               type: integer
- *               description: Total advantage used.
+ *               description: Total hammer used.
  *             magicWand:
  *               type: integer
- *               description: Total advantage used.
- *         player2:
- *           type: object
- *           properties:
- *             correctAnswers:
- *               type: array
- *               description: Total correct answers.
- *             incorrectAnswers:
- *               type: array
- *               description: Total incorrect answers.
- *             points:
- *               type: integer
- *               description: Total points won.
- *             hammer:
- *               type: integer
- *               description: Total advantage used.
- *             magicWand:
- *               type: integer
- *               description: Total advantage used.
+ *               description: Total magic wand used.
  *       example:
  *         player1:
  *           correctAnswers:
@@ -192,16 +174,6 @@ const { DataTypes } = require("sequelize");
  *             - 1
  *             - 2
  *           points: 0
- *           hammer: 2
- *           magicWand: 2
- *         player2:
- *           correctAnswers:
- *             - 1
- *             - 2
- *           incorrectAnswers:
- *             - 1
- *             - 2
- *           points: 20
  *           hammer: 2
  *           magicWand: 2
  */
