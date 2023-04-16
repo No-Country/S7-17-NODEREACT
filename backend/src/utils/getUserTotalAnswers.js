@@ -8,19 +8,16 @@ const getUserTotalAnswers = async id => {
   const result2 = await Room_Match.findAll({
     where: { opponentUserId: id, status: { [Op.not]: "refused" } }
   });
-  
 
   const result = [];
 
   result1.forEach(item => result.push(item.dataRoom.player1));
   result2.forEach(item => result.push(item.dataRoom.player2));
 
-  
   const total = result.reduce(
     (accumulator, currentValue) => accumulator + currentValue.correctAnswers?.length,
     0
   );
-
 
   return total;
 };

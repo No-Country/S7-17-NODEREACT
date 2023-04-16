@@ -1,9 +1,10 @@
 const sequelize = require("sequelize");
 const { authenticateRoom } = require("../middlewares/auth.middleware");
-const { Room_Match, User, Question, User_Advantage, User_Achievement } = require("../models");
-const getRandom = require("../utils/randomQuestions.js");
-const getUserTotalAnswers = require("../utils/getUserTotalAswers");
-const getValidationsAchivements = require("../utils/validationAchivement");
+const { Room_Match, User, User_Advantage, User_Achievement } = require("../models");
+const getRandomQuestions = require("../utils/getRandomQuestions");
+const getUserTotalAnswers = require("../utils/getUserTotalAnswers");
+const getValidationsAchievements = require("../utils/getValidationsAchievements");
+
 const dataRoom = {
   player1: {
     correctAnswers: [],
@@ -25,7 +26,7 @@ class RoomServices {
   static async createRoomSolitary({ userId }) {
     try {
       if (!userId) throw "No hay datos para continuar";
-      dataRoom["questions"] = await getRandom(10);
+      dataRoom["questions"] = await getRandomQuestions(10);
       const newRoom = {
         userId,
         dataRoom: {
@@ -57,7 +58,7 @@ class RoomServices {
         return { id: 1, socketId, data: { message: "No token provided" } };
 
       //Agregamos 10 preguntas aleatorias a los datos de la sala
-      dataRoom["questions"] = await getRandom(10);
+      dataRoom["questions"] = await getRandomQuestions(10);
 
       //Creamos la base para la sala
       const newRoom = {
@@ -111,7 +112,7 @@ class RoomServices {
 
         //Si NO exísten salas disponibles se ejecuta el siguiente código
       } else {
-        dataRoom["questions"] = await getRandom(10);
+        dataRoom["questions"] = await getRandomQuestions(10);
         //Creamos la base para una sala en espera de jugadores
         const newRoom = {
           userId,
@@ -253,8 +254,8 @@ class RoomServices {
       const valor1 = await getUserTotalAnswers(promisesAll[0].id);
       const valor2 = await getUserTotalAnswers(promisesAll[1].id);
       const coinsPromises = [
-        getValidationsAchivements(valor1, promisesAll[2], room.userId),
-        getValidationsAchivements(valor2, promisesAll[3], room.opponentUserId)
+        getValidationsAchievements(valor1, promisesAll[2], room.userId),
+        getValidationsAchievements(valor2, promisesAll[3], room.opponentUserId)
       ];
 
       const coins = await Promise.all(coinsPromises);
@@ -309,7 +310,7 @@ class RoomServices {
       throw error;
     }
   }
-  static async viewResult(id) {
+  static async viewResults(id) {
     try {
       const { userId, opponentUserId, dataRoom } = await Room_Match.findByPk(id);
       const promises = [User.findByPk(userId), User.findByPk(opponentUserId)];
@@ -320,13 +321,13 @@ class RoomServices {
 
       if (player1 > player2) {
         return {
-          player1: { socketId: promisesAll[0].socketId, message: "Haz ganado" },
-          player2: { socketId: promisesAll[1].socketId, message: "haz perdido" }
+          player1: { socketId: promisesAll[0].socketId, message: "Has ganado" },
+          player2: { socketId: promisesAll[1].socketId, message: "Has perdido" }
         };
       } else if (player2 > player1) {
         return {
-          player1: { socketId: promisesAll[0].socketId, message: "Haz perdido" },
-          player2: { socketId: promisesAll[1].socketId, message: "haz ganado" }
+          player1: { socketId: promisesAll[0].socketId, message: "Has perdido" },
+          player2: { socketId: promisesAll[1].socketId, message: "Has ganado" }
         };
       } else if (player1 === player2) {
         return {

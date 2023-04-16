@@ -4,7 +4,8 @@ const {
   createRoomRandom,
   acceptRoom,
   refuseRoom,
-  getRoomById
+  getRoomById,
+  viewResults
 } = require("./services/room.services");
 
 module.exports = io => {
@@ -24,7 +25,7 @@ module.exports = io => {
     /* Escuchamos el evento socket view results */
 
     socket.on("view results", async roomId => {
-      const result = await viewResult(roomId);
+      const result = await viewResults(roomId);
 
       io.to(result.player1.socketId).emit("result", result.player1.message);
       io.to(result.player2.socketId).emit("result", result.player2.message);
