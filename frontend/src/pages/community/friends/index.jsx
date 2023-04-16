@@ -6,7 +6,7 @@ import Link from "next/link";
 import FriendsPending from "@/components/community-section/friends-pending";
 import AllUsersDetail from "@/components/community-section/all-users-detail";
 import useFetch from "@/hooks/useFetch";
-import FriendsAccept from "@/components/community-section/friends-accept";
+import FriendsAccepted from "@/components/community-section/friends-accepted";
 import Layout from "@/components/layout";
 
 const Friends = () => {
@@ -14,7 +14,7 @@ const Friends = () => {
   const [searchText, setSearchText] = useState("");
   const dataLogin = useSelector(state => state.auth);
   const { data: dataFriendsPending } = useFetch(`/user/${dataLogin.id}/friends/pending`);
-  const { data: dataFriendsAccept } = useFetch(`/user/${dataLogin.id}/friends/accept`);
+  const { data: dataFriendsAccept } = useFetch(`/user/${dataLogin.id}/friends/accepted`);
   const { data: dataAllUsers } = useFetch(`/users/all`);
 
   return (
@@ -50,7 +50,7 @@ const Friends = () => {
             <FriendsPending key={`${el.id}-${el.userAdded?.id}`} data={el} />
           ))}
           {dataFriendsAccept?.map(el => (
-            <FriendsAccept key={`${el.id}-${el.userAdded?.id}`} data={el} />
+            <FriendsAccepted key={`${el.id}-${el.userAdded?.id}`} data={el} />
           ))}
         </div>
       </div>

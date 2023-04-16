@@ -1,9 +1,9 @@
 import Image from "next/image";
-import styles from "../friends-accept/styles.module.css";
+import styles from "../friends-accepted/styles.module.css";
 import RemoveIcon from "../../../assets/remove-icon.svg";
 import SwordIcon from "../../../assets/sword-icon.svg";
 
-const FriendsAccept = ({ data }) => {
+const FriendsAccepted = ({ data }) => {
   return (
     <div className={styles.container}>
       <section className={styles.user__container}>
@@ -37,4 +37,4 @@ const FriendsAccept = ({ data }) => {
   );
 };
 
-export default FriendsAccept;
+export default FriendsAccepted;

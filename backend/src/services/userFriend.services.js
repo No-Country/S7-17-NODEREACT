@@ -5,15 +5,19 @@ class UserFriendServices {
     try {
       const promises = [
         User_Friend.findOne({ where: { userId, addedUserId, status: "pending" } }),
-        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "pending" } }),
-        User_Friend.findOne({ where: { userId, addedUserId, status: "refuse" } }),
-        User_Friend.findOne({ where: { userId, addedUserId, status: "accept" } }),
-        User_Friend.findOne({ where: { userId: addedUserId, addedUserId: userId, status: "accept" } })
+        User_Friend.findOne({
+          where: { userId: addedUserId, addedUserId: userId, status: "pending" }
+        }),
+        User_Friend.findOne({ where: { userId, addedUserId, status: "refused" } }),
+        User_Friend.findOne({ where: { userId, addedUserId, status: "accepted" } }),
+        User_Friend.findOne({
+          where: { userId: addedUserId, addedUserId: userId, status: "accepted" }
+        })
       ];
 
       const promisesAll = await Promise.all(promises);
 
-      if (promisesAll[0]|| promisesAll[1]) throw "Solicitud pendiente";
+      if (promisesAll[0] || promisesAll[1]) throw "Solicitud pendiente";
       if (promisesAll[2]) throw "Solicitud rechazada";
       if (promisesAll[3] || promisesAll[4]) throw "Ya son amigos";
 
@@ -50,7 +54,7 @@ class UserFriendServices {
         })
       ]);
 
-      if ( status === "accept"){
+      if (status === "accepted") {
         return [...result1, ...result2];
       } else {
         return [...result2];
