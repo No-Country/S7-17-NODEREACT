@@ -1,5 +1,13 @@
+import { useEffect, useState } from "react";
+
 const GameSolo = () => {
-  return <div>Soy pagina Modo Solitario</div>;
+  const [room, setRoom] = useState({});
+
+  return (
+    <div>
+      <button onClick={() => jugar()}>Jugar</button>
+    </div>
+  );
 };
 
 export default GameSolo;

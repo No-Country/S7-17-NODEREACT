@@ -58,6 +58,22 @@ const updateRoomSolitary = async (req, res, next) => {
   }
 };
 
+const updateRoomGroup = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const updatedRoom = req.body;
+
+    const result = await RoomServices.updateRoomGroup(id, updatedRoom);
+    res.status(200).json(result);
+  } catch (error) {
+    next({
+      status: 400,
+      message: "Error al actualizar Room",
+      errorContent: error
+    });
+  }
+};
+
 const deleteRoom = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -77,5 +93,6 @@ module.exports = {
   getRoomById,
   getAllRoom,
   updateRoomSolitary,
+  updateRoomGroup,
   deleteRoom
 };

@@ -237,6 +237,8 @@ router.get("/users/all", authenticate, getUsers);
 
 router.get("/users/ranking", authenticate, getTopRankedUsers);
 
+/* router.put("/users/lifes", authenticate, buyLifes); */
+
 router.put("/user/:id/verify", authenticate, verifyUser);
 
 router.put("/user/:id/offline", authenticate, updateOffline);

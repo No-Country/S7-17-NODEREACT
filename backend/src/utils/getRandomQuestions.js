@@ -1,6 +1,6 @@
 const { Question } = require("../models");
 
-const getRandomQuestions = async count => {
+const getRandomQuestionsQuestions = async count => {
   const questions = await Question.findAll();
   const result = [];
 
@@ -16,4 +16,4 @@ const getRandomQuestions = async count => {
   return result;
 };
 
-module.exports = getRandomQuestions;
+module.exports = getRandomQuestionsQuestions;

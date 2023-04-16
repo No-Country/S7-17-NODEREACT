@@ -8,7 +8,7 @@ const options = {
       title: "The Question API",
       version: "1.0.0",
       description:
-        "API que sirve para almacenar datos de un juego web y realizar distintas operaciones de tipo CRUD con ellos."
+        "API that is used to store data from a web game and perform different CRUD type operations with them. to work the sockets in react.js you must install the client dependency with npm i socket.io-client See documentation in the url: https://socket.io/docs/v4/client-initialization/"
     }
   },
   apis: ["./src/routes/*.routes.js", "./src/models/*.model.js"]
