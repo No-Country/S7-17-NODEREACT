@@ -1,11 +1,15 @@
 import Loader from "@/components/loader";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Layout from "../components/layout";
 import styles from "../pages/styles.module.css";
 import Link from "next/link";
 import axios from "axios";
+import io from "socket.io-client";
+import { setSocket } from "@/features/socket/socketSlice";
+
+const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -14,6 +18,9 @@ export default function Home() {
 
   const userId = useSelector(state => state.auth.id);
   const token = useSelector(state => state.auth.token);
+
+  const dispatch = useDispatch();
+  dispatch(setSocket({ socket }));
 
   const jugar = () => {
     axios
