@@ -6,26 +6,26 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 
 const persistConfig = {
-    timeout: 1000,
-    key: "root",
-    storage: storage,
-    blacklist: []
+  timeout: 1000,
+  key: "root",
+  storage: storage,
+  blacklist: []
 };
 
 export const rootReducers = combineReducers({
-    auth: authReducer,
-    reg: regReducer,
-    socket: socketReducer
+  auth: authReducer,
+  reg: regReducer,
+  socket: socketReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
 
 export const store = configureStore({
-    reducer: persistedReducer,
-    middleware: getDefaultMiddleware =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-            }
-        })
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+    })
 });
