@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Navbar from "../navbar";
 import styles from "../layout/styles.module.css";
+import DeskNavbar from "../desk-navbar";
 
 const Layout = ({ children }) => {
   return (
@@ -12,6 +13,9 @@ const Layout = ({ children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.container}>
+        <div className={styles.desktopnavbar}>
+          <DeskNavbar />
+        </div>
         <div className={styles.main}>{children}</div>
         <div className={styles.navbar}>
           <Navbar />

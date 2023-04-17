@@ -1,39 +1,31 @@
 const { configureStore, combineReducers } = require("@reduxjs/toolkit");
 import authReducer from "@/features/auth/authSlice";
 import regReducer from "@/features/reg/regSlice";
-import storage from 'redux-persist/lib/storage'
-import {
-    persistReducer,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
-} from 'redux-persist'
+import socketReducer from "@/features/socket/socketSlice";
+import storage from "redux-persist/lib/storage";
+import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 
 const persistConfig = {
     timeout: 1000,
-    key: 'root',
+    key: "root",
     storage: storage,
-    blacklist: [],
-}
+    blacklist: []
+};
 
 export const rootReducers = combineReducers({
     auth: authReducer,
     reg: regReducer,
-})
+    socket: socketReducer
+});
 
-const persistedReducer = persistReducer(persistConfig, rootReducers)
+const persistedReducer = persistReducer(persistConfig, rootReducers);
 
 export const store = configureStore({
     reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) =>
+    middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
-        }),
-
-
-})
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+            }
+        })
+});

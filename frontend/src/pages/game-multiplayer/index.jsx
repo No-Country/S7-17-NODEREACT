@@ -1,17 +1,16 @@
 import { useEffect } from "react";
-import socket from "../../socket";
 import { useSelector } from "react-redux";
 
 function GameMultiplayer() {
-  const authState = useSelector(state => state.auth);
+  // const { socket } = useSelector(state => state.socket);
 
-  useEffect(() => {
-    socket.emit("invitation random", { userId: authState.id, token: authState.token });
+  // useEffect(() => {
+  //   socket.emit("message", "Hello World!");
 
-    socket.on("message", data => {
-      console.log(data);
-    });
-  }, []);
+  //   socket.on("message", data => {
+  //     console.log(data);
+  //   });
+  // }, []);
 
   return <div>Soy página multijugador</div>;
 }

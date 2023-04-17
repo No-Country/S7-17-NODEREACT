@@ -34,3 +34,16 @@
 .select__link:hover {
     color: #14AE5C;
 }
+
+@media (min-width: 768px){
+    .link__container{
+        justify-content: flex-start;
+        width: 40%;
+    }
+    .options__link {
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+}
