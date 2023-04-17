@@ -25,7 +25,7 @@ class AuthServices {
   }
   static generateToken(data) {
     try {
-      const token = jwt.sign(data, process.env.JWT_SECRET, {
+      const token = jwt.sign(data, process.env.SECRET_KEY, {
         algorithm: "HS512"
       });
       return { token };
