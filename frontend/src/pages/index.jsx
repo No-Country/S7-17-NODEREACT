@@ -1,23 +1,11 @@
 import Loader from "@/components/loader";
 import { useRouter } from "next/router";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Layout from "../components/layout";
 import styles from "../pages/styles.module.css";
 import Link from "next/link";
 import axios from "axios";
-import imgM1 from "./../assets/b-mobile-home/image-1.svg";
-import imgM2 from "./../assets/b-mobile-home/image-2.svg";
-import imgM3 from "./../assets/b-mobile-home/image-3.svg";
-import imgM4 from "./../assets/b-mobile-home/image-4.svg";
-import imgM5 from "./../assets/b-mobile-home/image-5.svg";
-import imgM6 from "./../assets/b-mobile-home/image-6.svg";
-import imgD1 from "./../assets/b-desktop-home/imagen1-desktop.svg";
-import imgD2 from "./../assets/b-desktop-home/imagen2-desktop.svg";
-import imgD3 from "./../assets/b-desktop-home/imagen3-desktop.svg";
-import imgD4 from "./../assets/b-desktop-home/imagen4-desktop.svg";
-import imgD5 from "./../assets/b-desktop-home/imagen5-desktop.svg";
-import imgD6 from "./../assets/b-desktop-home/imagen6-desktop.svg";
 import io from "socket.io-client";
 import { setSocket } from "@/features/socket/socketSlice";
 
