@@ -8,6 +8,18 @@ import Link from "next/link";
 import axios from "axios";
 import io from "socket.io-client";
 import { setSocket } from "@/features/socket/socketSlice";
+import imgM1 from "../assets/b-mobile-home/image-1.svg";
+import imgM2 from "../assets/b-mobile-home/image-2.svg";
+import imgM3 from "../assets/b-mobile-home/image-3.svg";
+import imgM4 from "../assets/b-mobile-home/image-4.svg";
+import imgM5 from "../assets/b-mobile-home/image-5.svg";
+import imgM6 from "../assets/b-mobile-home/image-6.svg";
+import imgD1 from "../assets/b-desktop-home/imagen1-desktop.svg";
+import imgD2 from "../assets/b-desktop-home/imagen2-desktop.svg";
+import imgD3 from "../assets/b-desktop-home/imagen3-desktop.svg";
+import imgD4 from "../assets/b-desktop-home/imagen4-desktop.svg";
+import imgD5 from "../assets/b-desktop-home/imagen5-desktop.svg";
+import imgD6 from "../assets/b-desktop-home/imagen6-desktop.svg";
 
 const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 
