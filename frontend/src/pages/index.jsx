@@ -16,6 +16,14 @@ export default function Home() {
   const { session: isLoggedIn } = useSelector(state => state.auth);
   const router = useRouter();
 
+  const [windowWidth, setWindowWidth] = useState(useRef(window.innerWidth));
+
+  const [currentImage, setCurrentImage] = useState(0);
+  const images = [imgM1, imgM2, imgM3, imgM4, imgM5, imgM6];
+  const images2 = [imgD1, imgD2, imgD3, imgD4, imgD5, imgD6];
+  const intervalTime = 3000;
+  let intervalId;
+
   const userId = useSelector(state => state.auth.id);
   const token = useSelector(state => state.auth.token);
 
@@ -49,13 +57,34 @@ export default function Home() {
     }, 3000);
   }, [isLoggedIn, router]);
 
+  useEffect(() => {
+    const changeImage = () => {
+      setCurrentImage(currentImage => (currentImage + 1) % images.length);
+    };
+    intervalId = setInterval(changeImage, intervalTime);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
         <Layout>
-          <div className={styles.container}>
+          <div
+            className={styles.container}
+            style={{
+              backgroundImage: `url(${
+                windowWidth.current < 768 ? images[currentImage].src : images2[currentImage].src
+              })`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              width: "100vw",
+              height: "100vh"
+            }}
+          >
             <div className={styles.options__link}>
               <div className={styles.link__container}>
                 <Link className={styles.select__link} href="/game-solo">
