@@ -28,8 +28,4 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
       }
     })
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 3a3bc0fbe99061434a73ffb74064a27b5a8ec251
