@@ -138,11 +138,6 @@ module.exports = io => {
       }
     });
 
-    /* Escuchamos el evento socket cuando el usuario oponente acepta la invitación*/
-
-    socket.on("invitation accepted", async data => {
-      //const result = await
-    });
 
     /* Recibimos el evento cuando el usuario cierra sesión*/
 
