@@ -107,13 +107,13 @@ module.exports = io => {
 
       //Si ya existe una sala o no hay un token válido se emite un mensaje al retador
       if (result.id === 1) {
-        io.to(result.socketId).emit("feedback", result.data);
-        io.to(socket.id).emit("feedback", result.data);
+        io.to(result.socketId).emit("feedbackPlayer1", result.data);
+        io.to(socket.id).emit("feedbackPlayer2", result.data);
       }
 
       //Emitimos un mensaje al creador con los datos de la sala
       if (result.id === 2) {
-        io.to(socket.id).emit("feedback", result.data);
+        io.to(socket.id).emit("feedback1", result.data);
 
         //Agregasmos el ID de la sala creada a la lista de espera
         waitingRooms.push(result.data.id);
@@ -132,7 +132,7 @@ module.exports = io => {
             await Room_Match.update({ status: "refused" }, { where: { id } });
 
             //Emitimos un mensaje donde indicamos al retador que se agotó el tiempo de espera
-            io.to(socket.id).emit("feedback", { message: "Se agotó el tiempo de espera" });
+            io.to(socket.id).emit("feedback2", { message: "Se agotó el tiempo de espera" });
           }
         }, 30000);
       }
