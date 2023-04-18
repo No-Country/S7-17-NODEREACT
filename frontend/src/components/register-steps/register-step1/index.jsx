@@ -19,14 +19,16 @@ const RegisterStep1 = () => {
   return (
     <div className={styles.container}>
       <div className={styles.container__top}>
-        <Image
-          placeholder="blur"
-          blurDataURL={"../../../assets/logo.svg"}
-          src={Img}
-          width={214}
-          height={134}
-          alt="imagen-logo"
-        />
+        <div className={styles.logo__desktop}>
+          <Image
+            placeholder="blur"
+            blurDataURL={"../../../assets/logo.svg"}
+            src={Img}
+            width={214}
+            height={134}
+            alt="imagen-logo"
+          />
+        </div>
         <p className={styles.container__title}>Registrate</p>
       </div>
       <form className={styles.container__bottom}>
