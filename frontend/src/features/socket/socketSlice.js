@@ -5,14 +5,16 @@ export const socketSlice = createSlice({
   initialState: {},
   reducers: {
     initSocket: (state, action) => {
-      return action.payload;
+      console.log(action.payload);
+      ({ state: action.payload });
     }
   }
 });
 
-export const setSocket = socket => dispatch => {
-  dispatch(initSocket(socket));
-};
+// export const setSocket = socket => dispatch => {
+//   console.log(socket.socket.id);
+//   dispatch(initSocket(socket.socket.id));
+// };
 
 export const { initSocket } = socketSlice.actions;
 export default socketSlice.reducer;

@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 function GameMultiplayer() {
-  // const { socket } = useSelector(state => state.socket);
+  // const socket = useSelector(state => state.socket);
+  // console.log(socket);
 
   // useEffect(() => {
   //   socket.emit("message", "Hello World!");
@@ -12,7 +13,7 @@ function GameMultiplayer() {
   //   });
   // }, []);
 
-  return <div>Soy página multijugador</div>;
+  return <div>Buscando jugadores. Por favor espera unos segundos...</div>;
 }
 
 export default GameMultiplayer;

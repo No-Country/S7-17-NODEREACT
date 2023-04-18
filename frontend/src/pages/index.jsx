@@ -1,13 +1,13 @@
 import Loader from "@/components/loader";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Layout from "../components/layout";
 import styles from "../pages/styles.module.css";
 import Link from "next/link";
 import axios from "axios";
 import io from "socket.io-client";
-import { setSocket } from "@/features/socket/socketSlice";
+import { initSocket } from "@/features/socket/socketSlice";
 import imgM1 from "../assets/b-mobile-home/image-1.svg";
 import imgM2 from "../assets/b-mobile-home/image-2.svg";
 import imgM3 from "../assets/b-mobile-home/image-3.svg";
@@ -20,6 +20,7 @@ import imgD3 from "../assets/b-desktop-home/imagen3-desktop.svg";
 import imgD4 from "../assets/b-desktop-home/imagen4-desktop.svg";
 import imgD5 from "../assets/b-desktop-home/imagen5-desktop.svg";
 import imgD6 from "../assets/b-desktop-home/imagen6-desktop.svg";
+import { toast } from "react-toastify";
 
 const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 
@@ -39,8 +40,7 @@ export default function Home() {
   const userId = useSelector(state => state.auth.id);
   const token = useSelector(state => state.auth.token);
 
-  const dispatch = useDispatch();
-  dispatch(setSocket({ socket }));
+  // const dispatch = useDispatch();
 
   const jugar = () => {
     axios
@@ -58,6 +58,49 @@ export default function Home() {
       .then(res => console.log(res.data))
       .catch(error => console.error(error));
   };
+
+  const jugarRandom = () => {
+    socket.emit("invitation random", { userId, token });
+
+    socket.on("feedbackPlayer1", data => {
+      console.log("redirigir a Retador (Player 1) a la partida con la siguiente data: ", data);
+      //  window.location.replace("/match");
+    });
+
+    socket.on("feedbackPlayer2", data => {
+      console.log("redirigir a Retado (Player 2) a la partida con la siguiente data: ", data);
+      // window.location.replace("/match");
+    });
+
+    // socket.on("feedback1", data => {
+    //   console.log(data);
+    // });
+
+    socket.on("feedback2", data => {
+      toast.error(`${data.message}`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark"
+      });
+
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 2000);
+    });
+  };
+
+  // useEffect(() => {
+  //   dispatch(initSocket(socket));
+  // }, []);
+
+  useEffect(() => {
+    socket.emit("login", userId);
+  }, [userId]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -103,7 +146,7 @@ export default function Home() {
                   <p onClick={() => jugar()}>Solo</p>
                 </Link>
                 <Link className={styles.select__link} href="/game-multiplayer">
-                  <p>Multiplayer</p>
+                  <p onClick={() => jugarRandom()}>Multiplayer</p>
                 </Link>
               </div>
             </div>
