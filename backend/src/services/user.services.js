@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Advantage } = require("../models");
 const { Op } = require("sequelize");
 const AuthServices = require("./auth.services");
 
@@ -16,6 +16,10 @@ class UserServices {
       const result = await User.findByPk(id, {
         attributes: {
           exclude: ["password", "codeVerify"]
+        },
+        include: {
+          model: Advantage,
+          as: "advantages"
         }
       });
       return result;

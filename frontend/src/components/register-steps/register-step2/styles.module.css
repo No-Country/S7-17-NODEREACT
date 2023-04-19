@@ -83,3 +83,8 @@
     background-color: black;
     color: #FFFFFF;
 }
+@media (min-width: 768px) {
+    .logo__desktop {
+        display: none;
+    }
+}
