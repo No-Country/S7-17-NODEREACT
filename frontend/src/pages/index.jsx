@@ -21,7 +21,7 @@ import imgD5 from "../assets/b-desktop-home/imagen5-desktop.svg";
 import imgD6 from "../assets/b-desktop-home/imagen6-desktop.svg";
 import { toast } from "react-toastify";
 
-const socket = io(`${process.env.SOCKET_URL}`);
+const socket = io("https://the-questions-ogrz.onrender.com");
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
