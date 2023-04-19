@@ -11,7 +11,30 @@ import { useEffect, useState } from "react";
 
 const Profile = () => {
   const dataLogin = useSelector(state => state.auth);
-  const [perfil, setPerfil] = useState({});
+  const [perfil, setPerfil] = useState({
+    id: null,
+    username: "",
+    email: "",
+    lifes: null,
+    points: null,
+    coins: null,
+    profileImg: "",
+    advantages: [
+      {
+        user_advantage: {
+          quantity: null,
+          advantageId: null
+        }
+      },
+      {
+        user_advantage: {
+          quantity: null,
+          advantageId: null
+        }
+      }
+    ]
+  });
+
   useEffect(() => {
     axios
       .get(`https://api-the-question-production.up.railway.app/api/v1/user/${dataLogin.id}`, {
@@ -80,7 +103,9 @@ const Profile = () => {
                     src={hammerIcon}
                     alt=""
                   />
-                  <div className={styles.hammer__number}>1</div>
+                  <div className={styles.hammer__number}>
+                    {perfil.advantages[0].user_advantage.quantity}
+                  </div>
                 </div>
                 <p>Martillos</p>
               </div>
@@ -93,7 +118,9 @@ const Profile = () => {
                     src={wandIcon}
                     alt=""
                   />
-                  <div className={styles.hammer__number}>1</div>
+                  <div className={styles.hammer__number}>
+                    {perfil.advantages[1].user_advantage.quantity}
+                  </div>
                 </div>
                 <p>Varas Mágicas</p>
               </div>
