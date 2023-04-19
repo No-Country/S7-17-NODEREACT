@@ -44,7 +44,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Topic'
  * /api/v1/topic/add/user/{id}:
- *   get:
+ *   post:
  *     security:
  *       - bearerAuth: []
  *     summary: Add Topic to user.
@@ -68,7 +68,7 @@ const router = Router();
  *                   type: string
  *                   example: "Topic added successfully"
  * /api/v1/topic/delete/user/{id}:
- *   get:
+ *   delete:
  *     security:
  *       - bearerAuth: []
  *     summary: Delete Topic to user.

@@ -28,7 +28,7 @@ db.authenticate()
 
 initModels();
 
-db.sync({ alter: true })
+db.sync({ force: false })
   .then(() => console.log("All models were synchronized successfully."))
   .catch(error => console.error("Unable to synchronize the database: ", error));
 

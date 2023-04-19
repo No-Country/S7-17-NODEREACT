@@ -35,6 +35,14 @@ class AdvantageServices {
       throw error;
     }
   }
+  static async addUserAdvantage(body) {
+    try {
+      const advantages = await Advantage.bulkCreate(body);
+      return advantages;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = AdvantageServices;
