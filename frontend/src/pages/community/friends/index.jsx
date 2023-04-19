@@ -1,6 +1,6 @@
 import SearchUser from "@/components/community-section/search-user";
 import styles from "../friends/styles.module.css";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import FriendsPending from "@/components/community-section/friends-pending";
@@ -17,7 +17,6 @@ const Friends = () => {
   const { data: dataFriendsPending } = useFetch(`/user/${dataLogin.id}/friends/pending`);
   const { data: dataFriendsAccepted } = useFetch(`/user/${dataLogin.id}/friends/accepted`);
   const { data: dataAllUsers } = useFetch(`/users/all`);
-  const [windowWidth, setWindowWidth] = useState(useRef(window.innerWidth));
 
   return (
     <Layout>

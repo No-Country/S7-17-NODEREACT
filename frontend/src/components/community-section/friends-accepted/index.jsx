@@ -11,7 +11,7 @@ const FriendsAccepted = ({ data }) => {
 
   const toastProperties = {
     position: "top-center",
-    autoClose: 3000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -30,6 +30,9 @@ const FriendsAccepted = ({ data }) => {
       })
       .then(res => {
         toast.success("¡Amigo eliminado con éxito!", toastProperties);
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
       })
       .catch(err => {
         switch (err.response.data.error) {

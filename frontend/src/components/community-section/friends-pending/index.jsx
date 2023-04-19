@@ -10,7 +10,7 @@ const FriendsPending = ({ data }) => {
 
   const toastProperties = {
     position: "top-center",
-    autoClose: 3000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -45,7 +45,9 @@ const FriendsPending = ({ data }) => {
           default:
             break;
         }
-        location.reload();
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
       })
       .catch(err => console.error(err));
   };
