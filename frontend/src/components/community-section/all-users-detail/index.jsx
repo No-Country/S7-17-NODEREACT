@@ -8,6 +8,18 @@ import { toast } from "react-toastify";
 
 const AllUsersDetail = ({ data, background }) => {
   const dataLogin = useSelector(state => state.auth);
+
+  const toastProperties = {
+    position: "top-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark"
+  };
+
   const handleAddFriend = id => {
     axios
       .post(
@@ -24,53 +36,21 @@ const AllUsersDetail = ({ data, background }) => {
         }
       )
       .then(res => {
-        toast.success("¡Solicitud de amistad enviada con éxito!", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark"
-        });
+        toast.success("¡Solicitud de amistad enviada con éxito!", toastProperties);
       })
       .catch(err => {
         switch (err.response.data.error) {
           case "Already friends":
-            toast.info("¡Este usuario ya es tu amigo!", {
-              position: "top-center",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark"
-            });
+            toast.info("¡Este usuario ya es tu amigo!", toastProperties);
+            break;
           case "Pending friend request":
-            toast.warning("Ya has enviado una solicitud de amistad a este usuario.", {
-              position: "top-center",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark"
-            });
+            toast.warning(
+              "Ya has enviado una solicitud de amistad a este usuario.",
+              toastProperties
+            );
             break;
           case "Refused friend request":
-            toast.error("Este usuario ha rechazado tu solictud de amistad.", {
-              position: "top-center",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark"
-            });
+            toast.error("Este usuario ha rechazado tu solictud de amistad.", toastProperties);
             break;
           default:
             console.error(err);
