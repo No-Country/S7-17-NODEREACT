@@ -3,9 +3,21 @@ import styles from "../friends-pending/styles.module.css";
 import RemoveIcon from "../../../assets/remove-icon.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const FriendsPending = ({ data }) => {
   const token = useSelector(state => state.auth.token);
+
+  const toastProperties = {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark"
+  };
 
   const resInvitation = (id, status) => {
     axios
@@ -22,7 +34,21 @@ const FriendsPending = ({ data }) => {
           }
         }
       )
-      .then(res => console.log(res.data))
+      .then(res => {
+        switch (status) {
+          case "accepted":
+            toast.success("¡Amigo aceptado con éxito!", toastProperties);
+            break;
+          case "refused":
+            toast.success("¡Amigo rechazado con éxito!", toastProperties);
+            break;
+          default:
+            break;
+        }
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+      })
       .catch(err => console.error(err));
   };
 
