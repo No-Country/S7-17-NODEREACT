@@ -1,6 +1,6 @@
 import Loader from "@/components/loader";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import Layout from "../components/layout";
 import styles from "../pages/styles.module.css";
