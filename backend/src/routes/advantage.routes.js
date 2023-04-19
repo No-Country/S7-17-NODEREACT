@@ -63,19 +63,21 @@ const router = Router();
  *         application/json:
  *           schema:
  *             type: array
- *             properties:
- *               userId:
- *                 type: integer
- *                 description: 'The User ID'
- *                 example: 1
- *               advantageId:
- *                 type: integer
- *                 description: 'The Advantage ID'
- *                 example: 1
- *               quantity:
- *                 type: integer
- *                 description: 'The advantage quantity to buy'
- *                 example: 1
+ *             items:
+ *               properties:
+ *                 userId:
+ *                   type: integer
+ *                   description: 'The User ID'
+ *                 advantageId:
+ *                   type: integer
+ *                   description: 'The Advantage ID'
+ *                 quantity:
+ *                   type: integer
+ *                   description: 'The advantage quantity to buy'
+ *               example:
+ *                 userId: 1
+ *                 advantageId: 1
+ *                 quantity: 1
  *     responses:
  *       200:
  *         description: The advantage was successfully added to a User.

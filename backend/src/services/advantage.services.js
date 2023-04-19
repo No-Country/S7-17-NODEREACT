@@ -37,7 +37,7 @@ class AdvantageServices {
   }
   static async addUserAdvantage(body) {
     try {
-      const advantages = await Advantage.bulkCreate(body);
+      const advantages = await User_Advantage.bulkCreate(body);
       return advantages;
     } catch (error) {
       throw error;
