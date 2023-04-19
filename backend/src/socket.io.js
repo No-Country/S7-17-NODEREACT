@@ -19,8 +19,10 @@ module.exports = io => {
     /* Almacenamos el socket ID del cliente en el momento que hace login */
 
     socket.on("login", async id => {
-      const user = await User.findByPk(id);
-      if (user) await User.update({ socketId: socket.id, online: true }, { where: { id } });
+      if (id) {
+        const user = await User.findByPk(id);
+        if (user) await User.update({ socketId: socket.id, online: true }, { where: { id } });
+      }
     });
 
     //Definimos una variable global donde almacenaremos todas las salas en espera
@@ -113,7 +115,7 @@ module.exports = io => {
 
       //Emitimos un mensaje al creador con los datos de la sala
       if (result.id === 2) {
-        io.to(socket.id).emit("feedback", result.data);
+        io.to(socket.id).emit("feedback1", result.data);
 
         //Agregasmos el ID de la sala creada a la lista de espera
         waitingRooms.push(result.data.id);
@@ -132,7 +134,7 @@ module.exports = io => {
             await Room_Match.update({ status: "refused" }, { where: { id } });
 
             //Emitimos un mensaje donde indicamos al retador que se agotó el tiempo de espera
-            io.to(socket.id).emit("feedback", { message: "Se agotó el tiempo de espera" });
+            io.to(socket.id).emit("feedback2", { message: "Se agotó el tiempo de espera" });
           }
         }, 30000);
       }
