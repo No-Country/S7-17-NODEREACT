@@ -1,4 +1,3 @@
-import SwordIcon from "../../../assets/sword-icon.svg";
 import AddIcon from "../../../assets/add-icon.svg";
 import styles from "../all-users-detail/styles.module.css";
 import Image from "next/image";
@@ -80,11 +79,6 @@ const AllUsersDetail = ({ data, background }) => {
         <div className={styles.add__container}>
           <div onClick={() => handleAddFriend(data.id)} className={styles.button__add}>
             <Image src={AddIcon} width={33.33} height={33.33} alt="img-add-icon" />
-          </div>
-        </div>
-        <div className={styles.duel__container}>
-          <div className={styles.button__duel}>
-            <Image src={SwordIcon} width={25.61} height={24.81} alt="img-sword-icon" />
           </div>
         </div>
       </section>
