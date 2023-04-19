@@ -19,8 +19,10 @@ module.exports = io => {
     /* Almacenamos el socket ID del cliente en el momento que hace login */
 
     socket.on("login", async id => {
-      const user = await User.findByPk(id);
-      if (user) await User.update({ socketId: socket.id, online: true }, { where: { id } });
+      if (id) {
+        const user = await User.findByPk(id);
+        if (user) await User.update({ socketId: socket.id, online: true }, { where: { id } });
+      }
     });
 
     //Definimos una variable global donde almacenaremos todas las salas en espera
@@ -107,8 +109,8 @@ module.exports = io => {
 
       //Si ya existe una sala o no hay un token válido se emite un mensaje al retador
       if (result.id === 1) {
-        io.to(result.socketId).emit("feedbackPlayer1", result.data);
-        io.to(socket.id).emit("feedbackPlayer2", result.data);
+        io.to(result.socketId).emit("feedback", result.data);
+        io.to(socket.id).emit("feedback", result.data);
       }
 
       //Emitimos un mensaje al creador con los datos de la sala
