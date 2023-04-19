@@ -12,9 +12,10 @@ import Layout from "@/components/layout";
 const Friends = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [isAccepted, setIsAccepted] = useState(true);
   const dataLogin = useSelector(state => state.auth);
   const { data: dataFriendsPending } = useFetch(`/user/${dataLogin.id}/friends/pending`);
-  const { data: dataFriendsAccept } = useFetch(`/user/${dataLogin.id}/friends/accepted`);
+  const { data: dataFriendsAccepted } = useFetch(`/user/${dataLogin.id}/friends/accepted`);
   const { data: dataAllUsers } = useFetch(`/users/all`);
   const [windowWidth, setWindowWidth] = useState(useRef(window.innerWidth));
 
@@ -43,22 +44,31 @@ const Friends = () => {
               </button>
             </Link>
           </div>
+          <div className={styles.btnContainer}>
+            <div className={isAccepted ? styles.btnSelected : ""} onClick={() => setIsAccepted(true)}>
+              Aceptados
+            </div>
+            <div
+              className={isAccepted ? "" : styles.btnSelected}
+              onClick={() => setIsAccepted(false)}
+            >
+              Pendientes
+            </div>
+          </div>
           <div className={styles.userdetail__container}>
             {searchText == ""
               ? ""
-              : searchResults?.map(el => (
-                  <AllUsersDetail background="green" key={el.id} data={el} />
-                ))}
+              : searchResults?.map(el => <AllUsersDetail background="green" key={el.id} data={el} />)}
 
-            {dataFriendsPending?.map(el => (
-              <FriendsPending key={`${el.id}-${el.userAdded?.id}`} data={el} />
-            ))}
-            {dataFriendsAccept?.map(el => (
-              <FriendsAccepted key={`${el.id}-${el.userAdded?.id}`} data={el} />
-            ))}
+            {!isAccepted
+              ? dataFriendsPending?.map(el => (
+                <FriendsPending key={`${el.id}-${el.userAdded?.id}`} data={el} />
+                ))
+              : dataFriendsAccepted?.map(el => (
+                <FriendsAccepted key={`${el.id}-${el.userAdded?.id}`} data={el} />
+                ))}
           </div>
-        </div>
-      ) : (
+        </div>) : (
         <div className={styles.container__desktop}>
           <div className={styles.top__desktop}></div>
           <div className={styles.data__container}>
@@ -92,16 +102,15 @@ const Friends = () => {
             <div className={styles.data__friends__container}>
               {searchText == ""
                 ? ""
-                : searchResults?.map(el => (
-                    <AllUsersDetail background="green" key={el.id} data={el} />
-                  ))}
+                : searchResults?.map(el => <AllUsersDetail background="green" key={el.id} data={el} />)}
 
-              {dataFriendsPending?.map(el => (
-                <FriendsPending key={`${el.id}-${el.userAdded?.id}`} data={el} />
-              ))}
-              {dataFriendsAccept?.map(el => (
-                <FriendsAccepted key={`${el.id}-${el.userAdded?.id}`} data={el} />
-              ))}
+              {!isAccepted
+                ? dataFriendsPending?.map(el => (
+                    <FriendsPending key={`${el.id}-${el.userAdded?.id}`} data={el} />
+                  ))
+                : dataFriendsAccepted?.map(el => (
+                    <FriendsAccepted key={`${el.id}-${el.userAdded?.id}`} data={el} />
+                  ))}
             </div>
           </div>
         </div>

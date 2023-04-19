@@ -13,14 +13,13 @@ const FriendsAccepted = ({ data }) => {
               style={{ borderRadius: "50%" }}
               width={40}
               height={40}
-              src={data.userAdded?.profileImg}
+              src={data.userFriend?.profileImg}
               alt="img-perfil"
             />
           </div>
         </div>
         <div className={styles.username__container}>
-          <p className={styles.user}>{data.userAdded?.username}</p>
-          <p className={styles.point}>{data.status}</p>
+          <p className={styles.user}>{data.userFriend?.username}</p>
         </div>
         <div className={styles.delete__container}>
           <div className={styles.button__remove}>
