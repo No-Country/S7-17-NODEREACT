@@ -94,7 +94,8 @@ export default function Home() {
               backgroundSize: "cover",
               backgroundPosition: "center",
               width: "100vw",
-              height: "100vh"
+              height: "100vh",
+              transition: "all 1s ease"
             }}
           >
             <div className={styles.options__link}>
