@@ -3,13 +3,13 @@
     height: 100vh;
     color: white;
     position: relative;
+    background-color: black;
 }
 .section{
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
-    background-color: rgb(70, 70, 70);
 }
 .section__logo{
     grid-area: 1 / 1 / 2 / 2;
@@ -60,6 +60,7 @@ height: 100vh;
     width: 307px;
     height: 54px;
 }
+
 @media (min-width: 768px){
     .form{
         position: absolute;
@@ -79,6 +80,7 @@ height: 100vh;
         line-height: 20px;
         letter-spacing: 0.01em;
         font-feature-settings: 'pnum' on, 'lnum' on;
+        cursor: pointer;
     }
     .button2 {
         background: none;
@@ -91,6 +93,7 @@ height: 100vh;
         line-height: 20px;
         letter-spacing: 0.01em;
         font-feature-settings: 'pnum' on, 'lnum' on;
+        cursor: pointer;
     }
     .section__button{
         margin-top: 50px;
@@ -98,5 +101,11 @@ height: 100vh;
     }
     .section__logo{
         padding-bottom: 0px;
+    }
+    .button1:hover {
+        color: #14AE5C;
+    }
+    .button2:hover {
+        color: #14AE5C;
     }
 }

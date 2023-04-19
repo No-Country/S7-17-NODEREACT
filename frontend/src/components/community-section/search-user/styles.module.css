@@ -23,3 +23,11 @@
     letter-spacing: 0.5px;
     color: #000000;
 }
+@media (min-width: 768px){
+    .container{
+        width: 380px;
+        border-radius: 0;
+        border-bottom: 1px black solid;
+        background-color: white;
+    }
+}
