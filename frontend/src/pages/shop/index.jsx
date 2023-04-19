@@ -40,7 +40,7 @@ const Shop = () => {
 
   const dataPerfil = () => {
     axios
-      .get(`https://api-the-question-production.up.railway.app/api/v1/user/${dataLogin.id}`, {
+      .get(`https://the-questions-ogrz.onrender.com/api/v1/user/${dataLogin.id}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const Shop = () => {
   const addItem = id => {
     axios
       .put(
-        `https://api-the-question-production.up.railway.app/api/v1/advantages/update/user/${dataLogin.id}`,
+        `https://the-questions-ogrz.onrender.com/api/v1/advantages/update/user/${dataLogin.id}`,
         {
           advantageId: id,
           quantity: 1
@@ -88,7 +88,7 @@ const Shop = () => {
       )
       .catch(err => console.log(err));
   };
-
+  console.log(perfil);
   return (
     <Layout>
       <div className={styles.container}>

@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Advantage, User_Advantage } = require("../models");
 const { Op } = require("sequelize");
 const AuthServices = require("./auth.services");
 
@@ -6,6 +6,11 @@ class UserServices {
   static async createUser(user) {
     try {
       const result = await User.create(user);
+      const advantages = [
+        { quantity: 2, userId: result.id, advantageId: 1 },
+        { quantity: 2, userId: result.id, advantageId: 2 }
+      ];
+      await User_Advantage.bulkCreate(advantages)
       return result;
     } catch (error) {
       throw error;
@@ -16,6 +21,10 @@ class UserServices {
       const result = await User.findByPk(id, {
         attributes: {
           exclude: ["password", "codeVerify"]
+        },
+        include: {
+          model: Advantage,
+          as: "advantages"
         }
       });
       return result;
