@@ -1,13 +1,12 @@
 import Loader from "@/components/loader";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Layout from "../components/layout";
 import styles from "../pages/styles.module.css";
 import Link from "next/link";
 import axios from "axios";
 import io from "socket.io-client";
-import { initSocket } from "@/features/socket/socketSlice";
 import imgM1 from "../assets/b-mobile-home/image-1.svg";
 import imgM2 from "../assets/b-mobile-home/image-2.svg";
 import imgM3 from "../assets/b-mobile-home/image-3.svg";
@@ -40,8 +39,6 @@ export default function Home() {
   const userId = useSelector(state => state.auth.id);
   const token = useSelector(state => state.auth.token);
 
-  // const dispatch = useDispatch();
-
   const jugar = () => {
     axios
       .post(
@@ -62,17 +59,20 @@ export default function Home() {
   const jugarRandom = () => {
     socket.emit("invitation random", { userId, token });
 
-    socket.on("feedbackPlayer1", data => {
-      console.log("redirigir a Retador (Player 1) a la partida con la siguiente data: ", data);
-      //  window.location.replace("/match");
-    });
-
-    socket.on("feedbackPlayer2", data => {
-      console.log("redirigir a Retado (Player 2) a la partida con la siguiente data: ", data);
-      // window.location.replace("/match");
+    socket.on("feedback", data => {
+      console.log(
+        `redirigir a ${
+          userId === data.userId ? "Retador (Player 1)" : "Retado (Player 2)"
+        }  a la partida con la siguiente data: `,
+        data
+      );
+      const text = userId === data.userId ? "player2" : "player1";
+      delete data.dataRoom[text];
+      sessionStorage.setItem("roomMatch", JSON.stringify(data));
     });
 
     // socket.on("feedback1", data => {
+    //   // informar al usuario retador si se creó o no la sala
     //   console.log(data);
     // });
 
@@ -94,12 +94,8 @@ export default function Home() {
     });
   };
 
-  // useEffect(() => {
-  //   dispatch(initSocket(socket));
-  // }, []);
-
   useEffect(() => {
-    socket.emit("login", userId);
+    if (userId) socket.emit("login", userId);
   }, [userId]);
 
   useEffect(() => {
@@ -137,7 +133,8 @@ export default function Home() {
               backgroundSize: "cover",
               backgroundPosition: "center",
               width: "100vw",
-              height: "100vh"
+              height: "100vh",
+              transition: "all 1s linear"
             }}
           >
             <div className={styles.options__link}>
