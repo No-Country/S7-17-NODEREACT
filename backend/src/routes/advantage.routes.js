@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getAdvantages, buyUserAdvantages } = require("../controllers");
+const { getAdvantages, buyUserAdvantages, addUserAdvantage } = require("../controllers");
 const { authenticate } = require("../middlewares/auth.middleware");
 
 const router = Router();
@@ -51,9 +51,46 @@ const router = Router();
  *                 message:
  *                   type: string
  *                   example: "User's advantages updated successfully"
+ * /api/v1/advantage/add/user:
+ *   post:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Add advantage to a User.
+ *     tags: [Advantages]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             properties:
+ *               userId:
+ *                 type: integer
+ *                 description: 'The User ID'
+ *                 example: 1
+ *               advantageId:
+ *                 type: integer
+ *                 description: 'The Advantage ID'
+ *                 example: 1
+ *               quantity:
+ *                 type: integer
+ *                 description: 'The advantage quantity to buy'
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: The advantage was successfully added to a User.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User's advantage added successfully"
  */
 
 router.get("/advantages/all", authenticate, getAdvantages);
 router.put("/advantages/update/user/:id", authenticate, buyUserAdvantages);
+router.post("/advantage/add/user", addUserAdvantage);
 
 module.exports = router;
