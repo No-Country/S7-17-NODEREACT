@@ -175,4 +175,8 @@
   .button2{
       cursor: pointer;
   }
+  .button__container {
+    display: flex;
+    gap: 20px;
+  }
 }
