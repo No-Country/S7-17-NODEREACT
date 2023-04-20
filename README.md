@@ -31,9 +31,9 @@
 ## Lenguajes, herramientas y métodos 
 
 - ReactJS
-- Boostrap
 - Redux/toolkit
 - javaScript
 - node / express
+- sequelize
 - postgresSql
 - swagger
