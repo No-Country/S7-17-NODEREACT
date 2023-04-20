@@ -4,6 +4,10 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { endingMatch } from "../index";
 
+import hammerIcon from "../../assets/hammer-icon.svg";
+import wandIcon from "../../assets/magic-wand-icon.svg";
+import Image from "next/image";
+
 function GameMultiplayer() {
   const [loader, setLoader] = useState(true);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -12,10 +16,15 @@ function GameMultiplayer() {
   const [timeRemaining, setTimeRemaining] = useState(20);
   const [magicWand, setMagicWand] = useState(0);
   const [hammer, setHammer] = useState(0);
-  const [modalShow, setModalShow] = useState(false);
 
   const token = useSelector(state => state.auth.token);
   const id = useSelector(state => state.auth.id);
+  const user = JSON.parse(localStorage.getItem("user")) || {};
+
+  useEffect(() => {
+    setHammer(user.advantages[0].user_advantage?.quantity);
+    setMagicWand(user.advantages[1].user_advantage?.quantity);
+  }, [user]);
 
   const room = JSON.parse(sessionStorage.getItem("roomMatch")) || {};
   const { dataRoom } = room;
@@ -24,32 +33,39 @@ function GameMultiplayer() {
   const handleSelectAnswer = answer => setSelectedAnswer(answer);
 
   // Función para comprobar la respuesta seleccionada por el usuario
-  const checkAnswer = () => {
-    if (id === room.userId) {
-      if (selectedAnswer === dataRoom.questions[currentQuestionIndex].correctAnswer) {
-        setPoints(points + 20);
-        room.dataRoom.player1.correctAnswers.push(dataRoom.questions[currentQuestionIndex].topicId);
-        room.dataRoom.player1.points = points;
-      } else {
-        room.dataRoom.player1.incorrectAnswers.push(
-          dataRoom.questions[currentQuestionIndex].topicId
-        );
+  const checkAnswer = answer => {
+    setSelectedAnswer(answer);
+    setTimeout(() => {
+      if (id === room.userId) {
+        if (selectedAnswer === dataRoom.questions[currentQuestionIndex].correctAnswer) {
+          setPoints(points + 20);
+          room.dataRoom.player1.correctAnswers.push(
+            dataRoom.questions[currentQuestionIndex].topicId
+          );
+          room.dataRoom.player1.points = points;
+        } else {
+          room.dataRoom.player1.incorrectAnswers.push(
+            dataRoom.questions[currentQuestionIndex].topicId
+          );
+        }
+      } else if (id === room.opponentUserId) {
+        if (selectedAnswer === dataRoom.questions[currentQuestionIndex].correctAnswer) {
+          setPoints(points + 20);
+          room.dataRoom.player2.correctAnswers.push(
+            dataRoom.questions[currentQuestionIndex].topicId
+          );
+          room.dataRoom.player2.points = points;
+        } else {
+          room.dataRoom.player2.incorrectAnswers.push(
+            dataRoom.questions[currentQuestionIndex].topicId
+          );
+        }
       }
-    } else if (id === room.opponentUserId) {
-      if (selectedAnswer === dataRoom.questions[currentQuestionIndex].correctAnswer) {
-        setPoints(points + 20);
-        room.dataRoom.player2.correctAnswers.push(dataRoom.questions[currentQuestionIndex].topicId);
-        room.dataRoom.player2.points = points;
-      } else {
-        room.dataRoom.player2.incorrectAnswers.push(
-          dataRoom.questions[currentQuestionIndex].topicId
-        );
-      }
-    }
-    setSelectedAnswer("");
-    setTimeRemaining(15);
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
-    sessionStorage.setItem("roomMatch", JSON.stringify(room));
+      setSelectedAnswer("");
+      setTimeRemaining(15);
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      sessionStorage.setItem("roomMatch", JSON.stringify(room));
+    }, 500)
   };
 
   // Función para reiniciar la trivia
@@ -91,7 +107,7 @@ function GameMultiplayer() {
   if (loader) setTimeout(() => setLoader(false), 5000);
 
   const magicWandUse = () => {
-    setMagicWand(magicWand + 1);
+    setMagicWand(magicWand - 1);
     setTimeRemaining(timeRemaining + 5);
   };
 
@@ -113,30 +129,99 @@ function GameMultiplayer() {
         ""
       )}
       {hasTimeRemaining ? (
-        <div>
-          <button onClick={() => magicWandUse()}>Varita</button>
-          <button>Martillo</button>
-          <h2>{currentQuestion.question}</h2>
-          <ul>
+        <div className={styles.container__game}>
+          <div
+            className={styles.game__top}
+            style={{
+              backgroundImage: `url(${currentQuestion.img})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              width: "100%",
+              height: "60%",
+              transition: "all 1s linear"
+            }}
+          >
+            <div className={styles.top__time}>
+              <div className={styles.time__container}>
+                <p>{`${timeRemaining}`}</p>
+                <div className={styles.time__second}>"</div>
+              </div>
+            </div>
+            <div className={styles.top__question}>
+              <div className={styles.ventajas}>
+                <div className={styles.ventajas__icon} onClick={() => magicWandUse()}>
+                  <Image
+                    style={{ borderRadius: "50%" }}
+                    width={40}
+                    height={40}
+                    src={wandIcon}
+                    alt=""
+                  />
+                  <div className={styles.ventajas__number}>{magicWand}</div>
+                </div>
+                <div className={styles.ventajas__icon}>
+                  <Image
+                    style={{ borderRadius: "50%" }}
+                    width={40}
+                    height={40}
+                    src={hammerIcon}
+                    alt=""
+                  />
+                  <div className={styles.ventajas__number}>{hammer}</div>
+                </div>
+              </div>
+              <div className={styles.question}>
+                <span className={styles.game__question}>{currentQuestion.question}</span>
+              </div>
+            </div>
+          </div>
+          <div className={styles.game__bottom}>
             {answers.map((answer, index) => (
-              <li key={index}>
-                <button onClick={() => handleSelectAnswer(answer)} disabled={selectedAnswer !== ""}>
+              <div className={styles.boton__container} key={index}>
+                <div
+                  style={{
+                    backgroundColor: selectedAnswer === answer ? "#00f" : "#fff"
+                  }}
+                  className={styles.boton__choose}
+                  onClick={() => checkAnswer(answer)}
+                  disabled={selectedAnswer !== ""}
+                >
                   {answer}
-                </button>
-              </li>
+                </div>
+              </div>
             ))}
-          </ul>
-          <p>{`Tiempo restante: ${timeRemaining}s`}</p>
-          <button onClick={checkAnswer} disabled={selectedAnswer === ""}>
-            Responder
-          </button>
+          </div>
         </div>
       ) : (
-        <div>
-          <h2>Trivia completada</h2>
-          <p>{`Puntaje: ${points} de ${dataRoom?.questions.length}`}</p>
+        <div
+          style={{
+            background: "black",
+            width: "100%",
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "30px"
+          }}
+        >
+          <p style={{ color: "white", fontSize: "30px" }}>¡¡Fin de la partida!!</p>
+          <p
+            style={{ color: "white", fontSize: "24px" }}
+          >{`Puntaje: ${points} de ${dataRoom?.questions.length}`}</p>
           <Link href="/">
-            <button onClick={endTrivia}>Salir</button>
+            <button
+              style={{
+                fontSize: "24px",
+                color: "black",
+                background: "white",
+                borderRadius: "20px",
+                padding: "5px 10px"
+              }}
+              onClick={endTrivia}
+            >
+              Salir
+            </button>
           </Link>
         </div>
       )}

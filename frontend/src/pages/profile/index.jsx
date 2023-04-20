@@ -107,7 +107,7 @@ const Profile = () => {
                     alt=""
                   />
                   <div className={styles.hammer__number}>
-                    {perfil.advantages[0].user_advantage.quantity}
+                    {perfil.advantages[0]?.user_advantage.quantity}
                   </div>
                 </div>
                 <p>Martillos</p>
@@ -122,7 +122,7 @@ const Profile = () => {
                     alt=""
                   />
                   <div className={styles.hammer__number}>
-                    {perfil.advantages[1].user_advantage.quantity}
+                    {perfil.advantages[1]?.user_advantage.quantity}
                   </div>
                 </div>
                 <p>Varas Mágicas</p>

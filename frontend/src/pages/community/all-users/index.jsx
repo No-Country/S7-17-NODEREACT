@@ -16,6 +16,8 @@ const AllUsers = () => {
 
   const { data: dataAllUsers } = useFetch(`/users/all`);
 
+  console.log(dataAllUsers);
+
   useEffect(() => {
     setUsersList(dataAllUsers?.filter(user => user.id !== currentUserId));
   }, [dataAllUsers]);

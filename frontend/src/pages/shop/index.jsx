@@ -113,7 +113,7 @@ const Shop = () => {
                       alt=""
                     />
                     <div className={styles.hammer__number}>
-                      {perfil.advantages[0].user_advantage.quantity}
+                      {perfil.advantages[0]?.user_advantage.quantity}
                     </div>
                   </div>
                   <p>Martillos</p>
@@ -128,7 +128,7 @@ const Shop = () => {
                       alt=""
                     />
                     <div className={styles.hammer__number}>
-                      {perfil.advantages[1].user_advantage.quantity}
+                      {perfil.advantages[1]?.user_advantage.quantity}
                     </div>
                   </div>
                   <p>Varas Mágicas</p>
@@ -161,7 +161,7 @@ const Shop = () => {
                     <div className={styles.coin__img__container}>
                       <div className={styles.coin__img}>
                         <Image width={30} height={30} src={coinIcon} alt="" />
-                        <div className={styles.coin__number}>{perfil.advantages[0].price}</div>
+                        <div className={styles.coin__number}>{perfil.advantages[0]?.price}</div>
                       </div>
                     </div>
                   </div>
@@ -178,7 +178,7 @@ const Shop = () => {
                     <div className={styles.coin__img__container}>
                       <div className={styles.coin__img}>
                         <Image width={30} height={30} src={coinIcon} alt="" />
-                        <div className={styles.coin__number}>{perfil.advantages[1].price}</div>
+                        <div className={styles.coin__number}>{perfil.advantages[1]?.price}</div>
                       </div>
                     </div>
                   </div>

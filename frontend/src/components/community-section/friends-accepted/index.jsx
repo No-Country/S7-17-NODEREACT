@@ -55,6 +55,8 @@ const FriendsAccepted = ({ data }) => {
       });
   };
 
+  console.log(data)
+
   return (
     <div className={styles.container}>
       <section className={styles.user__container}>
@@ -64,13 +66,13 @@ const FriendsAccepted = ({ data }) => {
               style={{ borderRadius: "50%" }}
               width={40}
               height={40}
-              src={data.userFriend?.profileImg}
+              src={data.userFriend?.profileImg || data.userAdded?.profileImg}
               alt="img-perfil"
             />
           </div>
         </div>
         <div className={styles.username__container}>
-          <p className={styles.user}>{data.userFriend?.username}</p>
+          <p className={styles.user}>{data.userFriend?.username || data.userAdded?.username}</p>
         </div>
         <div className={styles.delete__container}>
           <div onClick={() => handleRemoveFriend(data.id)} className={styles.button__remove}>

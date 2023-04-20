@@ -26,7 +26,7 @@ const GameSolo = () => {
   useEffect(() => {
     setHammer(user.advantages[0].user_advantage?.quantity);
     setMagicWand(user.advantages[1].user_advantage?.quantity);
-  }, []);
+  }, [user]);
 
   // Función para comprobar la respuesta seleccionada por el usuario
   const checkAnswer = answer => {
@@ -45,7 +45,7 @@ const GameSolo = () => {
       setTimeRemaining(15);
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       sessionStorage.setItem("room", JSON.stringify(room));
-    }, 500);
+    }, 1000);
   };
 
   // Función para reiniciar la trivia
