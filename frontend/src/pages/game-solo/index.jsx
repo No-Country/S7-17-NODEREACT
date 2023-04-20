@@ -176,11 +176,35 @@ const GameSolo = () => {
           </div>
         </div>
       ) : (
-        <div>
-          <h2>Trivia completada</h2>
-          <p>{`Puntaje: ${points} de ${dataRoom?.questions.length}`}</p>
+        <div
+          style={{
+            background: "black",
+            width: "100%",
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "30px"
+          }}
+        >
+          <p style={{ color: "white", fontSize: "30px" }}>¡¡Fin de la partida!!</p>
+          <p
+            style={{ color: "white", fontSize: "24px" }}
+          >{`Puntaje: ${points} de ${dataRoom?.questions.length}`}</p>
           <Link href="/">
-            <button onClick={resetTrivia}>Salir</button>
+            <button
+              style={{
+                fontSize: "24px",
+                color: "black",
+                background: "white",
+                borderRadius: "20px",
+                padding: "5px 10px"
+              }}
+              onClick={resetTrivia}
+            >
+              Salir
+            </button>
           </Link>
         </div>
       )}
