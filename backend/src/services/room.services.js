@@ -229,7 +229,7 @@ class RoomServices {
       throw error;
     }
   }
-  static async updateRoomGroup(id, { player1, player2 }) {
+  static async updateRoomGroup({ id, player1, player2 }) {
     try {
       const room = await Room_Match.findByPk(id);
       const promises = [
@@ -247,7 +247,7 @@ class RoomServices {
       const promisesAll = await Promise.all(promises);
 
       const dataPlayer1 = player1 || room.dataRoom.player1;
-      const dataPlayer2 = player1 || room.dataRoom.player2;
+      const dataPlayer2 = player2 || room.dataRoom.player2;
 
       const dataRoom = {
         questions: room.dataRoom.questions,
@@ -309,7 +309,10 @@ class RoomServices {
         await Promise.all(updatePlayer2);
       }
 
-      return { message: "Partida finalizada" };
+      const user1 = await User.findByPk(room.userId);
+      const user2 = await User.findByPk(room.opponentUserId);
+
+      return { socketsId: [user1.socketId, user2.socketId], room };
     } catch (error) {
       throw error;
     }

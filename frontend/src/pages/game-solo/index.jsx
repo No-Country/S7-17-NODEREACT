@@ -9,7 +9,7 @@ const GameSolo = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [points, setPoints] = useState(0);
-  const [timeRemaining, setTimeRemaining] = useState(15);
+  const [timeRemaining, setTimeRemaining] = useState(20);
   const [magicWand, setMagicWand] = useState(0);
   const [hammer, setHammer] = useState(0);
 
@@ -73,12 +73,12 @@ const GameSolo = () => {
     return () => clearInterval(intervalId);
   }, [currentQuestionIndex, timeRemaining]);
 
-  if (loader) setTimeout(() => setLoader(false), 1000);
+  if (loader) setTimeout(() => setLoader(false), 5000);
 
   const magicWandUse = () => {
     setMagicWand(magicWand + 1);
-    setTimeRemaining(timeRemaining + 5)
-  }
+    setTimeRemaining(timeRemaining + 5);
+  };
 
   return (
     <div>

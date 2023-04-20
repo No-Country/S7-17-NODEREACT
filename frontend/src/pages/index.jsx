@@ -22,7 +22,9 @@ import imgD6 from "../assets/b-desktop-home/imagen6-desktop.svg";
 import { toast } from "react-toastify";
 import changePosition from "./game-solo/changePosition";
 
-const socket = io("https://the-questions-ogrz.onrender.com");
+const socket = io("http://localhost:2807");
+
+//https://the-questions-ogrz.onrender.com
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -74,6 +76,8 @@ export default function Home() {
       );
       const text = userId === data.userId ? "player2" : "player1";
       delete data.dataRoom[text];
+      const questions = changePosition(data.dataRoom.questions);
+      data.dataRoom.questions = questions;
       sessionStorage.setItem("roomMatch", JSON.stringify(data));
     });
 
@@ -158,4 +162,8 @@ export default function Home() {
       )}
     </>
   );
+}
+
+export const endingMatch = body => {
+  socket.emit("ending match", body);
 }

@@ -40,7 +40,7 @@ const Shop = () => {
 
   const dataPerfil = () => {
     axios
-      .get(`https://the-questions-ogrz.onrender.com/api/v1/user/${dataLogin.id}`, {
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/user/${dataLogin.id}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const Shop = () => {
   const addItem = id => {
     axios
       .put(
-        `https://the-questions-ogrz.onrender.com/api/v1/advantages/update/user/${dataLogin.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/advantages/update/user/${dataLogin.id}`,
         {
           advantageId: id,
           quantity: 1

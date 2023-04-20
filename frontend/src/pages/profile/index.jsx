@@ -37,7 +37,7 @@ const Profile = () => {
 
   useEffect(() => {
     axios
-      .get(`https://the-questions-ogrz.onrender.com/api/v1/user/${dataLogin.id}`, {
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/user/${dataLogin.id}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

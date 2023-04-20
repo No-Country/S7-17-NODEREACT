@@ -1,4 +1,5 @@
 const { User, Room_Match } = require("./models");
+const RoomServices = require("./services/room.services");
 const {
   createRoomFriends,
   createRoomRandom,
@@ -27,15 +28,6 @@ module.exports = io => {
 
     //Definimos una variable global donde almacenaremos todas las salas en espera
     const waitingRooms = [];
-
-    /* Escuchamos el evento socket view results */
-
-    socket.on("view results", async roomId => {
-      const result = await viewResults(roomId);
-
-      io.to(result.player1.socketId).emit("result", result.player1.message);
-      io.to(result.player2.socketId).emit("result", result.player2.message);
-    });
 
     /* Escuchamos el evento socket invitar amigo */
 
@@ -140,6 +132,36 @@ module.exports = io => {
       }
     });
 
+    /* Escuchamos evento de finalizar partida */
+
+    socket.on("ending match", async data => {
+      const { socketsId, room } = await RoomServices.updateRoomGroup(data);
+      const player1 = {
+        correctAnswers: room.dataRoom.player1.correctAnswers.length >= 1,
+        incorrectAnswers: room.dataRoom.player1.incorrectAnswers.length >= 1
+      };
+      const player2 = {
+        correctAnswers: room.dataRoom.player2.correctAnswers.length >= 1,
+        incorrectAnswers: room.dataRoom.player2.incorrectAnswers.length >= 1
+      };
+
+      if (
+        (player1.correctAnswers || player1.incorrectAnswers) &&
+        (player2.correctAnswers || player2.incorrectAnswers)
+      ) {
+        io.to(socketsId[0]).emit("endGame", room);
+        io.to(socketsId[1]).emit("endGame", room);
+      }
+    });
+
+    /* Escuchamos el evento socket view results */
+
+    socket.on("view results", async roomId => {
+      const result = await viewResults(roomId);
+
+      io.to(result.player1.socketId).emit("result", result.player1.message);
+      io.to(result.player2.socketId).emit("result", result.player2.message);
+    });
 
     /* Recibimos el evento cuando el usuario cierra sesión*/
 
