@@ -20,6 +20,7 @@ import imgD4 from "../assets/b-desktop-home/imagen4-desktop.svg";
 import imgD5 from "../assets/b-desktop-home/imagen5-desktop.svg";
 import imgD6 from "../assets/b-desktop-home/imagen6-desktop.svg";
 import { toast } from "react-toastify";
+import changePosition from "./game-solo/changePosition";
 
 const socket = io("https://the-questions-ogrz.onrender.com");
 
@@ -52,7 +53,12 @@ export default function Home() {
           }
         }
       )
-      .then(res => sessionStorage.setItem("dataRoom", JSON.stringify(res.data)))
+      .then(res => {
+        const questions = changePosition(res.data.dataRoom.questions);
+        const room = res.data;
+        room.dataRoom.questions = questions;
+        sessionStorage.setItem("room", JSON.stringify(room));
+      })
       .catch(error => console.error(error));
   };
 

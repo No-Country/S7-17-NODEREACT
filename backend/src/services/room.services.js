@@ -193,6 +193,7 @@ class RoomServices {
     try {
       const room = await Room_Match.findByPk(id);
       const user = await User.findByPk(room.userId);
+      const coins = dataPlayer.points * 0.3;
 
       const updateRoom = {
         dataRoom: {
@@ -205,7 +206,10 @@ class RoomServices {
       const promise = [
         Room_Match.update({ ...updateRoom }, { where: { id } }),
         User.update(
-          { points: sequelize.literal(`points + ${dataPlayer.points}`) },
+          {
+            points: sequelize.literal(`points + ${dataPlayer.points}`),
+            coins: sequelize.literal(`coins + ${coins}`)
+          },
           { where: { id: user.id } }
         ),
         User_Advantage.update(
