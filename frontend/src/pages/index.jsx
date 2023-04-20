@@ -52,7 +52,7 @@ export default function Home() {
           }
         }
       )
-      .then(res => console.log(res.data))
+      .then(res => sessionStorage.setItem("dataRoom", JSON.stringify(res.data)))
       .catch(error => console.error(error));
   };
 
