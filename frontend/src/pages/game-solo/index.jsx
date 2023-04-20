@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styles from "./style.module.css";
+import styles from "../game-solo/styles.module.css";
 import Link from "next/link";
+import hammerIcon from "../../assets/hammer-icon.svg";
+import wandIcon from "../../assets/magic-wand-icon.svg";
+import Image from "next/image";
 
 const GameSolo = () => {
   const [loader, setLoader] = useState(true);
@@ -18,22 +21,31 @@ const GameSolo = () => {
   const room = JSON.parse(sessionStorage.getItem("room")) || {};
   const { dataRoom } = room;
 
-  // Función para seleccionar una respuesta
-  const handleSelectAnswer = answer => setSelectedAnswer(answer);
+  const user = JSON.parse(localStorage.getItem("user")) || {};
+
+  useEffect(() => {
+    setHammer(user.advantages[0].user_advantage?.quantity);
+    setMagicWand(user.advantages[1].user_advantage?.quantity);
+  }, []);
 
   // Función para comprobar la respuesta seleccionada por el usuario
-  const checkAnswer = () => {
-    if (selectedAnswer === dataRoom.questions[currentQuestionIndex].correctAnswer) {
-      setPoints(points + 20);
-      room.dataRoom.player.correctAnswers.push(dataRoom.questions[currentQuestionIndex].topicId);
-      room.dataRoom.player.points = points;
-    } else {
-      room.dataRoom.player.incorrectAnswers.push(dataRoom.questions[currentQuestionIndex].topicId);
-    }
-    setSelectedAnswer("");
-    setTimeRemaining(15);
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
-    sessionStorage.setItem("room", JSON.stringify(room));
+  const checkAnswer = answer => {
+    setSelectedAnswer(answer);
+    setTimeout(() => {
+      if (selectedAnswer === dataRoom.questions[currentQuestionIndex].correctAnswer) {
+        setPoints(points + 20);
+        room.dataRoom.player.correctAnswers.push(dataRoom.questions[currentQuestionIndex].topicId);
+        room.dataRoom.player.points = points;
+      } else {
+        room.dataRoom.player.incorrectAnswers.push(
+          dataRoom.questions[currentQuestionIndex].topicId
+        );
+      }
+      setSelectedAnswer("");
+      setTimeRemaining(15);
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      sessionStorage.setItem("room", JSON.stringify(room));
+    }, 500);
   };
 
   // Función para reiniciar la trivia
@@ -76,8 +88,10 @@ const GameSolo = () => {
   if (loader) setTimeout(() => setLoader(false), 5000);
 
   const magicWandUse = () => {
-    setMagicWand(magicWand + 1);
-    setTimeRemaining(timeRemaining + 5);
+    if (magicWand >= 1) {
+      setMagicWand(magicWand - 1);
+      setTimeRemaining(timeRemaining + 5);
+    }
   };
 
   return (
@@ -98,23 +112,68 @@ const GameSolo = () => {
         ""
       )}
       {hasTimeRemaining ? (
-        <div>
-          <button onClick={() => magicWandUse()}>Varita</button>
-          <button>Martillo</button>
-          <h2>{currentQuestion.question}</h2>
-          <ul>
+        <div className={styles.container__game}>
+          <div
+            className={styles.game__top}
+            style={{
+              backgroundImage: `url(${currentQuestion.img})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              width: "100%",
+              height: "60%",
+              transition: "all 1s linear"
+            }}
+          >
+            <div className={styles.top__time}>
+              <div className={styles.time__container}>
+                <p>{`${timeRemaining}`}</p>
+                <div className={styles.time__second}>"</div>
+              </div>
+            </div>
+            <div className={styles.top__question}>
+              <div className={styles.ventajas}>
+                <div className={styles.ventajas__icon} onClick={() => magicWandUse()}>
+                  <Image
+                    style={{ borderRadius: "50%" }}
+                    width={40}
+                    height={40}
+                    src={wandIcon}
+                    alt=""
+                  />
+                  <div className={styles.ventajas__number}>{magicWand}</div>
+                </div>
+                <div className={styles.ventajas__icon}>
+                  <Image
+                    style={{ borderRadius: "50%" }}
+                    width={40}
+                    height={40}
+                    src={hammerIcon}
+                    alt=""
+                  />
+                  <div className={styles.ventajas__number}>{hammer}</div>
+                </div>
+              </div>
+              <div className={styles.question}>
+                <span className={styles.game__question}>{currentQuestion.question}</span>
+              </div>
+            </div>
+          </div>
+          <div className={styles.game__bottom}>
             {answers.map((answer, index) => (
-              <li key={index}>
-                <button onClick={() => handleSelectAnswer(answer)} disabled={selectedAnswer !== ""}>
+              <div className={styles.boton__container} key={index}>
+                <div
+                  style={{
+                    backgroundColor: selectedAnswer === answer ? "#00f" : "#fff"
+                  }}
+                  className={styles.boton__choose}
+                  onClick={() => checkAnswer(answer)}
+                  disabled={selectedAnswer !== ""}
+                >
                   {answer}
-                </button>
-              </li>
+                </div>
+              </div>
             ))}
-          </ul>
-          <p>{`Tiempo restante: ${timeRemaining}s`}</p>
-          <button onClick={checkAnswer} disabled={selectedAnswer === ""}>
-            Responder
-          </button>
+          </div>
         </div>
       ) : (
         <div>

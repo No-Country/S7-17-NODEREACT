@@ -44,7 +44,10 @@ const Profile = () => {
           Authorization: `Bearer ${dataLogin.token}`
         }
       })
-      .then(res => setPerfil(res.data))
+      .then(res => {
+        localStorage.setItem("user", JSON.stringify(res.data));
+        setPerfil(res.data);
+      })
       .catch(err => console.log(err));
   }, []);
 
