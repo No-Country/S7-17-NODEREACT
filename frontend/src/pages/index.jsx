@@ -22,7 +22,7 @@ import imgD6 from "../assets/b-desktop-home/imagen6-desktop.svg";
 import { toast } from "react-toastify";
 import changePosition from "./game-solo/changePosition";
 
-const socket = io("http://localhost:2807");
+const socket = io("https://the-questions-ogrz.onrender.com");
 
 //https://the-questions-ogrz.onrender.com
 
