@@ -61,7 +61,6 @@ function GameMultiplayer() {
       dataRoom.player2.points = points;
       endingMatch({ id: room.id, player2: dataRoom.player2 });
     }
-    setModalShow(true);
   };
 
   // Muestra la pregunta actual y las opciones de respuesta
@@ -98,7 +97,6 @@ function GameMultiplayer() {
 
   return (
     <div>
-      {/* <Modal title={"hola"} bodyText={"hello"} show={modalShow} /> */}
       {loader ? (
         <div className={styles.container}>
           <span className={styles.text}>

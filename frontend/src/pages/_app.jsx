@@ -5,7 +5,7 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 
 export default function App({ Component, pageProps }) {
   let persistor = persistStore(store);
