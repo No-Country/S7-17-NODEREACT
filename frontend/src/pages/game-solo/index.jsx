@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "../game-solo/styles.module.css";
 import Link from "next/link";
+import hammerIcon from "../../assets/hammer-icon.svg";
+import wandIcon from "../../assets/magic-wand-icon.svg";
+import Image from "next/image";
 
 const GameSolo = () => {
   const [loader, setLoader] = useState(true);
@@ -109,31 +112,56 @@ const GameSolo = () => {
             }}
           >
             <div className={styles.top__time}>
-              <p>{`Tiempo restante: ${timeRemaining}s`}</p>
+              <div className={styles.time__container}>
+                <p>{`${timeRemaining}`}</p>
+                <div className={styles.time__second}>"</div>
+              </div>
             </div>
             <div className={styles.top__question}>
               <div className={styles.ventajas}>
-                <button onClick={() => magicWandUse()}>Varita</button>
-                <button>Martillo</button>
+                <div className={styles.ventajas__icon} onClick={() => magicWandUse()}>
+                  <Image
+                    style={{ borderRadius: "50%" }}
+                    width={40}
+                    height={40}
+                    src={wandIcon}
+                    alt=""
+                  />
+                  <div className={styles.ventajas__number}>0</div>
+                </div>
+                <div className={styles.ventajas__icon}>
+                  <Image
+                    style={{ borderRadius: "50%" }}
+                    width={40}
+                    height={40}
+                    src={hammerIcon}
+                    alt=""
+                  />
+                  <div className={styles.ventajas__number}>0</div>
+                </div>
               </div>
               <div className={styles.question}>
-                <button onClick={checkAnswer} disabled={selectedAnswer === ""}>
+                <div
+                  className={styles.responder}
+                  onClick={checkAnswer}
+                  disabled={selectedAnswer === ""}
+                >
                   Responder
-                </button>
+                </div>
                 <span className={styles.game__question}>{currentQuestion.question}</span>
               </div>
             </div>
           </div>
           <div className={styles.game__bottom}>
             {answers.map((answer, index) => (
-              <div className={styles.button__container} key={index}>
-                <butoon
-                  className={styles.button__choose}
+              <div className={styles.boton__container} key={index}>
+                <div
+                  className={styles.boton__choose}
                   onClick={() => handleSelectAnswer(answer)}
                   disabled={selectedAnswer !== ""}
                 >
                   {answer}
-                </butoon>
+                </div>
               </div>
             ))}
           </div>
