@@ -79,28 +79,30 @@ npm install
 <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682109242/landing_fzzfou.png" alt="landing" />
 <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682109340/login_k1r0ro.png" alt="login" />
 
-## Equipo
-
+<div align="center">
+        <h1 align="center">Equipo</h1>
+</div>
+<br/>
 ### Front-end
-  - Fabian Romano
+<br/>
+##### Fabian Romano
+[![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
 
-    [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
-  - Martin Casas
-
-    [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
-
+##### Martin Casas
+[![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
+<br/>
 ### Back-end
-  - Franco Corniglione
+<br/>
+##### Franco Corniglione
+[![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
 
-    [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
-  - Luis Uzcategui
-  
-    [![repo](https://skillicons.dev/icons?i=github)](https://github.com/Glya-Corporation) [![repo](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/luis-uzcategui/)
-
+##### Luis Uzcategui
+[![repo](https://skillicons.dev/icons?i=github)](https://github.com/Glya-Corporation) [![repo](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/luis-uzcategui/)
+<br/>
 ### Diseño UX/UI
-  - Hernan Casabella
-
-    [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
+<br/>
+##### Hernan Casabella
+[![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [node-shield]: https://img.shields.io/badge/Node.js-18.15.0-green
