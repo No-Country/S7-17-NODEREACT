@@ -42,9 +42,13 @@ npm install
 
 ## Lenguajes, librerías y herramientas
 
-[![logos](https://skillicons.dev/icons?i=javascript,css,react,redux,next,nodejs,express,postgres,sequelize,git,github,vscode,figma,aws,netlify&perline=15)](https://skillicons.dev)
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=javascript,css,react,redux,next,nodejs,express,postgres,sequelize,git,github,vscode,figma,aws,netlify" />
+  </a>
+</p>
 
-<div align="center">
+<p align="center">
   <a href="https://dbeaver.com">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/DBeaver_logo.svg/2048px-DBeaver_logo.svg.png" width="48" height="48" alt="DBeaver" />
   </a>
@@ -60,7 +64,7 @@ npm install
   <a href="https://socket.io">
     <img src="https://cdn.worldvectorlogo.com/logos/socket-io-1.svg" width="50" height="50" alt="Socket.IO" />
   </a>
-</div>
+</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [node-shield]: https://img.shields.io/badge/Node.js-18.15.0-green
