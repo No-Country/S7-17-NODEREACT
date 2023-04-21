@@ -70,6 +70,18 @@ npm install
   </a>
 </p>
 
+<br />
+
+## Features o características principales
+
+- Autenticación (registro y login)
+- Automatización de email personalizado para verificar usuarios
+- Partidas de trivia en modo solitario
+- Partidas de trivia en modo multijugador y en tiempo real
+- Gestión de amigos (solicitudes de amistad entre usuarios)
+- Gestión y edición de perfil y datos personales
+- Tienda
+
 <!-- MARKDOWN LINKS & IMAGES -->
 [node-shield]: https://img.shields.io/badge/Node.js-18.15.0-green
 [node-url]: https://nodejs.org/es
