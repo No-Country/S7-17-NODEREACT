@@ -87,7 +87,7 @@ npm install
 
 ### Back-end
   - Franco Corniglione
-  - Luis Uzcategui ![repo](https://skillicons.dev/icons?i=github)(https://skillicons.dev/icons?i=github)
+  - Luis Uzcategui [![repo](https://skillicons.dev/icons?i=github)](https://skillicons.dev/icons?i=github)
 
 ### Diseño UX/UI
   - Hernan Casabella
