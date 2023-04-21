@@ -74,6 +74,11 @@ npm install
 
 <br />
 
+## Galería de imágenes
+
+<img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682109242/landing_fzzfou.png" alt="landing" />
+<img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682109340/login_k1r0ro.png" alt="login" />
+
 ## Equipo
 
 ### Front-end
