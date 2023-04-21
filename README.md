@@ -20,6 +20,8 @@
 [![node][node-shield]][node-url] [![express][express-shield]][express-url] [![reactjs][reactjs-shield]][reactjs-url] [![nextjs][nextjs-shield]][nextjs-url]
 [![contributors][contributors-shield]][contributors-url]
 
+`npm install`
+
 <br/>
 
 #### The Questions
