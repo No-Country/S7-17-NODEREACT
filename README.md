@@ -1,4 +1,8 @@
-<h1 align="center">The Question S7-17-NODEREACT</h1>
+<div align="center">
+  <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682106150/the-question-logo_qnuyzo.png" alt="project-logo" />
+</div>
+
+<br />
 
 ```javascript - react
 // Integrantes del equipo de front-end
@@ -44,7 +48,7 @@ npm install
 
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=javascript,css,react,redux,next,nodejs,express,postgres,sequelize,git,github,vscode,figma,aws,netlify" />
+    <img src="https://skillicons.dev/icons?i=javascript,css,react,redux,next,nodejs,express,postgres,sequelize,git,github,vscode,figma,aws,netlify" alt="tech-icons" />
   </a>
 </p>
 
