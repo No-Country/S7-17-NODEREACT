@@ -81,6 +81,7 @@ npm install
 - Gestión de amigos (solicitudes de amistad entre usuarios)
 - Gestión y edición de perfil y datos personales
 - Tienda
+- Diseño web responsivo
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [node-shield]: https://img.shields.io/badge/Node.js-18.15.0-green
