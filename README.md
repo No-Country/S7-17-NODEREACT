@@ -26,7 +26,7 @@
 
 ## Enlace en aplicación
 
-- https://the-questions.netlify.app/
+- https://the-questions.netlify.app
 
 ## Lenguajes, librerías y herramientas
 
