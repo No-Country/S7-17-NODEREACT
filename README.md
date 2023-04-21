@@ -1,4 +1,4 @@
-# The Question S7-17-NODEREACT
+<h1 align="center">The Question S7-17-NODEREACT</h1>
 
 ```javascript - react
 // Integrantes del equipo de front-end
@@ -21,7 +21,7 @@
 [![contributors][contributors-shield]][contributors-url]
 
 ```
-//Initial comand
+// Initial command
 
 npm install
 
@@ -38,10 +38,13 @@ npm install
 #### API Documentation
 - https://the-questions-ogrz.onrender.com/api/v1/docs
 
+<br />
+
 ## Lenguajes, librerías y herramientas
 
-[![logos](https://skillicons.dev/icons?i=javascript,css,react,redux,next,nodejs,express,postgres,sequelize,aws,git,github,vscode,figma,netlify&perline=15)](https://skillicons.dev)
-<p align="center">
+[![logos](https://skillicons.dev/icons?i=javascript,css,react,redux,next,nodejs,express,postgres,sequelize,git,github,vscode,figma,aws,netlify&perline=15)](https://skillicons.dev)
+
+<div align="center">
   <a href="https://dbeaver.com">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/DBeaver_logo.svg/2048px-DBeaver_logo.svg.png" width="48" height="48" alt="DBeaver" />
   </a>
@@ -57,7 +60,7 @@ npm install
   <a href="https://socket.io">
     <img src="https://cdn.worldvectorlogo.com/logos/socket-io-1.svg" width="50" height="50" alt="Socket.IO" />
   </a>
-</p>
+</div>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [node-shield]: https://img.shields.io/badge/Node.js-18.15.0-green
