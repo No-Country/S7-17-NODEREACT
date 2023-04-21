@@ -23,8 +23,7 @@
 
 # Juego Web
 
-
-## Enlace en aplicación
+## Enlace al deploy
 
 - https://the-questions.netlify.app
 
