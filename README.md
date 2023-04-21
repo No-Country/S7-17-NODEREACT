@@ -83,16 +83,24 @@ npm install
 
 ### Front-end
   - Fabian Romano
+
+[![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
   - Martin Casas
+
+[![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
 
 ### Back-end
   - Franco Corniglione
+
+[![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
   - Luis Uzcategui
   
-[![repo](https://skillicons.dev/icons?i=github)](https://github.com/Glya-Corporation) [![repo](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/luis-uzcategui/)
+    [![repo](https://skillicons.dev/icons?i=github)](https://github.com/Glya-Corporation) [![repo](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/luis-uzcategui/)
 
 ### Diseño UX/UI
   - Hernan Casabella
+
+[![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [node-shield]: https://img.shields.io/badge/Node.js-18.15.0-green
