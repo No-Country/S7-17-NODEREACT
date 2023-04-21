@@ -83,16 +83,20 @@ npm install
         <h1 align="center">Equipo</h1>
 </div>
 <br/>
+
 ### Front-end
 <br/>
+
 ##### Fabian Romano
 [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
 
 ##### Martin Casas
 [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
 <br/>
+
 ### Back-end
 <br/>
+
 ##### Franco Corniglione
 [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
 
@@ -101,6 +105,7 @@ npm install
 <br/>
 ### Diseño UX/UI
 <br/>
+
 ##### Hernan Casabella
 [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
 
