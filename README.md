@@ -66,4 +66,4 @@
 [nextjs-url]: https://nextjs.org/learn/foundations/from-react-to-nextjs/getting-started-with-nextjs
 
 [contributors-shield]: https://img.shields.io/badge/All%20Contributors-4-green
-[contributors-url]: https://github.com/
+[contributors-url]: https://github.com/No-Country/S7-17-NODEREACT/network/dependencies
