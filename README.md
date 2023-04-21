@@ -37,19 +37,19 @@
 </p>
 
 <p align="center">
-<a href="https://dbeaver.com">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/DBeaver_logo.svg/1200px-DBeaver_logo.svg.png" width="46" height="46" alt="DBeaver" />
-</a>
-<a href="https://jwt.io">
-  <img src="https://cdn.worldvectorlogo.com/logos/jwt-3.svg" width="46" height="46" alt="JSON Web Token" />
-</a>
-<a href="https://nodemailer.com/about">
-  <img src="https://medusajs.com/images/plugin-icons/medusa-plugin-nodemailer-icon.svg" width="46" height="46" alt="Nodemailer" />
-</a>
-<a href="https://swagger.io">
-  <img src="https://static-00.iconduck.com/assets.00/swagger-icon-512x512-halz44im.png" width="46" height="46" alt="Swagger" />
-</a>
-<a href="https://socket.io">
-  <img src="https://cdn.worldvectorlogo.com/logos/socket-io-1.svg" width="48" height="48" alt="Socket.IO" />
-</a>
+  <a href="https://dbeaver.com">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/DBeaver_logo.svg/2048px-DBeaver_logo.svg.png" width="48" height="48" alt="DBeaver" />
+  </a>
+  <a href="https://jwt.io">
+    <img src="https://cdn.worldvectorlogo.com/logos/jwt-3.svg" width="48" height="48" alt="JSON Web Token" />
+  </a>
+  <a href="https://nodemailer.com/about">
+    <img src="https://medusajs.com/images/plugin-icons/medusa-plugin-nodemailer-icon.svg" width="48" height="48" alt="Nodemailer" />
+  </a>
+  <a href="https://swagger.io">
+    <img src="https://static-00.iconduck.com/assets.00/swagger-icon-512x512-halz44im.png" width="48" height="48" alt="Swagger" />
+  </a>
+  <a href="https://socket.io">
+    <img src="https://cdn.worldvectorlogo.com/logos/socket-io-1.svg" width="50" height="50" alt="Socket.IO" />
+  </a>
 </p>
