@@ -88,7 +88,8 @@ npm install
 ### Back-end
   - Franco Corniglione
   - Luis Uzcategui
- [![repo](https://skillicons.dev/icons?i=github)](https://github.com/Glya-Corporation) [![repo](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/luis-uzcategui/)
+  
+[![repo](https://skillicons.dev/icons?i=github)](https://github.com/Glya-Corporation) [![repo](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/luis-uzcategui/)
 
 ### Diseño UX/UI
   - Hernan Casabella
