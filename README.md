@@ -4,19 +4,8 @@
 
 <br />
 
-```javascript - react
-// Integrantes del equipo de front-end
-  Fabian Romano
-  Martin Casas
+## Descripción
 
-// Integrantes del equipo de back-end
-  Franco Corniglione
-  Luis Uzcategui
-
-// Integrante del equipo de diseño UI/UX
-  Hernan Casabella
-  
-```
 
 <br/>
 
@@ -82,6 +71,21 @@ npm install
 - Gestión y edición de perfil y datos personales
 - Tienda
 - Diseño web responsivo
+
+<br />
+
+## Equipo
+
+### Front-end
+  - Fabian Romano
+  - Martin Casas
+
+### Back-end
+  - Franco Corniglione
+  - Luis Uzcategui
+
+### Diseño UX/UI
+  - Hernan Casabella
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [node-shield]: https://img.shields.io/badge/Node.js-18.15.0-green
