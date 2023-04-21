@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682106150/the-question-logo_qnuyzo.png" alt="project-logo" />
+  <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682106813/Untitled_onwn2c.png" />
 </div>
 
 <br />
