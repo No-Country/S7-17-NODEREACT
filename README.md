@@ -27,7 +27,7 @@ npm install
 #### The Question
 - https://the-questions.netlify.app
 
-#### API-Deploy
+#### API Deploy
 - https://the-questions-ogrz.onrender.com
 
 #### API Documentation
