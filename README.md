@@ -85,10 +85,13 @@ npm install
 
 ## Equipo
 
-| Front-end     | Back-end           | Diseño UX/UI     |
-| :---:         | :---:              | :---:            |
-| Fabian Romano [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]() | Franco Corniglione [![repo](https://skillicons.dev/icons?i=github)](https://github.com/Francormin) [![repo](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/franco-corniglione/) | Hernan Casabella [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]() |
-| Martin Casas [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()  | Luis Uzcategui [![repo](https://skillicons.dev/icons?i=github)](https://github.com/Glya-Corporation) [![repo](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/luis-uzcategui/)     |
+| Área de trabajo | Nombre y apellido  | Contacto |
+| :---:           | :---:              | :---:    |
+| Front-end       | Fabián Romano      | [![github](https://skillicons.dev/icons?i=github)]() [![linkedin](https://skillicons.dev/icons?i=linkedin)]() |
+| Front-end       | Martín Casas       | [![github](https://skillicons.dev/icons?i=github)]() [![linkedin](https://skillicons.dev/icons?i=linkedin)]() |
+| Back-end        | Franco Corniglione | [![github](https://skillicons.dev/icons?i=github)](https://github.com/Francormin) [![linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/franco-corniglione/) |
+| Back-end        | Luis Uzcátegui     | [![github](https://skillicons.dev/icons?i=github)](https://github.com/Glya-Corporation) [![linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/luis-uzcategui/) |
+| Diseno UX/UI    | Hernán Casabella   | [![github](https://skillicons.dev/icons?i=github)]() [![linkedin](https://skillicons.dev/icons?i=linkedin)]() |
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [node-shield]: https://img.shields.io/badge/Node.js-18.15.0-green
