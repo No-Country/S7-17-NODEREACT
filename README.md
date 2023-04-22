@@ -1,5 +1,7 @@
 <div align="center">
-  <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682187434/logo_lpmygw.png" alt="project-logo" />
+  <a href="https://the-questions.netlify.app">
+    <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682187434/logo_lpmygw.png" alt="project-logo" />
+  </a>
 </div>
 
 <br />
