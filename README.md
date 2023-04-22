@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://the-questions.netlify.app">
+  <a href="https://the-questions.netlify.app" target="_blank">
     <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682187434/logo_lpmygw.png" alt="project-logo" />
   </a>
 </div>
