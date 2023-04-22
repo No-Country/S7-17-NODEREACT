@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://the-questions.netlify.app" target="_blank">
+  <a href="https://the-questions.netlify.app">
     <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682187434/logo_lpmygw.png" alt="project-logo" />
   </a>
 </div>
@@ -25,7 +25,6 @@ npm install
 <br/>
 
 #### The Question
-<a href="https://the-questions.netlify.app" target="_blank">The Question</a>
 - https://the-questions.netlify.app
 
 #### API-Deploy
