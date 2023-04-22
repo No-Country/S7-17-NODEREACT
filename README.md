@@ -22,7 +22,7 @@ npm install
 
 <br/>
 
-#### The Questions
+#### The Question
 - https://the-questions.netlify.app
 
 #### API-Deploy
@@ -79,35 +79,14 @@ npm install
 <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682109242/landing_fzzfou.png" alt="landing" />
 <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682109340/login_k1r0ro.png" alt="login" />
 
-<div align="center">
-        <h1 align="center">Equipo</h1>
-</div>
-<br/>
+<br />
 
-### Front-end
-<br/>
+## Equipo
 
-##### Fabian Romano
-[![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
-
-##### Martin Casas
-[![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
-<br/>
-
-### Back-end
-<br/>
-
-##### Franco Corniglione
-[![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
-
-##### Luis Uzcategui
-[![repo](https://skillicons.dev/icons?i=github)](https://github.com/Glya-Corporation) [![repo](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/luis-uzcategui/)
-<br/>
-### Diseño UX/UI
-<br/>
-
-##### Hernan Casabella
-[![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()
+| Front-end     | Back-end           | Diseño UX/UI     |
+| :---:         | :---:              | :---:            |
+| Fabian Romano [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]() | Franco Corniglione [![repo](https://skillicons.dev/icons?i=github)](https://github.com/Francormin) [![repo](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/franco-corniglione/) | Hernan Casabella [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]() |
+| Martin Casas [![repo](https://skillicons.dev/icons?i=github)]() [![repo](https://skillicons.dev/icons?i=linkedin)]()  | Luis Uzcategui [![repo](https://skillicons.dev/icons?i=github)](https://github.com/Glya-Corporation) [![repo](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/luis-uzcategui/)     |
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [node-shield]: https://img.shields.io/badge/Node.js-18.15.0-green
