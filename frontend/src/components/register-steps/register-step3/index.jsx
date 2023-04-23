@@ -15,7 +15,9 @@ const RegisterStep3 = () => {
   const dataLogin = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const [code, setCode] = useState("");
+
   const authorizationHeaders = useAuthorizedHeaders();
+
   useFetch(
     "/auth/login",
     {

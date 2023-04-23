@@ -22,31 +22,26 @@ import imgD6 from "../assets/b-desktop-home/imagen6-desktop.svg";
 import { toast } from "react-toastify";
 import changePosition from "./game-solo/changePosition";
 
-const socket = io("http://localhost:2807");
-
-//https://the-questions-ogrz.onrender.com
+const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`);
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
-  const { session: isLoggedIn } = useSelector(state => state.auth);
-  const router = useRouter();
-
   const [windowWidth, setWindowWidth] = useState(useRef(window.innerWidth));
-
   const [currentImage, setCurrentImage] = useState(0);
+  const router = useRouter();
+  const { session: isLoggedIn } = useSelector(state => state.auth);
+  const { id, token } = useSelector(state => state.auth);
+
   const images = [imgM1, imgM2, imgM3, imgM4, imgM5, imgM6];
   const images2 = [imgD1, imgD2, imgD3, imgD4, imgD5, imgD6];
   const intervalTime = 3000;
   let intervalId;
 
-  const userId = useSelector(state => state.auth.id);
-  const token = useSelector(state => state.auth.token);
-
   const jugar = () => {
     axios
       .post(
         `${process.env.NEXT_PUBLIC_API_URL}/room/solitary`,
-        { userId },
+        { userId: id },
         {
           headers: {
             Accept: "application/json",
@@ -65,16 +60,16 @@ export default function Home() {
   };
 
   const jugarRandom = () => {
-    socket.emit("invitation random", { userId, token });
+    socket.emit("invitation random", { id, token });
 
     socket.on("feedback", data => {
       console.log(
         `redirigir a ${
-          userId === data.userId ? "Retador (Player 1)" : "Retado (Player 2)"
+          id === data.id ? "Retador (Player 1)" : "Retado (Player 2)"
         }  a la partida con la siguiente data: `,
         data
       );
-      const text = userId === data.userId ? "player2" : "player1";
+      const text = id === data.id ? "player2" : "player1";
       delete data.dataRoom[text];
       const questions = changePosition(data.dataRoom.questions);
       data.dataRoom.questions = questions;
@@ -105,8 +100,8 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (userId) socket.emit("login", userId);
-  }, [userId]);
+    if (id) socket.emit("login", id);
+  }, [id]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -126,6 +121,21 @@ export default function Home() {
     return () => {
       clearInterval(intervalId);
     };
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        localStorage.setItem("user", JSON.stringify(res.data));
+      })
+      .catch(err => console.log(err));
   }, []);
 
   return (
@@ -166,4 +176,4 @@ export default function Home() {
 
 export const endingMatch = body => {
   socket.emit("ending match", body);
-}
+};

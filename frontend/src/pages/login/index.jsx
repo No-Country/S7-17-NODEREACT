@@ -18,14 +18,13 @@ const Login = () => {
   const [loginForm, setLoginForm] = useState(false);
   const [registerForm, setRegisterForm] = useState(false);
   const [windowWidth, setWindowWidth] = useState(useRef(window.innerWidth));
-
   const [currentImage, setCurrentImage] = useState(0);
+  const authState = useSelector(state => state.auth);
+  const { push } = useRouter();
+
   const images2 = [imgD1, imgD2, imgD3, imgD4, imgD5, imgD6];
   const intervalTime = 3000;
   let intervalId;
-
-  const authState = useSelector(state => state.auth);
-  const { push } = useRouter();
 
   useEffect(() => {
     if (authState.session) {
