@@ -19,15 +19,6 @@
 [![node][node-shield]][node-url] [![express][express-shield]][express-url] [![reactjs][reactjs-shield]][reactjs-url] [![nextjs][nextjs-shield]][nextjs-url]
 [![contributors][contributors-shield]][contributors-url]
 
-```
-// Initial command
-
-npm install
-
-```
-
-<br/>
-
 #### The Question
 - https://the-questions.netlify.app
 
@@ -36,6 +27,69 @@ npm install
 
 #### API Documentation
 - https://the-questions-ogrz.onrender.com/api/v1/docs
+
+<br/>
+
+## Variables de Entorno
+
+### Frontend
+
+```sh
+
+- NEXT_PUBLIC_API_URL -> API Deploy URL
+- NEXT_PUBLIC_SOCKET_URL -> Socket URL
+
+```
+
+### Backend
+
+```sh
+- DB_USER -> Postgres DB User
+- DB_PASSWORD -> Postgres DB Password
+- DB_HOST -> Postgres DB Host
+- DB_PORT -> Postgres DB Port
+- DB_NAME -> Postgres DB Name
+
+- PORT -> Server Port
+- HOST -> Server Host
+
+- SECRET_KEY -> JWT Secret Key
+```
+<br />
+
+## Instalación
+
+### Frontend
+
+```sh
+cd frontend
+```
+
+```sh
+npm install
+```
+
+```sh
+npm run build
+```
+
+```sh
+npm start
+```
+
+### Backend
+
+```sh
+cd backend
+```
+
+```sh
+npm install
+```
+
+```sh
+npm start
+```
 
 <br />
 
@@ -91,10 +145,10 @@ npm install
 
 | Área de trabajo | Nombre y apellido  | Contacto |
 | :---:           | :---:              | :---:    |
-| Front-end       | Fabián Romano      | [![github](https://skillicons.dev/icons?i=github)]() [![linkedin](https://skillicons.dev/icons?i=linkedin)]() |
-| Front-end       | Martín Casas       | [![github](https://skillicons.dev/icons?i=github)]() [![linkedin](https://skillicons.dev/icons?i=linkedin)]() |
-| Back-end        | Franco Corniglione | [![github](https://skillicons.dev/icons?i=github)](https://github.com/Francormin) [![linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/franco-corniglione/) |
-| Back-end        | Luis Uzcátegui     | [![github](https://skillicons.dev/icons?i=github)](https://github.com/Glya-Corporation) [![linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/luis-uzcategui/) |
+| Frontend       | Fabián Romano      | [![github](https://skillicons.dev/icons?i=github)]() [![linkedin](https://skillicons.dev/icons?i=linkedin)]() |
+| Frontend       | Martín Casas       | [![github](https://skillicons.dev/icons?i=github)]() [![linkedin](https://skillicons.dev/icons?i=linkedin)]() |
+| Backend        | Franco Corniglione | [![github](https://skillicons.dev/icons?i=github)](https://github.com/Francormin) [![linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/franco-corniglione/) |
+| Backend        | Luis Uzcátegui     | [![github](https://skillicons.dev/icons?i=github)](https://github.com/Glya-Corporation) [![linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/luis-uzcategui/) |
 | Diseno UX/UI    | Hernán Casabella   | [![github](https://skillicons.dev/icons?i=github)]() [![linkedin](https://skillicons.dev/icons?i=linkedin)]() |
 
 <!-- MARKDOWN LINKS & IMAGES -->
