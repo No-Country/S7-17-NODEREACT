@@ -30,6 +30,7 @@ const RegisterStep2 = () => {
       dispatch(changePage(1));
     }
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.container__top}>

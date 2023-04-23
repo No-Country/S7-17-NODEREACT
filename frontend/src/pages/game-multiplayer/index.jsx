@@ -3,7 +3,6 @@ import styles from "./style.module.css";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { endingMatch } from "../index";
-
 import hammerIcon from "../../assets/hammer-icon.svg";
 import wandIcon from "../../assets/magic-wand-icon.svg";
 import Image from "next/image";
@@ -16,9 +15,8 @@ function GameMultiplayer() {
   const [timeRemaining, setTimeRemaining] = useState(20);
   const [magicWand, setMagicWand] = useState(0);
   const [hammer, setHammer] = useState(0);
-
-  const token = useSelector(state => state.auth.token);
   const id = useSelector(state => state.auth.id);
+
   const user = JSON.parse(localStorage.getItem("user")) || {};
 
   useEffect(() => {
@@ -65,7 +63,7 @@ function GameMultiplayer() {
       setTimeRemaining(15);
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       sessionStorage.setItem("roomMatch", JSON.stringify(room));
-    }, 500)
+    }, 500);
   };
 
   // Función para reiniciar la trivia
@@ -116,9 +114,9 @@ function GameMultiplayer() {
       {loader ? (
         <div className={styles.container}>
           <span className={styles.text}>
-            Aguarda un instante por favor estamos creando su partida.
+            Buscando jugadores. Por favor, espera unos segundos...
           </span>
-          <div className={styles.snipetContainer}>
+          <div className={styles.spinnerContainer}>
             <div className={styles.ldsRipple}>
               <div></div>
               <div></div>

@@ -15,7 +15,6 @@ const GameSolo = () => {
   const [timeRemaining, setTimeRemaining] = useState(20);
   const [magicWand, setMagicWand] = useState(0);
   const [hammer, setHammer] = useState(0);
-
   const token = useSelector(state => state.auth.token);
 
   const room = JSON.parse(sessionStorage.getItem("room")) || {};
@@ -24,8 +23,8 @@ const GameSolo = () => {
   const user = JSON.parse(localStorage.getItem("user")) || {};
 
   useEffect(() => {
-    setHammer(user.advantages[0].user_advantage?.quantity);
-    setMagicWand(user.advantages[1].user_advantage?.quantity);
+    setHammer(user.advantages[0].user_advantage.quantity);
+    setMagicWand(user.advantages[1].user_advantage.quantity);
   }, [user]);
 
   // Función para comprobar la respuesta seleccionada por el usuario
@@ -99,9 +98,9 @@ const GameSolo = () => {
       {loader ? (
         <div className={styles.container}>
           <span className={styles.text}>
-            Aguarda un instante por favor estamos creando su partida.
+            Por favor, aguarda un instante. Estamos creando tu partida...
           </span>
-          <div className={styles.snipetContainer}>
+          <div className={styles.spinnerContainer}>
             <div className={styles.ldsRipple}>
               <div></div>
               <div></div>

@@ -4,28 +4,26 @@ import Button from "../../button/index";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { updateStep4, reset } from "@/features/reg/regSlice";
-import { useRouter } from "next/router";
 import { loginAuth } from "@/features/auth/authSlice";
 
 const RegisterStep4 = () => {
   const store = useSelector(store => store.reg);
   const dispatch = useDispatch();
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
-  async function fetchLogin(username, password) {
-    return await axios
-      .post(urlLogin, JSON.stringify({ username, password }), {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        }
-      })
-      .then(response => response.data)
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  // async function fetchLogin(username, password) {
+  //   return await axios
+  //     .post(urlLogin, JSON.stringify({ username, password }), {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Accept: "application/json"
+  //       }
+  //     })
+  //     .then(response => response.data)
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }
 
   const postRegister = async data => {
     setIsLoading(true);
@@ -62,13 +60,13 @@ const RegisterStep4 = () => {
         {isLoading ? (
           <div className={styles.bottom__text}>
             <p className={styles.text}>
-              Aguarda un instante por favor estamos validando tus datos.
+              Por favor, aguarda un instante. Estamos validando tus datos...
             </p>
           </div>
         ) : (
           <>
             <div className={styles.bottom__text}>
-              <p className={styles.text}> ¡El registro fué exitoso!</p>
+              <p className={styles.text}> ¡El registro fue exitoso!</p>
               <p className={styles.text}> Te invitamos a aprender a jugar en un corto tutorial.</p>
             </div>
             <div className={styles.bottom__button}>
