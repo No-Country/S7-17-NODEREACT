@@ -7,7 +7,11 @@
 <br />
 
 ## Descripción
-
+<p>
+  Aplicación web que tiene como finalidad principal el entretenimiento y conocimiento de cultura general
+  mediante el clásico juego de trivia de preguntas y respuestas. Cuenta con dos modos de juego: solitario y
+  multijugador (partidas 1 vs 1 en tiempo real y contra otros jugadores de la aplicación).
+</p>
 
 <br/>
 
