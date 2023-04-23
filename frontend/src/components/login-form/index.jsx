@@ -1,19 +1,17 @@
 import Link from "next/link";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Button from "../button";
 import styles from "../login-form/styles.module.css";
 import { loginAuth } from "@/features/auth/authSlice";
 import { useRouter } from "next/router";
 import Img from "../../assets/logo.svg";
 import Image from "next/image";
-import axios from "axios";
 import useMutation from "@/hooks/useMutation";
 
 const LoginForm = () => {
   const [login, setLogin] = useState({ username: "", password: "" });
   const dispatch = useDispatch();
-  const authState = useSelector(state => state.auth);
   const { push } = useRouter();
   const postLogin = useMutation();
 
