@@ -36,7 +36,7 @@ const RegisterStep2 = () => {
     e.preventDefault();
 
     if (!email || !password || !password2)
-      return toast.error("Debés llenar todos los campos", toastProperties);
+      return toast.error("Debés llenar todos los campos para poder continuar.", toastProperties);
 
     if (password === password2) {
       await postRegister
@@ -48,18 +48,17 @@ const RegisterStep2 = () => {
         .catch(err => {
           switch (err.response && err.response.data.error) {
             case "Username already exists":
-              toast.error("Nombre de usuario ya existente", toastProperties);
+              toast.error("Nombre de usuario ya existente.", toastProperties);
               break;
             case "Email already exists":
-              toast.error("Correo electrónico ya existente", toastProperties);
+              toast.error("Correo electrónico ya existente.", toastProperties);
               break;
             case "Invalid email":
-              toast.error("Email inválido", toastProperties);
+              toast.error("Email inválido.", toastProperties);
               break;
             default:
-              console.error(err);
               toast.error(
-                "Ha ocurrido un error. Por favor, revisá tu conexión a internet e intentalo nuevamente",
+                "¡Ha ocurrido un error! Por favor, revisá tu conexión a internet e intentalo nuevamente.",
                 toastProperties
               );
               break;
