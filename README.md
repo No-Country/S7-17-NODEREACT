@@ -8,9 +8,12 @@
 
 ## Descripción
 <p>
-  Aplicación web que tiene como finalidad principal el entretenimiento y conocimiento de cultura general
-  mediante el clásico juego de trivia de preguntas y respuestas. Cuenta con dos modos de juego: solitario y
-  multijugador (partidas 1 vs 1 en tiempo real y contra otros jugadores de la aplicación).
+  The Question es un juego de preguntas y respuestas que, a diferencia de otros, centra su funcionalidad en jugar de una forma rápida
+  y sencilla, permitiéndole a los usuarios poder realizar partidas cortas y rápidas en los pequeños ratos libres del día a día.
+  
+  Es por ello que esta aplicación web tiene como finalidad principal el entretenimiento y conocimiento de cultura general mediante el
+  clásico juego de trivia de preguntas y respuestas. Cuenta con dos modos de juego: solitario y multijugador (partidas 1 vs 1 en tiempo
+  real y contra otros jugadores de la aplicación).
 </p>
 
 <br/>
