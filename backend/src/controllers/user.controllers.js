@@ -15,6 +15,7 @@ const createUser = async (req, res, next) => {
     }
 
     const result = await UserServices.createUser(newUser);
+    console.log(result);
     transporter.sendMail({
       from: "<corporationglya@gmail.com>",
       to: result.email,

@@ -78,7 +78,7 @@ const Login = () => {
               setRegisterForm(false);
             }}
           >
-            <button className={styles.button1}>Iniciar Sesión</button>
+            <button className={styles.button1}>Iniciar sesión</button>
           </div>
           {windowWidth.current < 768 ? (
             <Link href="/register">

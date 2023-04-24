@@ -160,10 +160,10 @@ export default function Home() {
             <div className={styles.options__link}>
               <div className={styles.link__container}>
                 <Link className={styles.select__link} href="/game-solo">
-                  <p onClick={() => jugar()}>Solo</p>
+                  <p onClick={() => jugar()}>Solitario</p>
                 </Link>
                 <Link className={styles.select__link} href="/game-multiplayer">
-                  <p onClick={() => jugarRandom()}>Multiplayer</p>
+                  <p onClick={() => jugarRandom()}>Multijugador</p>
                 </Link>
               </div>
             </div>
