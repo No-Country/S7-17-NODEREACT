@@ -125,7 +125,7 @@ const Profile = () => {
                     {perfil.advantages[1]?.user_advantage.quantity}
                   </div>
                 </div>
-                <p>Varas Mágicas</p>
+                <p>Varitas mágicas</p>
               </div>
             </div>
             <div className={styles.partidas__container}>
@@ -143,7 +143,7 @@ const Profile = () => {
         </div>
         <div className={styles.bottom__container}>
           <div className={styles.bottom__link}>
-            <p>Cambiar Contraseña</p>
+            <p>Cambiar contraseña</p>
             <p>Noticias</p>
             <p>Logout</p>
           </div>
