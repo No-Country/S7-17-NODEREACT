@@ -5,13 +5,30 @@ import Button from "@/components/button";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changePage, updateStep1 } from "@/features/reg/regSlice";
+import { toast } from "react-toastify";
 
 const RegisterStep1 = () => {
   const dispatch = useDispatch();
   const store = useSelector(state => state.reg);
   const [username, setUsername] = useState(store.username);
 
-  const handleNextPage = () => {
+  const toastProperties = {
+    position: "top-center",
+    autoClose: 4000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark"
+  };
+
+  const handleNextPage = e => {
+    e.preventDefault();
+
+    if (!username)
+      return toast.error("Debés llenar el campo para poder continuar.", toastProperties);
+
     dispatch(updateStep1({ username }));
     dispatch(changePage(1));
   };

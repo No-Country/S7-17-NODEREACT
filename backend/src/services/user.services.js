@@ -10,9 +10,15 @@ class UserServices {
         { quantity: 2, userId: result.id, advantageId: 1 },
         { quantity: 2, userId: result.id, advantageId: 2 }
       ];
-      await User_Advantage.bulkCreate(advantages)
+      await User_Advantage.bulkCreate(advantages);
       return result;
     } catch (error) {
+      if (error.errors && error.errors[0].message === "username must be unique")
+        error = "Username already exists";
+      if (error.errors && error.errors[0].message === "email must be unique")
+        error = "Email already exists";
+      if (error.errors && error.errors[0].message === "Validation isEmail on email failed")
+        error = "Invalid email";
       throw error;
     }
   }

@@ -39,6 +39,7 @@ const RegisterStep3 = () => {
     e.preventDefault();
     dispatch(changePage(-1));
   };
+
   const handleNextPage = e => {
     e.preventDefault();
     if (code.length > 0) {

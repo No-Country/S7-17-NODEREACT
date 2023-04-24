@@ -50,6 +50,7 @@ const Shop = () => {
       .then(res => setPerfil(res.data))
       .catch(err => console.log(err));
   };
+
   useEffect(() => {
     dataPerfil();
   }, []);
@@ -88,7 +89,7 @@ const Shop = () => {
       )
       .catch(err => console.log(err));
   };
-  console.log(perfil);
+
   return (
     <Layout>
       <div className={styles.container}>
@@ -101,7 +102,7 @@ const Shop = () => {
         <div className={styles.bottom__container}>
           <div className={styles.shop__container}>
             <div className={styles.shop__left}>
-              <p className={styles.shop__title}>Tus Ventajas</p>
+              <p className={styles.shop__title}>Tus ventajas</p>
               <div className={styles.left__icons}>
                 <div className={styles.hammer__container}>
                   <div className={styles.hammer__icon}>
@@ -131,12 +132,12 @@ const Shop = () => {
                       {perfil.advantages[1]?.user_advantage.quantity}
                     </div>
                   </div>
-                  <p>Varas Mágicas</p>
+                  <p>Varitas mágicas</p>
                 </div>
               </div>
             </div>
             <div className={styles.shop__center}>
-              <p className={styles.shop__title}>Tus Monedas</p>
+              <p className={styles.shop__title}>Tus monedas</p>
               <div className={styles.coin__img__container}>
                 <div className={styles.coin__img}>
                   <Image width={35} height={35} src={coinIcon} alt="" />
