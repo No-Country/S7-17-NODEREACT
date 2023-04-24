@@ -141,6 +141,10 @@ npm start
 
 <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682109242/landing_fzzfou.png" alt="landing" />
 <img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682109340/login_k1r0ro.png" alt="login" />
+<img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682376132/home_bj1mw9.png" alt="home" />
+<img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682376270/match_rtawob.png" alt="match" />
+<img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682376367/store_lmiryh.png" alt="store" />
+<img src="https://res.cloudinary.com/dviltxetl/image/upload/v1682376455/profile_hz31zw.png" alt="profile" />
 
 <br />
 
