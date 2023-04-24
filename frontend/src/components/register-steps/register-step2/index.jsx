@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changePage, updateStep2 } from "@/features/reg/regSlice";
 import useMutation from "@/hooks/useMutation";
+import { toast } from "react-toastify";
 
 const RegisterStep2 = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,17 @@ const RegisterStep2 = () => {
   const [password2, setPassword2] = useState(store.password);
   const postRegister = useMutation();
 
+  const toastProperties = {
+    position: "top-center",
+    autoClose: 4000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark"
+  };
+
   const handlePreviousPage = e => {
     e.preventDefault();
     dispatch(changePage(-1));
@@ -22,12 +34,39 @@ const RegisterStep2 = () => {
 
   const handleNextPage = async e => {
     e.preventDefault();
-    const fieldsAreValid = !!email && !!password && !!password2;
-    const passwordIsValid = password === password2;
-    if (fieldsAreValid && passwordIsValid) {
-      dispatch(updateStep2({ email, password }));
-      await postRegister.mutate("/user/register", { username: store.username, email, password });
-      dispatch(changePage(1));
+
+    if (!email || !password || !password2)
+      return toast.error("Debés llenar todos los campos", toastProperties);
+
+    if (password === password2) {
+      await postRegister
+        .mutate("/user/register", { username: store.username, email, password })
+        .then(res => {
+          dispatch(updateStep2({ email, password }));
+          dispatch(changePage(1));
+        })
+        .catch(err => {
+          switch (err.response && err.response.data.error) {
+            case "Username already exists":
+              toast.error("Nombre de usuario ya existente", toastProperties);
+              break;
+            case "Email already exists":
+              toast.error("Correo electrónico ya existente", toastProperties);
+              break;
+            case "Invalid email":
+              toast.error("Email inválido", toastProperties);
+              break;
+            default:
+              console.error(err);
+              toast.error(
+                "Ha ocurrido un error. Por favor, revisá tu conexión a internet e intentalo nuevamente",
+                toastProperties
+              );
+              break;
+          }
+        });
+    } else {
+      toast.error("¡Las contraseñas no coinciden!", toastProperties);
     }
   };
 
