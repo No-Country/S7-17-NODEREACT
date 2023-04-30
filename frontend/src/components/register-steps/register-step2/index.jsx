@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changePage, updateStep2 } from "@/features/reg/regSlice";
 import useMutation from "@/hooks/useMutation";
 import { toast } from "react-toastify";
+import { toastProperties } from "@/styles/toastProperties";
 
 const RegisterStep2 = () => {
   const dispatch = useDispatch();
@@ -15,17 +16,6 @@ const RegisterStep2 = () => {
   const [password, setPassword] = useState(store.password);
   const [password2, setPassword2] = useState(store.password);
   const postRegister = useMutation();
-
-  const toastProperties = {
-    position: "top-center",
-    autoClose: 4000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark"
-  };
 
   const handlePreviousPage = e => {
     e.preventDefault();

@@ -9,23 +9,13 @@ import Img from "../../assets/logo.svg";
 import Image from "next/image";
 import useMutation from "@/hooks/useMutation";
 import { toast } from "react-toastify";
+import { toastProperties } from "@/styles/toastProperties";
 
 const LoginForm = () => {
   const [login, setLogin] = useState({ username: "", password: "" });
   const dispatch = useDispatch();
   const { push } = useRouter();
   const postLogin = useMutation();
-
-  const toastProperties = {
-    position: "top-center",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark"
-  };
 
   const handleChange = e => {
     setLogin({
@@ -47,7 +37,7 @@ const LoginForm = () => {
         setTimeout(() => {
           dispatch(loginAuth(response.data));
           push("/");
-        }, 3000);
+        }, 4000);
       })
       .catch(error => {
         switch (error.response.data.error) {
