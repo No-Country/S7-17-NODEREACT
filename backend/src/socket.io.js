@@ -13,10 +13,6 @@ module.exports = io => {
   io.on("connection", socket => {
     console.log("User connected");
 
-    socket.on("message", data => {
-      console.log(data);
-    });
-
     /* Almacenamos el socket ID del cliente en el momento que hace login */
 
     socket.on("login", async id => {
@@ -163,7 +159,7 @@ module.exports = io => {
       io.to(result.player2.socketId).emit("result", result.player2.message);
     });
 
-    /* Recibimos el evento cuando el usuario cierra sesión*/
+    /* Recibimos el evento cuando el usuario cierra sesión */
 
     socket.on("disconnect", () => {
       console.log("User disconnected");
