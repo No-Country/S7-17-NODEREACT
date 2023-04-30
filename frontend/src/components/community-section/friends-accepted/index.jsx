@@ -5,24 +5,14 @@ import SwordIcon from "../../../assets/sword-icon.svg";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { toastProperties } from "@/styles/toastProperties";
 
 const FriendsAccepted = ({ data }) => {
   const dataLogin = useSelector(state => state.auth);
 
-  const toastProperties = {
-    position: "top-center",
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark"
-  };
-
   const handleRemoveFriend = id => {
     axios
-      .delete(`${process.env.NEXT_PUBLIC_API_URL}/user/friend/delete/${data.id}`, {
+      .delete(`${process.env.NEXT_PUBLIC_API_URL}/user/friend/delete/${id}`, {
         headers: {
           accept: "application/json",
           Authorization: `Bearer ${dataLogin.token}`
@@ -32,7 +22,7 @@ const FriendsAccepted = ({ data }) => {
         toast.success("¡Amigo eliminado con éxito!", toastProperties);
         setTimeout(() => {
           location.reload();
-        }, 2000);
+        }, 4000);
       })
       .catch(err => {
         switch (err.response.data.error) {
@@ -46,7 +36,7 @@ const FriendsAccepted = ({ data }) => {
             );
             break;
           case "Refused friend request":
-            toast.error("Este usuario ha rechazado tu solictud de amistad.", toastProperties);
+            toast.error("Este usuario ha rechazado tu solicitud de amistad.", toastProperties);
             break;
           default:
             console.error(err);
@@ -54,8 +44,6 @@ const FriendsAccepted = ({ data }) => {
         }
       });
   };
-
-  console.log(data)
 
   return (
     <div className={styles.container}>

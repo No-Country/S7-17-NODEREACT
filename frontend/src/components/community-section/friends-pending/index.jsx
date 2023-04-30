@@ -4,20 +4,10 @@ import RemoveIcon from "../../../assets/remove-icon.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { toastProperties } from "@/styles/toastProperties";
 
-const FriendsPending = ({ data, onChangeStatus }) => {
+const FriendsPending = ({ data }) => {
   const token = useSelector(state => state.auth.token);
-
-  const toastProperties = {
-    position: "top-center",
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark"
-  };
 
   const resInvitation = (id, status) => {
     axios
@@ -37,19 +27,17 @@ const FriendsPending = ({ data, onChangeStatus }) => {
       .then(res => {
         switch (status) {
           case "accepted":
-            onChangeStatus && onChangeStatus();
-            toast.success("¡Amigo aceptado con éxito!", toastProperties);
+            toast.success("¡Solicitud de amistad aceptada con éxito!", toastProperties);
             break;
           case "refused":
-            onChangeStatus && onChangeStatus();
-            toast.success("¡Amigo rechazado con éxito!", toastProperties);
+            toast.success("¡Solicitud de amistad rechazada con éxito!", toastProperties);
             break;
           default:
             break;
         }
         setTimeout(() => {
           location.reload();
-        }, 2000);
+        }, 4000);
       })
       .catch(err => console.error(err));
   };
