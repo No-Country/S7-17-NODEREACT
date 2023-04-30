@@ -8,12 +8,24 @@ import { useRouter } from "next/router";
 import Img from "../../assets/logo.svg";
 import Image from "next/image";
 import useMutation from "@/hooks/useMutation";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const [login, setLogin] = useState({ username: "", password: "" });
   const dispatch = useDispatch();
   const { push } = useRouter();
   const postLogin = useMutation();
+
+  const toastProperties = {
+    position: "top-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark"
+  };
 
   const handleChange = e => {
     setLogin({
@@ -24,19 +36,35 @@ const LoginForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (login.username !== "" && login.password !== "") {
-      postLogin
-        .mutate("/auth/login", login)
-        .then(response => {
+
+    if (!login.username || !login.password)
+      return toast.error("Debés llenar todos los campos para poder continuar.", toastProperties);
+
+    postLogin
+      .mutate("/auth/login", login)
+      .then(response => {
+        toast.success(`¡Bienvenido ${response.data.username}!`, toastProperties);
+        setTimeout(() => {
           dispatch(loginAuth(response.data));
           push("/");
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    } else {
-      console.log("Los campos no pueden ir");
-    }
+        }, 3000);
+      })
+      .catch(error => {
+        switch (error.response.data.error) {
+          case "Incorrect password":
+            toast.error("Contraseña incorrecta.", toastProperties);
+            break;
+          case "User not found":
+            toast.error("No existe una cuenta con ese nombre de usuario.", toastProperties);
+            break;
+          default:
+            toast.error(
+              "¡Ha ocurrido un error! Por favor, revisá tu conexión a internet e intentalo nuevamente.",
+              toastProperties
+            );
+            break;
+        }
+      });
   };
 
   return (
