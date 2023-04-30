@@ -14,12 +14,9 @@ const Friends = () => {
   const [searchText, setSearchText] = useState("");
   const [isAccepted, setIsAccepted] = useState(true);
   const dataLogin = useSelector(state => state.auth);
-  const { data: dataFriendsPending, refetch: refetchFriendsPending } = useFetch(
-    `/user/${dataLogin.id}/friends/pending`
-  );
-  const { data: dataFriendsAccepted, refetch: refetchFriendsAccepted } = useFetch(
-    `/user/${dataLogin.id}/friends/accepted`
-  );
+
+  const { data: dataFriendsPending } = useFetch(`/user/${dataLogin.id}/friends/pending`);
+  const { data: dataFriendsAccepted } = useFetch(`/user/${dataLogin.id}/friends/accepted`);
   const { data: dataAllUsers } = useFetch(`/users/all`);
 
   return (
@@ -64,14 +61,7 @@ const Friends = () => {
 
           {!isAccepted
             ? dataFriendsPending?.map(el => (
-                <FriendsPending
-                  key={`${el.id}-${el.userAdded?.id}`}
-                  data={el}
-                  onChangeStatus={() => {
-                    refetchFriendsPending();
-                    refetchFriendsAccepted();
-                  }}
-                />
+                <FriendsPending key={`${el.id}-${el.userAdded?.id}`} data={el} />
               ))
             : dataFriendsAccepted?.map(el => (
                 <FriendsAccepted key={`${el.id}-${el.userAdded?.id}`} data={el} />

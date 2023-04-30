@@ -4,20 +4,10 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { toastProperties } from "@/styles/toastProperties";
 
 const AllUsersDetail = ({ data, background }) => {
   const dataLogin = useSelector(state => state.auth);
-
-  const toastProperties = {
-    position: "top-center",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark"
-  };
 
   const handleAddFriend = id => {
     axios
