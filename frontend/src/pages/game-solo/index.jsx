@@ -23,8 +23,8 @@ const GameSolo = () => {
   const user = JSON.parse(localStorage.getItem("user")) || {};
 
   useEffect(() => {
-    setHammer(user.advantages[0].user_advantage.quantity);
-    setMagicWand(user.advantages[1].user_advantage.quantity);
+    setHammer(user.advantages && user.advantages[0].user_advantage.quantity);
+    setMagicWand(user.advantages && user.advantages[1].user_advantage.quantity);
   }, [user]);
 
   // Función para comprobar la respuesta seleccionada por el usuario
@@ -49,14 +49,16 @@ const GameSolo = () => {
 
   // Función para reiniciar la trivia
   const resetTrivia = () => {
-    dataRoom.player.points = points;
-    axios.put(`${process.env.NEXT_PUBLIC_API_URL}/room/${room.id}/solitary`, dataRoom.player, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      }
-    });
+    if (dataRoom && dataRoom.player) {
+      dataRoom.player.points = points;
+      axios.put(`${process.env.NEXT_PUBLIC_API_URL}/room/${room.id}/solitary`, dataRoom.player, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      });
+    }
   };
 
   // Muestra la pregunta actual y las opciones de respuesta
