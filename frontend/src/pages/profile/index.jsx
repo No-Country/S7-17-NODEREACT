@@ -18,8 +18,29 @@ const Profile = () => {
   const dispatch = useDispatch();
   const loggedUser = useSelector(state => state.auth);
   const [view, setView] = useState("");
-
-  const currentUser = JSON.parse(localStorage.getItem("user")) || {};
+  const [profileData, setProfileData] = useState({
+    id: null,
+    username: "",
+    email: "",
+    lifes: null,
+    points: null,
+    coins: null,
+    profileImg: "",
+    advantages: [
+      {
+        user_advantage: {
+          quantity: null,
+          advantageId: null
+        }
+      },
+      {
+        user_advantage: {
+          quantity: null,
+          advantageId: null
+        }
+      }
+    ]
+  });
 
   const clearCurrentUser = () => {
     localStorage.removeItem("user");
@@ -31,20 +52,22 @@ const Profile = () => {
     }, 3000);
   };
 
+  const dataProfile = () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/user/${loggedUser.id}`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${loggedUser.token}`
+        }
+      })
+      .then(res => setProfileData(res.data))
+      .catch(err => console.log(err));
+  };
+
   useEffect(() => {
     if (loggedUser.session === true) {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/user/${loggedUser.id}`, {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${loggedUser.token}`
-          }
-        })
-        .then(res => {
-          localStorage.setItem("user", JSON.stringify(res.data));
-        })
-        .catch(err => console.log(err));
+      dataProfile();
     }
   }, []);
 
@@ -61,7 +84,7 @@ const Profile = () => {
                 </div>
                 <div className={styles.img__container}>
                   <div className={styles.imgrounded}>
-                    <img className={styles.img} src={currentUser?.profileImg} alt="" />
+                    <img className={styles.img} src={profileData?.profileImg} alt="" />
                     <div className={styles.edit__img}>
                       <Image width={22} height={22} src={editIcon} alt="" />
                     </div>
@@ -69,7 +92,7 @@ const Profile = () => {
                 </div>
                 <div className={styles.username__container}>
                   <div className={styles.username}>
-                    <p>{currentUser?.username}</p>
+                    <p>{profileData?.username}</p>
                     <div className={styles.edit__user}>
                       <Image width={22} height={22} src={editIcon} alt="" />
                     </div>
@@ -77,7 +100,7 @@ const Profile = () => {
                 </div>
                 <div className={styles.point__container}>
                   <div className={styles.point__number}>
-                    <p>{currentUser?.points}</p>
+                    <p>{profileData?.points}</p>
                   </div>
                   <div className={styles.point__title}>
                     <p>Puntos</p>
@@ -86,7 +109,7 @@ const Profile = () => {
                     <div className={styles.coin__img__container}>
                       <div className={styles.coin__img}>
                         <Image width={35} height={35} src={coinIcon} alt="" />
-                        <div className={styles.coin__number}>{currentUser?.coins}</div>
+                        <div className={styles.coin__number}>{profileData?.coins}</div>
                       </div>
                     </div>
                   </div>
@@ -106,8 +129,8 @@ const Profile = () => {
                         alt=""
                       />
                       <div className={styles.hammer__number}>
-                        {currentUser?.advantages &&
-                          currentUser.advantages[0]?.user_advantage.quantity}
+                        {profileData?.advantages &&
+                          profileData.advantages[0]?.user_advantage.quantity}
                       </div>
                     </div>
                     <p>Martillos</p>
@@ -122,8 +145,8 @@ const Profile = () => {
                         alt=""
                       />
                       <div className={styles.hammer__number}>
-                        {currentUser?.advantages &&
-                          currentUser.advantages[1]?.user_advantage.quantity}
+                        {profileData?.advantages &&
+                          profileData.advantages[1]?.user_advantage.quantity}
                       </div>
                     </div>
                     <p>Varitas mágicas</p>

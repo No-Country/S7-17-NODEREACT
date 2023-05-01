@@ -16,7 +16,7 @@ class AdvantageServices {
       if (!quantity) throw "The quantity body property is missing";
 
       const { coins } = await User.findByPk(id);
-      if (quantity * 20 > coins) throw "El usuario no dispone de suficientes monedas";
+      if (quantity * 20 > coins) throw "There are not enough coins";
 
       const result = await User_Advantage.update(
         { quantity: sequelize.literal(`quantity + ${quantity}`) },

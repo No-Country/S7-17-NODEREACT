@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { toastProperties } from "@/styles/toastProperties";
 
 const Shop = () => {
   const dataLogin = useSelector(state => state.auth);
@@ -74,20 +75,20 @@ const Shop = () => {
       .then(res => dataPerfil())
       .then(res =>
         toast.success(
-          `${id == 1 ? "¡Compraste Martillo con éxito!" : "¡Compraste Varita con éxito!"}`,
-          {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark"
-          }
+          `${id == 1 ? "¡Martillo comprado con éxito!" : "¡Varita mágica comprada con éxito!"}`,
+          toastProperties
         )
       )
-      .catch(err => console.log(err));
+      .catch(err => {
+        switch (err.response.data.error) {
+          case "There are not enough coins":
+            toast.info("¡Monedas insuficientes!", toastProperties);
+            break;
+          default:
+            console.error(err);
+            break;
+        }
+      });
   };
 
   return (
