@@ -33,7 +33,7 @@ const LoginForm = () => {
     postLogin
       .mutate("/auth/login", login)
       .then(response => {
-        toast.success(`¡Bienvenido ${response.data.username}!`, toastProperties);
+        toast.success(`¡Bienvenid@ ${response.data.username}!`, toastProperties);
         setTimeout(() => {
           dispatch(loginAuth(response.data));
           push("/");
