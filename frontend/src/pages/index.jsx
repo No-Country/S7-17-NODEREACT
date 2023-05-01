@@ -124,18 +124,20 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then(res => {
-        localStorage.setItem("user", JSON.stringify(res.data));
-      })
-      .catch(err => console.log(err));
+    if (id) {
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(res => {
+          localStorage.setItem("user", JSON.stringify(res.data));
+        })
+        .catch(err => console.log(err));
+    }
   }, []);
 
   return (
