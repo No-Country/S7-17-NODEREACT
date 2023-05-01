@@ -289,3 +289,43 @@
   line-height: 15px;
   letter-spacing: 0.01em;
 }
+.logoutContainer {
+  display: flex;
+  flex-direction: column;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 30px;
+  letter-spacing: 0.4px;
+  color: #ffffff;
+  margin: 20px;
+  padding: 20px;
+}
+.logout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin: 20px;
+}
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 90px;
+}
+.btn1,
+.btn2 {
+  background: white;
+  color: black;
+  font-size: 20px;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  padding: 10px 30px;
+  border-radius: 20px;
+  border: none;
+}
+.btn1:hover,
+.btn2:hover {
+  background-color: #14ae5c;
+}
