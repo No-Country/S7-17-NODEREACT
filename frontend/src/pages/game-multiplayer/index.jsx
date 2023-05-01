@@ -20,8 +20,8 @@ function GameMultiplayer() {
   const user = JSON.parse(localStorage.getItem("user")) || {};
 
   useEffect(() => {
-    setHammer(user.advantages[0].user_advantage?.quantity);
-    setMagicWand(user.advantages[1].user_advantage?.quantity);
+    setHammer(user.advantages && user.advantages[0].user_advantage.quantity);
+    setMagicWand(user.advantages && user.advantages[1].user_advantage.quantity);
   }, [user]);
 
   const room = JSON.parse(sessionStorage.getItem("roomMatch")) || {};
