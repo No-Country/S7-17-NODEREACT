@@ -191,12 +191,7 @@ const Profile = () => {
             ) : null}
           </div>
         </Layout>
-      ) : (
-        <>
-          <h1>401: No autorizado</h1>
-          <h3>No tenés permiso. Por favor, iniciá sesión primero.</h3>
-        </>
-      )}
+      ) : null}
     </>
   );
 };
