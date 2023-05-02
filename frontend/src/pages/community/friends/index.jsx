@@ -8,6 +8,7 @@ import AllUsersDetail from "@/components/community-section/all-users-detail";
 import useFetch from "@/hooks/useFetch";
 import FriendsAccepted from "@/components/community-section/friends-accepted";
 import Layout from "@/components/layout";
+import Unauthorized from "@/components/unauthorized";
 
 const Friends = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -20,55 +21,66 @@ const Friends = () => {
   const { data: dataAllUsers } = useFetch(`/users/all`);
 
   return (
-    <Layout>
-      <div className={styles.container}>
-        <div className={styles.search}>
-          <SearchUser
-            onChange={value => {
-              setSearchText(value);
-              setSearchResults(dataAllUsers.filter(users => users.username.includes(value)));
-            }}
-          />
-        </div>
-        <div className={styles.title__container}>
-          <p className={styles.title}>Comunidad</p>
-        </div>
-        <div className={styles.button__container}>
-          <button type="button" className={styles.button1}>
-            Amigos
-          </button>
-          <Link href="/community/all-users">
-            <button type="button" className={styles.button2}>
-              Otros usuarios
-            </button>
-          </Link>
-        </div>
-        <div className={styles.btnContainer}>
-          <div className={isAccepted ? styles.btnSelected : ""} onClick={() => setIsAccepted(true)}>
-            Aceptados
-          </div>
-          <div
-            className={isAccepted ? "" : styles.btnSelected}
-            onClick={() => setIsAccepted(false)}
-          >
-            Pendientes
-          </div>
-        </div>
-        <div className={styles.userdetail__container}>
-          {searchText == ""
-            ? ""
-            : searchResults?.map(el => <AllUsersDetail background="green" key={el.id} data={el} />)}
+    <>
+      {dataLogin.session === true ? (
+        <Layout>
+          <div className={styles.container}>
+            <div className={styles.search}>
+              <SearchUser
+                onChange={value => {
+                  setSearchText(value);
+                  setSearchResults(dataAllUsers.filter(users => users.username.includes(value)));
+                }}
+              />
+            </div>
+            <div className={styles.title__container}>
+              <p className={styles.title}>Comunidad</p>
+            </div>
+            <div className={styles.button__container}>
+              <button type="button" className={styles.button1}>
+                Amigos
+              </button>
+              <Link href="/community/all-users">
+                <button type="button" className={styles.button2}>
+                  Otros usuarios
+                </button>
+              </Link>
+            </div>
+            <div className={styles.btnContainer}>
+              <div
+                className={isAccepted ? styles.btnSelected : ""}
+                onClick={() => setIsAccepted(true)}
+              >
+                Aceptados
+              </div>
+              <div
+                className={isAccepted ? "" : styles.btnSelected}
+                onClick={() => setIsAccepted(false)}
+              >
+                Pendientes
+              </div>
+            </div>
+            <div className={styles.userdetail__container}>
+              {searchText == ""
+                ? ""
+                : searchResults?.map(el => (
+                    <AllUsersDetail background="green" key={el.id} data={el} />
+                  ))}
 
-          {!isAccepted
-            ? dataFriendsPending?.map(el => (
-                <FriendsPending key={`${el.id}-${el.userAdded?.id}`} data={el} />
-              ))
-            : dataFriendsAccepted?.map(el => (
-                <FriendsAccepted key={`${el.id}-${el.userAdded?.id}`} data={el} />
-              ))}
-        </div>
-      </div>
-    </Layout>
+              {!isAccepted
+                ? dataFriendsPending?.map(el => (
+                    <FriendsPending key={`${el.id}-${el.userAdded?.id}`} data={el} />
+                  ))
+                : dataFriendsAccepted?.map(el => (
+                    <FriendsAccepted key={`${el.id}-${el.userAdded?.id}`} data={el} />
+                  ))}
+            </div>
+          </div>
+        </Layout>
+      ) : (
+        <Unauthorized />
+      )}
+    </>
   );
 };
 

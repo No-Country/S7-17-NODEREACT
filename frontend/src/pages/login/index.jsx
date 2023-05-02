@@ -73,6 +73,7 @@ const Login = () => {
 
         <div className={styles.section__button}>
           <div
+            className={styles.btnDiv}
             onClick={() => {
               setLoginForm(!loginForm);
               setRegisterForm(false);
@@ -82,10 +83,13 @@ const Login = () => {
           </div>
           {windowWidth.current < 768 ? (
             <Link href="/register">
-              <button className={styles.button2}>Registrarse</button>
+              <div className={styles.btnDiv}>
+                <button className={styles.button2}>Registrarse</button>
+              </div>
             </Link>
           ) : (
             <div
+              className={styles.btnDiv}
               onClick={() => {
                 setRegisterForm(!registerForm);
                 setLoginForm(false);
