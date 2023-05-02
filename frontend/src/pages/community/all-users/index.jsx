@@ -6,6 +6,7 @@ import Link from "next/link";
 import useFetch from "@/hooks/useFetch";
 import Layout from "@/components/layout";
 import { useSelector } from "react-redux";
+import Unauthorized from "@/components/unauthorized";
 
 const AllUsers = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -21,59 +22,12 @@ const AllUsers = () => {
   }, [dataAllUsers]);
 
   return (
-    <Layout>
-      {windowWidth.current < 768 ? (
-        <div className={styles.container}>
-          <div className={styles.search}>
-            <SearchUser
-              onChange={value => {
-                setSearchText(value);
-                setSearchResults(dataAllUsers.filter(users => users.username.includes(value)));
-              }}
-            />
-          </div>
-          <div className={styles.title__container}>
-            <p className={styles.title}>Comunidad</p>
-          </div>
-          <div className={styles.button__container}>
-            <Link href="/community/friends">
-              <button type="button" className={styles.button1}>
-                Amigos
-              </button>
-            </Link>
-            <button type="button" className={styles.button2}>
-              Otros usuarios
-            </button>
-          </div>
-          <div className={styles.userdetail__container}>
-            {searchText === ""
-              ? usersList?.map(el => <AllUsersDetail background="none" key={el.id} data={el} />)
-              : searchResults?.map(el => (
-                  <AllUsersDetail background="green" key={el.id} data={el} />
-                ))}
-          </div>
-        </div>
-      ) : (
-        <div className={styles.container__desktop}>
-          <div className={styles.top__desktop}></div>
-          <div className={styles.data__container}>
-            <div className={styles.data__title}>
-              <div className={styles.friends__title}>
-                <p>Comunidad</p>
-              </div>
-              <div className={styles.friends__button}>
-                <div className={styles.button__container}>
-                  <Link href="/community/friends">
-                    <button type="button" className={styles.button1}>
-                      Amigos
-                    </button>
-                  </Link>
-                  <button type="button" className={styles.button2}>
-                    Otros usuarios
-                  </button>
-                </div>
-              </div>
-              <div className={styles.friends__search}>
+    <>
+      {currentUserId ? (
+        <Layout>
+          {windowWidth.current < 768 ? (
+            <div className={styles.container}>
+              <div className={styles.search}>
                 <SearchUser
                   onChange={value => {
                     setSearchText(value);
@@ -81,20 +35,77 @@ const AllUsers = () => {
                   }}
                 />
               </div>
+              <div className={styles.title__container}>
+                <p className={styles.title}>Comunidad</p>
+              </div>
+              <div className={styles.button__container}>
+                <Link href="/community/friends">
+                  <button type="button" className={styles.button1}>
+                    Amigos
+                  </button>
+                </Link>
+                <button type="button" className={styles.button2}>
+                  Otros usuarios
+                </button>
+              </div>
+              <div className={styles.userdetail__container}>
+                {searchText === ""
+                  ? usersList?.map(el => <AllUsersDetail background="none" key={el.id} data={el} />)
+                  : searchResults?.map(el => (
+                      <AllUsersDetail background="green" key={el.id} data={el} />
+                    ))}
+              </div>
             </div>
-          </div>
-          <div className={styles.bot__desktop}>
-            <div className={styles.data__friends__container}>
-              {searchText === ""
-                ? usersList?.map(el => <AllUsersDetail background="none" key={el.id} data={el} />)
-                : searchResults?.map(el => (
-                    <AllUsersDetail background="green" key={el.id} data={el} />
-                  ))}
+          ) : (
+            <div className={styles.container__desktop}>
+              <div className={styles.top__desktop}></div>
+              <div className={styles.data__container}>
+                <div className={styles.data__title}>
+                  <div className={styles.friends__title}>
+                    <p>Comunidad</p>
+                  </div>
+                  <div className={styles.friends__button}>
+                    <div className={styles.button__container}>
+                      <Link href="/community/friends">
+                        <button type="button" className={styles.button1}>
+                          Amigos
+                        </button>
+                      </Link>
+                      <button type="button" className={styles.button2}>
+                        Otros usuarios
+                      </button>
+                    </div>
+                  </div>
+                  <div className={styles.friends__search}>
+                    <SearchUser
+                      onChange={value => {
+                        setSearchText(value);
+                        setSearchResults(
+                          dataAllUsers.filter(users => users.username.includes(value))
+                        );
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className={styles.bot__desktop}>
+                <div className={styles.data__friends__container}>
+                  {searchText === ""
+                    ? usersList?.map(el => (
+                        <AllUsersDetail background="none" key={el.id} data={el} />
+                      ))
+                    : searchResults?.map(el => (
+                        <AllUsersDetail background="green" key={el.id} data={el} />
+                      ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          )}
+        </Layout>
+      ) : (
+        <Unauthorized />
       )}
-    </Layout>
+    </>
   );
 };
 

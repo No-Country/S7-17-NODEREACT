@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { toastProperties } from "@/styles/toastProperties";
+import Unauthorized from "@/components/unauthorized";
 
 const Shop = () => {
   const dataLogin = useSelector(state => state.auth);
@@ -209,7 +210,9 @@ const Shop = () => {
             </div>
           </div>
         </Layout>
-      ) : null}
+      ) : (
+        <Unauthorized />
+      )}
     </>
   );
 };
