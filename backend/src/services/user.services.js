@@ -11,6 +11,7 @@ class UserServices {
         { quantity: 2, userId: result.id, advantageId: 2 }
       ];
       await User_Advantage.bulkCreate(advantages);
+
       return result;
     } catch (error) {
       if (error.errors && error.errors[0].message === "username must be unique")
