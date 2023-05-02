@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { toastProperties } from "@/styles/toastProperties";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Unauthorized from "@/components/unauthorized";
 
 const Profile = () => {
   const router = useRouter();
@@ -191,7 +192,9 @@ const Profile = () => {
             ) : null}
           </div>
         </Layout>
-      ) : null}
+      ) : (
+        <Unauthorized />
+      )}
     </>
   );
 };
