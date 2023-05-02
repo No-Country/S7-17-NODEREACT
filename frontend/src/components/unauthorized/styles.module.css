@@ -1,0 +1,31 @@
+.container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  background-color: black;
+  flex-direction: column;
+}
+.containerLogo {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+.containerImg,
+.containerBtn {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+.btn {
+  background: white;
+  color: black;
+  font-size: 20px;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  padding: 10px 30px;
+  border-radius: 20px;
+  border: none;
+}
+.btn:hover {
+  background-color: #14ae5c;
+}
