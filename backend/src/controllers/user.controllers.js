@@ -7,7 +7,6 @@ const createUser = async (req, res, next) => {
   try {
     const newUser = req.body;
     const img = req.files;
-    let newImgs = "";
 
     if (img) {
       const newImg = await uploadPhoto(img);
@@ -15,7 +14,7 @@ const createUser = async (req, res, next) => {
     }
 
     const result = await UserServices.createUser(newUser);
-    console.log(result);
+
     transporter.sendMail({
       from: "<corporationglya@gmail.com>",
       to: result.email,
